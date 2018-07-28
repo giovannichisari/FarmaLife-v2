@@ -39,9 +39,4 @@
         public const string lFied = "O campo ";
         public const string lErrorRegister = "Campos obrigatórios não foram preenchidos.";
     }
-    
-    public static class LoginUser
-    {
-        public static string lUser { get; set; }
-    }
 }
