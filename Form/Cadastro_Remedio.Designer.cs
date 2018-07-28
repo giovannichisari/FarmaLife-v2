@@ -58,6 +58,8 @@
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txtStatus = new System.Windows.Forms.ComboBox();
             this.txtFabricante = new System.Windows.Forms.ComboBox();
             this.label16 = new System.Windows.Forms.Label();
             this.txtGrupo = new System.Windows.Forms.ComboBox();
@@ -87,8 +89,7 @@
             this.btnSearch = new System.Windows.Forms.Button();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.txtStatus = new System.Windows.Forms.ComboBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -176,10 +177,11 @@
             this.txtObs.Name = "txtObs";
             this.txtObs.Size = new System.Drawing.Size(572, 74);
             this.txtObs.TabIndex = 24;
-            this.txtObs.Text = string.Empty;
+            this.txtObs.Text = "";
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.checkBox1);
             this.groupBox2.Controls.Add(this.txtDiscountPromocao);
             this.groupBox2.Controls.Add(this.txtInicioPromocao);
             this.groupBox2.Controls.Add(this.txtFinalPromocao);
@@ -405,6 +407,28 @@
             this.groupBox1.TabIndex = 111;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Descrição";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.label5.Location = new System.Drawing.Point(491, 190);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(37, 13);
+            this.label5.TabIndex = 130;
+            this.label5.Text = "Status";
+            // 
+            // txtStatus
+            // 
+            this.txtStatus.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.txtStatus.FormattingEnabled = true;
+            this.txtStatus.Items.AddRange(new object[] {
+            "Ativo",
+            "Inativo"});
+            this.txtStatus.Location = new System.Drawing.Point(488, 204);
+            this.txtStatus.Name = "txtStatus";
+            this.txtStatus.Size = new System.Drawing.Size(98, 21);
+            this.txtStatus.TabIndex = 129;
             // 
             // txtFabricante
             // 
@@ -678,34 +702,26 @@
             this.comboBox1.Items.AddRange(new object[] {
             "Código",
             "Fabricante",
-            "Nome Genérico"});
+            "Nome Genérico",
+            "Todos",
+            "Ativo",
+            "Inativo"});
             this.comboBox1.Location = new System.Drawing.Point(18, 25);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(157, 21);
             this.comboBox1.TabIndex = 1;
             this.comboBox1.Text = "Código";
             // 
-            // label5
+            // checkBox1
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label5.Location = new System.Drawing.Point(491, 190);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(37, 13);
-            this.label5.TabIndex = 130;
-            this.label5.Text = "Status";
-            // 
-            // txtStatus
-            // 
-            this.txtStatus.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.txtStatus.FormattingEnabled = true;
-            this.txtStatus.Items.AddRange(new object[] {
-            "Ativo",
-            "Inativo"});
-            this.txtStatus.Location = new System.Drawing.Point(488, 204);
-            this.txtStatus.Name = "txtStatus";
-            this.txtStatus.Size = new System.Drawing.Size(98, 21);
-            this.txtStatus.TabIndex = 129;
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(330, 144);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(74, 17);
+            this.checkBox1.TabIndex = 146;
+            this.checkBox1.Text = "Promoção";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckStateChanged += new System.EventHandler(this.checkBox1_CheckStateChanged);
             // 
             // Cadastro_Remedio
             // 
@@ -797,6 +813,7 @@
         private System.Windows.Forms.DataGridView dataGridView;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox txtStatus;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }
 

@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(cadastrar_cliente));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.txtState = new System.Windows.Forms.TextBox();
             this.btnAdd = new System.Windows.Forms.Button();
             this.txtCep = new System.Windows.Forms.MaskedTextBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -60,8 +61,7 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.btnSearch = new System.Windows.Forms.Button();
             this.txtSearch = new System.Windows.Forms.TextBox();
-            this.txtState = new System.Windows.Forms.TextBox();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -81,7 +81,7 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.radioButton1);
+            this.tabPage1.Controls.Add(this.checkBox1);
             this.tabPage1.Controls.Add(this.txtState);
             this.tabPage1.Controls.Add(this.btnAdd);
             this.tabPage1.Controls.Add(this.txtCep);
@@ -115,6 +115,14 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Cadastrar";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // txtState
+            // 
+            this.txtState.Location = new System.Drawing.Point(248, 96);
+            this.txtState.Name = "txtState";
+            this.txtState.ReadOnly = true;
+            this.txtState.Size = new System.Drawing.Size(38, 20);
+            this.txtState.TabIndex = 136;
             // 
             // btnAdd
             // 
@@ -400,25 +408,16 @@
             this.txtSearch.TabIndex = 2;
             this.txtSearch.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtSearch_KeyPress);
             // 
-            // txtState
+            // checkBox1
             // 
-            this.txtState.Location = new System.Drawing.Point(248, 96);
-            this.txtState.Name = "txtState";
-            this.txtState.ReadOnly = true;
-            this.txtState.Size = new System.Drawing.Size(38, 20);
-            this.txtState.TabIndex = 136;
-            // 
-            // radioButton1
-            // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(24, 119);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(134, 17);
-            this.radioButton1.TabIndex = 144;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "Cidade com único CEP";
-            this.radioButton1.UseVisualStyleBackColor = true;
-            this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(396, 68);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(135, 17);
+            this.checkBox1.TabIndex = 145;
+            this.checkBox1.Text = "Cidade com único CEP";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckStateChanged += new System.EventHandler(this.checkBox1_CheckStateChanged);
             // 
             // cadastrar_cliente
             // 
@@ -477,6 +476,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtState;
-        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }

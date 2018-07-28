@@ -21,7 +21,7 @@ namespace cadastro_remedios
             }
             catch (Exception ex)
             {
-                throw new Exception("Erro de comandos" + ex.Message);
+                throw new Exception(MessageBoxResult.lErrorCommand + ex.Message);
             }
         }
         public void ItemSellMethod(Product lProduct,Sell lSell, ItemSell lItemSell)
@@ -38,7 +38,7 @@ namespace cadastro_remedios
             }
             catch (Exception ex)
             {
-                throw new Exception("Erro de comandos" + ex.Message);
+                throw new Exception(MessageBoxResult.lErrorCommand + ex.Message);
             }
         }
     }

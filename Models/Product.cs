@@ -28,6 +28,7 @@ namespace cadastro_remedios
         public string prodInicioPromocao { get; set; }
         public string prodFinalPromocao { get; set; }
         public string prodObs { get; set; }
+        public string prodStatus { get; set; }
 
     }
 }

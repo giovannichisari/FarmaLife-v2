@@ -39,7 +39,7 @@ namespace cadastro_remedios
                 MySqlDataReader myreader;
                 myreader = command.ExecuteReader();
 
-                    MessageBox.Show("Estoque Atualizado", "Atenção");
+                    MessageBox.Show("Estoque Atualizado", Config.lAlert);
                     this.txtId.Text = string.Empty;
                     this.txtQuantidade.Text = string.Empty;
                     this.txtName.Text = string.Empty;
@@ -47,7 +47,7 @@ namespace cadastro_remedios
             }
             catch (Exception ex)
             {
-                MessageBox.Show(" Erro de comandos " +ex.Message);
+                MessageBox.Show(MessageBoxResult.lErrorCommand +ex.Message);
             }
         }
 
@@ -97,7 +97,7 @@ namespace cadastro_remedios
 
         private void txtQuantidade_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == 13)
+            if (e.KeyChar == Config.lEnterValue)
             {
                 btnAlterar.Focus();
             }
@@ -106,7 +106,7 @@ namespace cadastro_remedios
 
         private void txtSearch_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == 13)
+            if (e.KeyChar == Config.lEnterValue)
             {
                 txtQuantidade.Focus();
             }

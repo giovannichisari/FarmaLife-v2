@@ -3,15 +3,20 @@ using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 
 namespace cadastro_remedios
+
 {
     public partial class Login : Form
     {
+
+
         public Login()
         {
             InitializeComponent();
         }
 
         public static string role, type;
+        public static string lUser;
+
 
         // hierarquia dos roles
         private void btnEnter_Click(object sender, EventArgs e)
@@ -22,7 +27,7 @@ namespace cadastro_remedios
         //tecla enter
         private void txtUsername_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == 13)
+            if (e.KeyChar == Config.lEnterValue)
             {
                 txtPassword.Focus();
             }
@@ -30,7 +35,7 @@ namespace cadastro_remedios
         private void loginVerify()
         {
             MySqlConnection cn = new MySqlConnection(Connection.lConnection);
-            MySqlCommand cmd = new MySqlCommand("SELECT empUsername,empEmail,empPassword,empRole FROM registeremployee WHERE empUsername =?user AND empPassword =?pass OR empEmail =?user AND empPassword =?pass", cn);
+            MySqlCommand cmd = new MySqlCommand("SELECT empUsername,empEmail,empPassword,empRole,empId FROM employee WHERE empUsername =?user AND empPassword =?pass OR empEmail =?user AND empPassword =?pass", cn);
             cmd.Parameters.Add("?user", MySqlDbType.VarChar).Value = txtUsername.Text;
             cmd.Parameters.Add("?pass", MySqlDbType.VarChar).Value = txtPassword.Text;
             cn.Open();
@@ -39,6 +44,8 @@ namespace cadastro_remedios
             if (le.Read())
             {
                 role = le.GetString(3);
+                Principal.lUser = int.Parse(le.GetString(4));
+
                 if (role == "Gerente")
                 {
                     type = "1";
@@ -68,11 +75,11 @@ namespace cadastro_remedios
                 this.txtPassword.Text = null;
             }
         }
-    
+
         // hierarquia dos roles
         private void txtPassword_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == 13)
+            if (e.KeyChar == Config.lEnterValue)
             {
                 loginVerify();
             }
@@ -80,7 +87,7 @@ namespace cadastro_remedios
         // sair 
         private void btnExit_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Deseja Sair?", "Atenção", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            if (MessageBox.Show("Deseja Sair?", Config.lAlert, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 Application.Exit();
             }
@@ -97,7 +104,7 @@ namespace cadastro_remedios
         {
             txtUsername.Focus();
         }
-        
+
         //usuario tela
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
@@ -107,9 +114,9 @@ namespace cadastro_remedios
         }
     }
 }
-      
 
-       
-        
-    
+
+
+
+
 

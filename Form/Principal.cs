@@ -11,6 +11,9 @@ namespace cadastro_remedios
             InitializeComponent();
         }
 
+        public static int lUser;
+
+
         // nível de hierarquia ao logar
         private void Principal_Load(object sender, EventArgs e)
         {
@@ -127,7 +130,7 @@ namespace cadastro_remedios
             }
             if (e.KeyCode == Keys.Escape)
             {
-                if (MessageBox.Show("Deseja voltar ao login?", "Atenção", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                if (MessageBox.Show("Deseja voltar ao login?", Config.lAlert, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     Login.type = string.Empty;
                     this.Close();
@@ -186,7 +189,6 @@ namespace cadastro_remedios
 
         private void cadastrarPesquisarFuncionarioToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
             this.Close();
             Cadastro_Funcionario funcionario = new Cadastro_Funcionario();
             funcionario.Show();
@@ -215,7 +217,7 @@ namespace cadastro_remedios
 
         private void sairToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Deseja voltar ao login?", "Atenção", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            if (MessageBox.Show("Deseja voltar ao login?", Config.lAlert, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 this.Close();
                 Login login = new Login();

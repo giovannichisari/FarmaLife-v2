@@ -18,6 +18,7 @@ namespace cadastro_remedios
         }
         int actualStock = 0;
         int counter = 0;
+        long? lEmployeeID = null;
         //mostrar data/hora
         private void Venda_Load(object sender, EventArgs e)
         {
@@ -31,12 +32,13 @@ namespace cadastro_remedios
             MySqlConnection cn = new MySqlConnection(Connection.lConnection);
             cn.Open();
 
-            MySqlCommand cmd2 = new MySqlCommand("SELECT empId,empName FROM registeremployee WHERE empId= '" + txtEmployee.Text + "' and empStatus= 'A'", cn);
+            MySqlCommand cmd2 = new MySqlCommand("SELECT empId,empName FROM employee WHERE empId= '" + txtEmployee.Text + "' and empStatus= 'A'", cn);
             MySqlDataReader reader = null;
             reader = cmd2.ExecuteReader();
 
             if (reader.Read())
             {
+                lEmployeeID = long.Parse(reader.GetString(0));
                 txtNameEmployee.Text = reader.GetString(1);
             }
         }
@@ -72,7 +74,7 @@ namespace cadastro_remedios
             if (reader.Read())
             {
                 int sotockQuantity = reader.GetInt32(0);
-                if (e.KeyChar == 13)
+                if (e.KeyChar == Config.lEnterValue)
                 {
                     btnClose.Enabled = true;
                     btnGet.Enabled = false;
@@ -83,7 +85,7 @@ namespace cadastro_remedios
                     panel1.Visible = false;
                     textBox1.Visible = false;
                     btnPequisar.Visible = false;
-                    btnClean.Visible = false;
+                    btnCloseSearch.Visible = false;
                     button1.Enabled = false;
 
                     dataGridView2.Enabled = false;
@@ -93,7 +95,7 @@ namespace cadastro_remedios
                     panel1.Enabled = false;
                     textBox1.Enabled = false;
                     btnPequisar.Enabled = false;
-                    btnClean.Enabled = false;
+                    btnCloseSearch.Enabled = false;
 
                     dataGridView1.Visible = true;
                     txtSearch.Visible = false;
@@ -122,28 +124,38 @@ namespace cadastro_remedios
                     }
                     else
                     {
-                        MessageBox.Show("O estoque não possui está quantidade", "Alerta");
+                        MessageBox.Show(MessageBoxResult.lStockError, Config.lAlert);
+                        errorQuery lerrorQuery = new errorQuery();
 
                         if (sotockQuantity == 0)
                         {
-                            Email = new MailMessage();
-                            Email.To.Add(new MailAddress(Credentials.lGerenciaAdress));
-                            Email.From = (new MailAddress(Credentials.lAdress));
-                            Email.Subject = "Atenção";
-                            Email.IsBodyHtml = true;
-                            Email.Body = "FarmaLife Enterprises 2018 ®</br>Foi verificado que ao tentar realizar uma compra do produto com o código: " + txtProduct.Text + " e o nome: " + txtProdName.Text + " no dia " + DateTime.Now + "</b>, o mesmo não se encontrava em estoque, favor tomar medidas cabíveis. </br> <i> Não responder esse e-mail</i></br>";
-
-                            SmtpClient sell = new SmtpClient(Credentials.lSmtpLive, Credentials.lSmtpLivePort);
-
-                            using (sell)
+                            try
                             {
-                                sell.Credentials = new System.Net.NetworkCredential(Credentials.lAdress, Credentials.lPassword);
-                                sell.EnableSsl = true;
-                                sell.Send(Email);
+                                Email = new MailMessage();
+                                Email.To.Add(new MailAddress(Credentials.lGerenciaAdress));
+                                Email.From = (new MailAddress(Credentials.lAdress));
+                                Email.Subject = Config.lAlert;
+                                Email.IsBodyHtml = true;
+                                Email.Body = "FarmaLife Enterprises 2018 ®</br>Foi verificado que ao tentar realizar uma compra do produto com o código: " + txtProduct.Text + " e o nome: " + txtProdName.Text + " no dia " + DateTime.Now + "</b>, o mesmo não se encontrava em estoque, favor tomar medidas cabíveis. </br> <i> Não responder esse e-mail</i></br>";
+
+                                SmtpClient sell = new SmtpClient(Credentials.lSmtpLive, Credentials.lSmtpLivePort);
+
+                                using (sell)
+                                {
+                                    sell.Credentials = new System.Net.NetworkCredential(Credentials.lAdress, Credentials.lPassword);
+                                    sell.EnableSsl = true;
+                                    sell.Send(Email);
+                                }
                             }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show(MessageBoxResult.lEmailError, Config.lAlert);
+                                lerrorQuery.AddError(Principal.lUser, MessageBoxResult.lEmailError, ex.Message.Replace("'", ""), DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"), "Venda");
+                            }
+                            lerrorQuery.AddError(Principal.lUser, MessageBoxResult.lStockError, "Estoque zerado.", DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"), "Venda");
                         }
                         else
-                            MessageBox.Show("O estoque não possui está quantidade", "Alerta");
+                            MessageBox.Show(MessageBoxResult.lStockError, Config.lAlert);
                     }
                 }
             }
@@ -174,19 +186,19 @@ namespace cadastro_remedios
         // foco ao clicar em enter
         private void text_id_func_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == 13)
+            if (e.KeyChar == Config.lEnterValue)
                 txtClient.Focus();
         }
 
         private void text_id_cliente_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == 13)
+            if (e.KeyChar == Config.lEnterValue)
                 txtProduct.Focus();
         }
 
         private void text_id_prod_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == 13)
+            if (e.KeyChar == Config.lEnterValue)
             {
                 if (this.txtProduct.Text == string.Empty | this.txtEmployee.Text == string.Empty | this.txtClient.Text == string.Empty)
                 { txtProdQnt.Enabled = false; }
@@ -307,24 +319,24 @@ namespace cadastro_remedios
             panel1.Visible = true;
             textBox1.Visible = true;
             btnPequisar.Visible = true;
-            btnClean.Visible = true;
+            btnCloseSearch.Visible = true;
 
             dataGridView2.Enabled = true;
             comboBox2.Enabled = true;
             panel1.Enabled = true;
             textBox1.Enabled = true;
             btnPequisar.Enabled = true;
-            btnClean.Enabled = true;
+            btnCloseSearch.Enabled = true;
         }
 
-        private void btnClean_Click(object sender, EventArgs e)
+        private void btnCloseSearch_Click(object sender, EventArgs e)
         {
             dataGridView2.Visible = false;
             comboBox2.Visible = false;
             panel1.Visible = false;
             textBox1.Visible = false;
             btnPequisar.Visible = false;
-            btnClean.Visible = false;
+            btnCloseSearch.Visible = false;
 
             dataGridView2.Enabled = false;
             dataGridView2.Columns.Clear();
@@ -333,7 +345,7 @@ namespace cadastro_remedios
             panel1.Enabled = false;
             textBox1.Enabled = false;
             btnPequisar.Enabled = false;
-            btnClean.Enabled = false;
+            btnCloseSearch.Enabled = false;
         }
 
         private void btnPequisar_Click(object sender, EventArgs e)
@@ -344,8 +356,7 @@ namespace cadastro_remedios
             switch (op)
             {
                 case "Funcionario":
-                    string pesquisa = "SELECT empId as Codigo, empName as Nome,empEmail as Email,empCellphone as Celular,empCity as Cidade,empRegionState as Estado FROM registeremployee WHERE empName LIKE @value AND empStatus= 'A'";
-                    MySqlDataAdapter ad = new MySqlDataAdapter(pesquisa, con);
+                    MySqlDataAdapter ad = new MySqlDataAdapter(employeeQuery.GetActiveEmployee, con);
                     ad.SelectCommand.Parameters.AddWithValue("value", textBox1.Text + "%");
                     DataTable table = new DataTable();
                     ad.Fill(table);
@@ -364,8 +375,7 @@ namespace cadastro_remedios
                     break;
 
                 case "Remedio":
-                    string pesquisa3 = "SELECT pro_codigo as Codigo, pro_nome_generico as Nome, pro_preco_de_venda as Preco ,pro_desconto_de_promocao as Desconto, pro_inicio_da_promocao as 'Inicio Promocao',pro_final_da_promocao as 'Final Promocao'  FROM cadastro_remedios WHERE pro_nome_generico LIKE @value AND pro_status = 'A'";
-                    MySqlDataAdapter ad3 = new MySqlDataAdapter(pesquisa3, con);
+                    MySqlDataAdapter ad3 = new MySqlDataAdapter(productQuery.GetProductForSales, con);
                     ad3.SelectCommand.Parameters.AddWithValue("value", textBox1.Text + "%");
                     DataTable table3 = new DataTable();
                     ad3.Fill(table3);
@@ -403,11 +413,11 @@ namespace cadastro_remedios
         {
             if (this.txtProduct.Text == string.Empty | this.txtEmployee.Text == string.Empty | this.txtClient.Text == string.Empty | this.txtGrossAmount.Text == string.Empty | this.txtDiscount.Text == string.Empty | this.txtNetAmount.Text == string.Empty)
             {
-                MessageBox.Show("Algumas informações importantes para a venda ficaram de fora, ou foram preenchidos errados, revise.", "Atenção!");
+                MessageBox.Show("Algumas informações importantes para a venda ficaram de fora, ou foram preenchidos errados, revise.", Config.lAlert);
                 txtEmployee.Focus();
             }
 
-            else if (MessageBox.Show("Deseja finalizar venda?", "Atenção", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            else if (MessageBox.Show("Deseja finalizar venda?", Config.lAlert, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 Product lProduct = new Product();
                 Employee lEmployee = new Employee();
@@ -509,7 +519,9 @@ namespace cadastro_remedios
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(" Erro de comandos " + ex.Message);
+                        MessageBox.Show(MessageBoxResult.lErrorCommand + ex.Message);
+                        errorQuery lerrorQuery = new errorQuery();
+                        lerrorQuery.AddError(Principal.lUser, MessageBoxResult.lErrorCommand, ex.Message.Replace("'", ""), DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"), "Venda");
                     }
                 }
                 MessageBox.Show("Venda Finalizada com Sucesso", "Sucesso!");
@@ -522,7 +534,7 @@ namespace cadastro_remedios
                         Email = new MailMessage();
                         Email.To.Add(new MailAddress(Credentials.lGerenciaAdress));
                         Email.From = (new MailAddress(Credentials.lAdress));
-                        Email.Subject = "Atenção";
+                        Email.Subject = Config.lAlert;
                         Email.IsBodyHtml = true;
                         Email.Body = "FarmaLife Enterprises 2018 ®</br>A compra com o código: " + txtId.Text + " teve o valor de  " + txtNetAmount.Text.Replace(",", ".") + ", que foi realizada por " + txtNameEmployee.Text + " para o cliente " + txtNameCliente.Text + ", no dia " + DateTime.Now + " o valor em questão foi acima do padrão, favor verificar. </br> <i> Não responder esse e-mail</i></br>";
 
@@ -541,6 +553,9 @@ namespace cadastro_remedios
                     catch (Exception ex)
                     {
                         MessageBox.Show(ex.Message);
+                        errorQuery lerrorQuery = new errorQuery();
+                        MessageBox.Show(MessageBoxResult.lEmailError, Config.lAlert);
+                        lerrorQuery.AddError(Principal.lUser, MessageBoxResult.lEmailError, ex.Message.Replace("'", ""), DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"), "Venda");
                     }
                 }
                 else
@@ -553,7 +568,7 @@ namespace cadastro_remedios
         }
         private void BackMethod()
         {
-            if (MessageBox.Show("Deseja voltar a tela principal?", "Atenção", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            if (MessageBox.Show("Deseja voltar a tela principal?", Config.lAlert, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 this.Close();
                 Principal principal = new Principal();
@@ -562,7 +577,7 @@ namespace cadastro_remedios
         }
         private void CancelMethod()
         {
-            if (MessageBox.Show("Deseja realmente cancelar a venda?", "Atenção", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            if (MessageBox.Show("Deseja realmente cancelar a venda?", Config.lAlert, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 this.Close();
                 Venda venda = new Venda();

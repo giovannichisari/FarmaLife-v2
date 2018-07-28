@@ -19,11 +19,29 @@
     {
         public const string lSucess = "Cadastrado com sucesso!";
         public const string lError = "Erro ao cadastrar!";
+        public const string lErrorUpdate = "Erro ao alterar!";
         public const string lUpdate = "Alterado com sucesso!";
+        public const string lStockError = "O estoque não possui está quantidade!";
+        public const string lErrorCommand = "Erro de Comandos!";
+        public const string lEmailError = "Falha ao enviar e-mail";
 
     }
     public class Errors
     {
         public const string lZipCodeInvalid = "Cep não é valido!";
+    }
+
+    public class Config
+    {
+        public const int lEnterValue = 13;
+        public const string lAlert = "Alerta";
+        public const string lRequired = " é obrigatório.";
+        public const string lFied = "O campo ";
+        public const string lErrorRegister = "Campos obrigatórios não foram preenchidos.";
+    }
+    
+    public static class LoginUser
+    {
+        public static string lUser { get; set; }
     }
 }

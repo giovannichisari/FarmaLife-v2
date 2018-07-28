@@ -13,7 +13,7 @@ namespace cadastro_remedios
                 MySqlConnection connection = new MySqlConnection(Connection.lConnection);
                 connection.Open();
 
-                 string insert = "INSERT INTO registeremployee(empStatus,empName,empStreet,empDistrict, empNumber, empCity,empRegionState,empMarriageStatus,empBirthDate,empZipCode,empFixedTelephone," +
+                 string insert = "INSERT INTO employee(empStatus,empName,empStreet,empDistrict, empNumber, empCity,empRegionState,empMarriageStatus,empBirthDate,empZipCode,empFixedTelephone," +
                 "empCellphone,empEmail,empUsername,empPassword,empRole,empDocument)" + "values ('"
                  + emp.employeeStatus + "','" + emp.employeeName + "','" + emp.employeeStreet + "','" + emp.employeeDistrict + "','" + emp.employeeNumber + "','" + emp.employeeCity + "','" + emp.employeeState + "','" + emp.employeeCivilState + "','" + emp.employeeBirthDate + "','"
                  + emp.employeeZipCode + "','" + emp.employeeTelephone + "','" + emp.employeeCellPhone + "','" + emp.employeeEmail + "','" + emp.employeeUsername + "','" + emp.employeePassword + "','" + emp.employeeRole + "','" + emp.employeeDocument + "')";
@@ -23,7 +23,7 @@ namespace cadastro_remedios
             }
             catch (Exception ex)
             {
-                throw new Exception("Erro de comandos" + ex.Message);
+                throw new Exception(MessageBoxResult.lErrorCommand + ex.Message);
             }
         }
         internal void Update(Employee emp)
@@ -33,7 +33,7 @@ namespace cadastro_remedios
                 MySqlConnection connection = new MySqlConnection(Connection.lConnection);
                 connection.Open();
 
-                string update = "UPDATE registeremployee set empStatus= '" +emp.employeeStatus + "',empName= '" + emp.employeeName + "',empNumber= '" + emp.employeeNumber + "',empStreet= '" + emp.employeeStreet + "',empDistrict= '" + emp.employeeDistrict + "',empCity= '" + emp.employeeCity +
+                string update = "UPDATE employee set empStatus= '" +emp.employeeStatus + "',empName= '" + emp.employeeName + "',empNumber= '" + emp.employeeNumber + "',empStreet= '" + emp.employeeStreet + "',empDistrict= '" + emp.employeeDistrict + "',empCity= '" + emp.employeeCity +
                     "',empRegionState ='" + emp.employeeState + "',empMarriageStatus= '" + emp.employeeCivilState + "',empBirthDate='"
                     + emp.employeeBirthDate + "',empZipCode='" + emp.employeeZipCode + "',empFixedTelephone='" + emp.employeeTelephone + "',empCellphone='" + emp.employeeCellPhone +
                     "',empEmail='" + emp.employeeEmail + "',empUsername='" + emp.employeeUsername + "',empPassword='" + emp.employeePassword + "',empRole='" + emp.employeeRole + "',empDocument='" + emp.employeeDocument + "' WHERE empId='" + emp.employeeId + "';";
@@ -44,7 +44,7 @@ namespace cadastro_remedios
             }
             catch (Exception ex)
             {
-                throw new Exception(" Erro de comandos " + ex.Message);
+                throw new Exception(MessageBoxResult.lErrorCommand + ex.Message);
             }
         }
         public const string GetEmployeById = @" SELECT  	
@@ -65,7 +65,7 @@ namespace cadastro_remedios
 			                                        empRole           AS Cargo			       ,
 			                                        empDocument       AS CPF			       ,
 			                                        empStatus         AS Status  
-                                            FROM registeremployee 
+                                            FROM employee 
                                            WHERE empId 
                                             LIKE @value 
 	                                         AND empStatus= 'A';";
@@ -88,7 +88,7 @@ namespace cadastro_remedios
 			                                        empRole           AS Cargo			       ,
 			                                        empDocument       AS CPF			       ,
 			                                        empStatus         AS Status  
-                                            FROM registeremployee 
+                                            FROM employee 
                                            WHERE empName 
                                             LIKE @value 
 	                                         AND empStatus= 'A';";
@@ -111,7 +111,7 @@ namespace cadastro_remedios
 			                                        empRole           AS Cargo			       ,
 			                                        empDocument       AS CPF			       ,
 			                                        empStatus         AS Status  
-                                            FROM registeremployee 
+                                            FROM employee 
                                            WHERE empStatus= 'A';";
 
         public const string GetInativeEmployee = @" SELECT  	
@@ -132,7 +132,7 @@ namespace cadastro_remedios
 			                                        empRole           AS Cargo			       ,
 			                                        empDocument       AS CPF			       ,
 			                                        empStatus         AS Status  
-                                            FROM registeremployee 
+                                            FROM employee 
                                            WHERE empStatus= 'I';";
 
         public const string GetAllEmployees = @" SELECT  	
@@ -153,7 +153,7 @@ namespace cadastro_remedios
 			                                        empRole           AS Cargo			       ,
 			                                        empDocument       AS CPF			       ,
 			                                        empStatus         AS Status  
-                                            FROM registeremployee;";
+                                            FROM employee;";
     }
 }
             

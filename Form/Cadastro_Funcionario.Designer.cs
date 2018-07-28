@@ -37,12 +37,14 @@
             this.label12 = new System.Windows.Forms.Label();
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.txtState = new System.Windows.Forms.TextBox();
             this.label19 = new System.Windows.Forms.Label();
             this.txtNumber = new System.Windows.Forms.TextBox();
             this.txtStreet = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.txtCep = new System.Windows.Forms.MaskedTextBox();
             this.txtCity = new System.Windows.Forms.TextBox();
+            this.txtCep = new System.Windows.Forms.MaskedTextBox();
             this.txtDistrict = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
@@ -78,8 +80,6 @@
             this.btnSearch = new System.Windows.Forms.Button();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.txtState = new System.Windows.Forms.TextBox();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -167,7 +167,7 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.radioButton1);
+            this.groupBox2.Controls.Add(this.checkBox1);
             this.groupBox2.Controls.Add(this.txtState);
             this.groupBox2.Controls.Add(this.label19);
             this.groupBox2.Controls.Add(this.txtNumber);
@@ -187,6 +187,25 @@
             this.groupBox2.TabIndex = 114;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Endereço";
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(480, 7);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(135, 17);
+            this.checkBox1.TabIndex = 144;
+            this.checkBox1.Text = "Cidade com único CEP";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckStateChanged += new System.EventHandler(this.checkBox1_CheckStateChanged);
+            // 
+            // txtState
+            // 
+            this.txtState.Location = new System.Drawing.Point(559, 43);
+            this.txtState.Name = "txtState";
+            this.txtState.ReadOnly = true;
+            this.txtState.Size = new System.Drawing.Size(50, 20);
+            this.txtState.TabIndex = 142;
             // 
             // label19
             // 
@@ -223,6 +242,14 @@
             this.label3.TabIndex = 139;
             this.label3.Text = "Rua";
             // 
+            // txtCity
+            // 
+            this.txtCity.Location = new System.Drawing.Point(301, 89);
+            this.txtCity.Name = "txtCity";
+            this.txtCity.ReadOnly = true;
+            this.txtCity.Size = new System.Drawing.Size(308, 20);
+            this.txtCity.TabIndex = 11;
+            // 
             // txtCep
             // 
             this.txtCep.Location = new System.Drawing.Point(10, 42);
@@ -231,14 +258,6 @@
             this.txtCep.Size = new System.Drawing.Size(114, 20);
             this.txtCep.TabIndex = 15;
             this.txtCep.Leave += new System.EventHandler(this.txtCep_Leave);
-            // 
-            // txtCity
-            // 
-            this.txtCity.Location = new System.Drawing.Point(301, 89);
-            this.txtCity.Name = "txtCity";
-            this.txtCity.ReadOnly = true;
-            this.txtCity.Size = new System.Drawing.Size(308, 20);
-            this.txtCity.TabIndex = 11;
             // 
             // txtDistrict
             // 
@@ -621,26 +640,6 @@
             this.comboBox1.Text = "ID";
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
-            // txtState
-            // 
-            this.txtState.Location = new System.Drawing.Point(559, 43);
-            this.txtState.Name = "txtState";
-            this.txtState.ReadOnly = true;
-            this.txtState.Size = new System.Drawing.Size(50, 20);
-            this.txtState.TabIndex = 142;
-            // 
-            // radioButton1
-            // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(481, 7);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(134, 17);
-            this.radioButton1.TabIndex = 143;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "Cidade com único CEP";
-            this.radioButton1.UseVisualStyleBackColor = true;
-            this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
-            // 
             // Cadastro_Funcionario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -721,7 +720,7 @@
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.TextBox txtNumber;
         private System.Windows.Forms.TextBox txtState;
-        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.CheckBox checkBox1;
 
         public System.Windows.Forms.DataGridViewCellEventHandler dataGridView_CellContentClick { get; set; }
     }

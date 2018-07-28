@@ -23,24 +23,24 @@ namespace cadastro_remedios
         }
         public void CleanMethod()
         {
-            this.txtId.Text = string.Empty;
-            this.txtName.Text = string.Empty;
-            this.txtStreet.Text = string.Empty;
-            this.txtDistrict.Text = string.Empty;
-            this.txtCity.Text = string.Empty;
-            this.txtState.Text = string.Empty;
-            this.txtCivilState.Text = string.Empty;
-            this.txtBirthDate.Text = string.Empty;
-            this.txtCep.Text = string.Empty;
-            this.txtFone.Text = string.Empty;
-            this.txtCellphone.Text = string.Empty;
-            this.txtEmail.Text = string.Empty;
-            this.txtUsername.Text = string.Empty;
-            this.txtPassword.Text = string.Empty;
-            this.txtRole.Text = string.Empty;
-            this.txtCPF.Text = string.Empty;
-            this.txtStatus.SelectedItem = string.Empty;
-            this.txtNumber.Text = string.Empty;
+            txtId.Text = string.Empty;
+            txtName.Text = string.Empty;
+            txtStreet.Text = string.Empty;
+            txtDistrict.Text = string.Empty;
+            txtCity.Text = string.Empty;
+            txtState.Text = string.Empty;
+            txtCivilState.Text = string.Empty;
+            txtBirthDate.Text = string.Empty;
+            txtCep.Text = string.Empty;
+            txtFone.Text = string.Empty;
+            txtCellphone.Text = string.Empty;
+            txtEmail.Text = string.Empty;
+            txtUsername.Text = string.Empty;
+            txtPassword.Text = string.Empty;
+            txtRole.Text = string.Empty;
+            txtCPF.Text = string.Empty;
+            txtStatus.SelectedItem = string.Empty;
+            txtNumber.Text = string.Empty;
 
             txtState.ReadOnly = true;
             txtCity.ReadOnly = true;
@@ -59,19 +59,18 @@ namespace cadastro_remedios
             employeeQuery da = new employeeQuery();
 
             //Verificar se é um funcionario novo ou ja existente
-            if (txtId.Text != "")
+            if (txtId.Text !=string.Empty)
             {
-
                 lEmployee.employeeId = Convert.ToInt32(txtId.Text);
                 if (txtName.Text != string.Empty)
                     lEmployee.employeeName = txtName.Text;
                 else
-                    MessageBox.Show("O campo NOME é obrigátorio.", "Alerta");
+                    MessageBox.Show(Config.lFied +"NOME"+ Config.lRequired, Config.lAlert);
 
                 if (txtCep.Text != string.Empty)
                     lEmployee.employeeZipCode = txtCep.Text;
                 else
-                    MessageBox.Show("O campo CEP é obrigátorio.", "Alerta");
+                    MessageBox.Show(Config.lFied +"CEP"+ Config.lRequired, Config.lAlert);
 
                 lEmployee.employeeCivilState = txtCivilState.Text;
                 lEmployee.employeeBirthDate = txtBirthDate.Text;
@@ -85,42 +84,42 @@ namespace cadastro_remedios
                 if (txtCellphone.Text != string.Empty)
                     lEmployee.employeeCellPhone = txtCellphone.Text;
                 else
-                    MessageBox.Show("O campo CELULAR é obrigátorio.", "Alerta");
+                    MessageBox.Show(Config.lFied +"CELULAR"+ Config.lRequired, Config.lAlert);
 
                 if (txtEmail.Text != string.Empty)
                     lEmployee.employeeEmail = txtEmail.Text;
                 else
-                    MessageBox.Show("O campo E-MAIL é obrigátorio.", "Alerta");
+                    MessageBox.Show(Config.lFied +"E-MAIL"+ Config.lRequired, Config.lAlert);
 
                 if (txtUsername.Text != string.Empty)
                     lEmployee.employeeUsername = txtUsername.Text;
                 else
-                    MessageBox.Show("O campo LOGIN é obrigátorio.", "Alerta");
+                    MessageBox.Show(Config.lFied +"LOGIN"+ Config.lRequired, Config.lAlert);
 
                 if (txtPassword.Text != string.Empty)
                     lEmployee.employeePassword = txtPassword.Text;
                 else
-                    MessageBox.Show("O campo SENHA é obrigátorio.", "Alerta");
+                    MessageBox.Show(Config.lFied +"SENHA"+ Config.lRequired, Config.lAlert);
 
                 if (txtRole.Text != string.Empty)
                     lEmployee.employeeRole = txtRole.Text;
                 else
-                    MessageBox.Show("O campo CARGO é obrigátorio.", "Alerta");
+                    MessageBox.Show(Config.lFied +"CARGO"+ Config.lRequired, Config.lAlert);
 
                 if (txtCPF.Text != string.Empty)
                     lEmployee.employeeDocument = txtCPF.Text;
                 else
-                    MessageBox.Show("O campo CPF é obrigátorio.", "Alerta");
+                    MessageBox.Show(Config.lFied +"CPF"+ Config.lRequired, Config.lAlert);
 
-                if (txtStatus.Text == "Ativo" && txtStatus.Text != string.Empty)
-                    lEmployee.employeeStatus = "A";
+                if (txtStatus.Text =="Ativo" && txtStatus.Text != string.Empty)
+                    lEmployee.employeeStatus ="A";
                 else if (txtStatus.Text != string.Empty)
-                    lEmployee.employeeStatus = "I";
+                    lEmployee.employeeStatus ="I";
                 else
-                    MessageBox.Show("O campo STATUS é obrigátorio.", "Alerta");
+                    MessageBox.Show(Config.lFied +"STATUS"+ Config.lRequired, Config.lAlert);
 
 
-                if (txtName.Text != "" && txtStreet.Text != string.Empty && txtCity.Text != string.Empty && txtState.Text != string.Empty
+                if (txtName.Text !=string.Empty && txtStreet.Text != string.Empty && txtCity.Text != string.Empty && txtState.Text != string.Empty
                     && txtCellphone.Text != string.Empty && txtEmail.Text != string.Empty && txtUsername.Text != string.Empty && txtPassword.Text != string.Empty
                     && txtRole.Text != string.Empty && txtCPF.Text != string.Empty && txtStatus.Text != string.Empty)
                 {
@@ -130,15 +129,15 @@ namespace cadastro_remedios
                 }
                 else
                 {
-                    MessageBox.Show("Falha ao alterar funcionário, campos obrigatórios não foram preenchidos.");
+                    MessageBox.Show(Config.lErrorRegister,MessageBoxResult.lErrorUpdate);
                 }
             }
-            else if (MessageBox.Show("Deseja receber um e-mail para confirmar o cadastro?", "Atenção", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+            else if (MessageBox.Show("Deseja receber um e-mail para confirmar o cadastro?", Config.lAlert, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
             {
 
                 MySqlConnection con = new MySqlConnection(Connection.lConnection);
                 con.Open();
-                string consulta = "SELECT empUsername,empDocument, empEmail FROM registeremployee WHERE empDocument = @CPF OR empUsername = @LOGIN OR empEmail = @EMAIL";
+                string consulta ="SELECT empUsername,empDocument, empEmail FROM employee WHERE empDocument = @CPF OR empUsername = @LOGIN OR empEmail = @EMAIL";
                 MySqlCommand cmd = new MySqlCommand(consulta, con);
 
                 //Passo o parametro
@@ -152,7 +151,7 @@ namespace cadastro_remedios
                 //se o usuario já estiver cadastrado
                 if (le.Read())
                 {
-                    if (MessageBox.Show("Este usuario já está cadastrado, gostaria de pesquisar o mesmo?", "Atenção", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    if (MessageBox.Show("Este usuario já está cadastrado, gostaria de pesquisar o mesmo?", Config.lAlert, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
                         tabControl1.SelectedTab = tabPage2;
                     }
@@ -164,12 +163,12 @@ namespace cadastro_remedios
                     if (txtName.Text != string.Empty)
                         lEmployee.employeeName = txtName.Text;
                     else
-                        MessageBox.Show("O campo NOME é obrigátorio.", "Alerta");
+                        MessageBox.Show(Config.lFied +"NOME"+ Config.lRequired, Config.lAlert);
 
                     if (txtCep.Text != string.Empty)
                         lEmployee.employeeZipCode = txtCep.Text;
                     else
-                        MessageBox.Show("O campo CEP é obrigátorio.", "Alerta");
+                        MessageBox.Show(Config.lFied +"CEP"+ Config.lRequired, Config.lAlert);
 
                     lEmployee.employeeState = txtState.Text;
                     lEmployee.employeeCity = txtCity.Text;
@@ -184,41 +183,41 @@ namespace cadastro_remedios
                     if (txtCellphone.Text != string.Empty)
                         lEmployee.employeeCellPhone = txtCellphone.Text;
                     else
-                        MessageBox.Show("O campo CELULAR é obrigátorio.", "Alerta");
+                        MessageBox.Show(Config.lFied +"CELULAR"+ Config.lRequired, Config.lAlert);
 
                     if (txtEmail.Text != string.Empty)
                         lEmployee.employeeEmail = txtEmail.Text;
                     else
-                        MessageBox.Show("O campo E-MAIL é obrigátorio.", "Alerta");
+                        MessageBox.Show(Config.lFied +"E-MAIL"+ Config.lRequired, Config.lAlert);
 
                     if (txtUsername.Text != string.Empty)
                         lEmployee.employeeUsername = txtUsername.Text;
                     else
-                        MessageBox.Show("O campo LOGIN é obrigátorio.", "Alerta");
+                        MessageBox.Show(Config.lFied +"LOGIN"+ Config.lRequired, Config.lAlert);
 
                     if (txtPassword.Text != string.Empty)
                         lEmployee.employeePassword = txtPassword.Text;
                     else
-                        MessageBox.Show("O campo SENHA é obrigátorio.", "Alerta");
+                        MessageBox.Show(Config.lFied +"SENHA"+ Config.lRequired, Config.lAlert);
 
                     if (txtRole.Text != string.Empty)
                         lEmployee.employeeRole = txtRole.Text;
                     else
-                        MessageBox.Show("O campo CARGO é obrigátorio.", "Alerta");
+                        MessageBox.Show(Config.lFied +"CARGO"+ Config.lRequired, Config.lAlert);
 
                     if (txtCPF.Text != string.Empty)
                         lEmployee.employeeDocument = txtCPF.Text;
                     else
-                        MessageBox.Show("O campo CPF é obrigátorio.", "Alerta");
+                        MessageBox.Show(Config.lFied +"CPF"+ Config.lRequired, Config.lAlert);
 
-                    if (txtStatus.Text == "Ativo" && txtStatus.Text != string.Empty)
-                        lEmployee.employeeStatus = "A";
+                    if (txtStatus.Text =="Ativo" && txtStatus.Text != string.Empty)
+                        lEmployee.employeeStatus ="A";
                     else if (txtStatus.Text != string.Empty)
-                        lEmployee.employeeStatus = "I";
+                        lEmployee.employeeStatus ="I";
                     else
-                        MessageBox.Show("O campo STATUS é obrigátorio.", "Alerta");
+                        MessageBox.Show(Config.lFied +"STATUS"+ Config.lRequired, Config.lAlert);
 
-                    if (txtName.Text != "" && txtStreet.Text != string.Empty && txtCity.Text != string.Empty && txtState.Text != string.Empty
+                    if (txtName.Text !=string.Empty && txtStreet.Text != string.Empty && txtCity.Text != string.Empty && txtState.Text != string.Empty
                         && txtCellphone.Text != string.Empty && txtEmail.Text != string.Empty && txtUsername.Text != string.Empty && txtPassword.Text != string.Empty
                         && txtRole.Text != string.Empty && txtCPF.Text != string.Empty && txtStatus.Text != string.Empty)
                     {
@@ -228,7 +227,7 @@ namespace cadastro_remedios
                     }
                     else
                     {
-                        MessageBox.Show("Falha ao cadastrar funcionário, campos obrigatórios não foram preenchidos.");
+                        MessageBox.Show(Config.lErrorRegister, MessageBoxResult.lError);
                     }
                 }
             }
@@ -236,7 +235,7 @@ namespace cadastro_remedios
             {
                 MySqlConnection con = new MySqlConnection(Connection.lConnection);
                 con.Open();
-                string consulta = "SELECT empUsername,empDocument, empEmail FROM registeremployee WHERE empDocument = @CPF OR empUsername = @LOGIN OR empEmail = @EMAIL";
+                string consulta ="SELECT empUsername,empDocument, empEmail FROM employee WHERE empDocument = @CPF OR empUsername = @LOGIN OR empEmail = @EMAIL";
                 MySqlCommand cmd = new MySqlCommand(consulta, con);
 
                 //Passo o parametro
@@ -251,7 +250,7 @@ namespace cadastro_remedios
                 //se o usuario já estiver cadastrado
                 if (le.Read())
                 {
-                    if (MessageBox.Show("Este usuario já está cadastrado, gostaria de pesquisar o mesmo?", "Atenção", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    if (MessageBox.Show("Este usuario já está cadastrado, gostaria de pesquisar o mesmo?", Config.lAlert, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
                         tabControl1.SelectedTab = tabPage2;
                     }
@@ -261,7 +260,7 @@ namespace cadastro_remedios
                     if (txtName.Text != string.Empty)
                         lEmployee.employeeName = txtName.Text;
                     else
-                        MessageBox.Show("O campo NOME é obrigátorio.", "Alerta");
+                        MessageBox.Show(Config.lFied +"NOME"+ Config.lRequired, Config.lAlert);
 
                     lEmployee.employeeState = txtState.Text;
                     lEmployee.employeeCity = txtCity.Text;
@@ -276,39 +275,39 @@ namespace cadastro_remedios
                     if (txtCellphone.Text != string.Empty)
                         lEmployee.employeeCellPhone = txtCellphone.Text;
                     else
-                        MessageBox.Show("O campo CELULAR é obrigátorio.", "Alerta");
+                        MessageBox.Show(Config.lFied +"CELULAR"+ Config.lRequired, Config.lAlert);
 
                     if (txtEmail.Text != string.Empty)
                         lEmployee.employeeEmail = txtEmail.Text;
                     else
-                        MessageBox.Show("O campo E-MAIL é obrigátorio.", "Alerta");
+                        MessageBox.Show(Config.lFied +"E-MAIL"+ Config.lRequired, Config.lAlert);
 
                     if (txtUsername.Text != string.Empty)
                         lEmployee.employeeUsername = txtUsername.Text;
                     else
-                        MessageBox.Show("O campo LOGIN é obrigátorio.", "Alerta");
+                        MessageBox.Show(Config.lFied +"LOGIN"+ Config.lRequired, Config.lAlert);
 
                     if (txtPassword.Text != string.Empty)
                         lEmployee.employeePassword = txtPassword.Text;
                     else
-                        MessageBox.Show("O campo SENHA é obrigátorio.", "Alerta");
+                        MessageBox.Show(Config.lFied +"SENHA"+ Config.lRequired, Config.lAlert);
 
                     if (txtRole.Text != string.Empty)
                         lEmployee.employeeRole = txtRole.Text;
                     else
-                        MessageBox.Show("O campo CARGO é obrigátorio.", "Alerta");
+                        MessageBox.Show(Config.lFied +"CARGO"+ Config.lRequired, Config.lAlert);
 
                     if (txtCPF.Text != string.Empty)
                         lEmployee.employeeDocument = txtCPF.Text;
                     else
-                        MessageBox.Show("O campo CPF é obrigátorio.", "Alerta");
+                        MessageBox.Show(Config.lFied +"CPF"+ Config.lRequired, Config.lAlert);
 
-                    if (txtStatus.Text == "Ativo" && txtStatus.Text != string.Empty)
-                        lEmployee.employeeStatus = "A";
+                    if (txtStatus.Text =="Ativo" && txtStatus.Text != string.Empty)
+                        lEmployee.employeeStatus ="A";
                     else if (txtStatus.Text != string.Empty)
-                        lEmployee.employeeStatus = "I";
+                        lEmployee.employeeStatus ="I";
                     else
-                        MessageBox.Show("O campo STATUS é obrigátorio.", "Alerta");
+                        MessageBox.Show(Config.lFied +"STATUS"+ Config.lRequired, Config.lAlert);
 
                     if (txtName.Text != string.Empty && txtCep.Text != string.Empty && txtStreet.Text != string.Empty && txtCity.Text != string.Empty && txtState.Text != string.Empty
                         && txtCellphone.Text != string.Empty && txtEmail.Text != string.Empty && txtUsername.Text != string.Empty && txtPassword.Text != string.Empty
@@ -319,31 +318,31 @@ namespace cadastro_remedios
                     }
                     else
                     {
-                        MessageBox.Show("Falha ao cadastrar funcionário, campos obrigatórios não foram preenchidos.");
+                        MessageBox.Show(Config.lErrorRegister, MessageBoxResult.lError);
                     }
 
                     try
                     {
                         MySqlConnection conn = new MySqlConnection(Connection.lConnection);
                         conn.Open();
-                        string consulta1 = "SELECT empName,empEmail FROM registeremployee WHERE empEmail = @empEmail";
+                        string consulta1 ="SELECT empName,empEmail FROM employee WHERE empEmail = @empEmail";
                         MySqlCommand cmd1 = new MySqlCommand(consulta1, conn);
                         //Passo o parametro
                         cmd1.Parameters.AddWithValue("@empEmail", txtEmail.Text);
-                        MySqlDataReader leitor = cmd1.ExecuteReader();
+                        MySqlDataReader reader = cmd1.ExecuteReader();
                         string lEmail = string.Empty;
                         string lName = string.Empty;
-                        while (leitor.Read())
+                        while (reader.Read())
                         {
-                            lName = leitor["empName"].ToString();
-                            lEmail = leitor["empEmail"].ToString();
+                            lName = reader["empName"].ToString();
+                            lEmail = reader["empEmail"].ToString();
                         }
                         Email = new MailMessage();
                         Email.To.Add(new MailAddress(lEmail));
                         Email.From = (new MailAddress(Credentials.lAdress));
-                        Email.Subject = "Bem Vindo a Farmalife";
+                        Email.Subject ="Bem Vindo a Farmalife";
                         Email.IsBodyHtml = true;
-                        Email.Body = "Ceo:Giovanni Nascimento Santos <br/> FarmaLife Enterprise 2018 ® </br> <b>Bem vindo a nossa equipe senhor(a)," + lName + " seu cadastro foi concluído perfeitamente e o senhor(a) já pode utilizar nosso sistema.</br> </b> </br> <i> Não responder esse e-mail</i></br>";
+                        Email.Body ="Ceo:Giovanni Nascimento Santos <br/> FarmaLife Enterprise 2018 ® </br> <b>Bem vindo a nossa equipe senhor(a)," + lName +" seu cadastro foi concluído perfeitamente e o senhor(a) já pode utilizar nosso sistema.</br> </b> </br> <i> Não responder esse e-mail</i></br>";
                         SmtpClient employee = new SmtpClient(Credentials.lSmtpLive, Credentials.lSmtpLivePort);
                         using (employee)
                         {
@@ -356,7 +355,9 @@ namespace cadastro_remedios
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Falha ao enviar email. " + ex.Message);
+                        MessageBox.Show(ex.Message, MessageBoxResult.lEmailError);
+                        errorQuery lerrorQuery = new errorQuery();
+                        lerrorQuery.AddError(Principal.lUser, MessageBoxResult.lEmailError, ex.Message.Replace("'",""), DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"),"Cadastro Funcionario");
                     }
                 }
             }
@@ -369,28 +370,28 @@ namespace cadastro_remedios
             string op = (string)comboBox1.SelectedItem;
             switch (op)
             {
-                case "ID":
+                case"ID":
                     txtSearch.Enabled = true;
                     string pesquisa = employeeQuery.GetEmployeById;
                     MySqlDataAdapter ad = new MySqlDataAdapter(pesquisa, con);
-                    ad.SelectCommand.Parameters.AddWithValue("value", txtSearch.Text + "%");
+                    ad.SelectCommand.Parameters.AddWithValue("value", txtSearch.Text +"%");
                     DataTable table = new DataTable();
                     ad.Fill(table);
                     dataGridView.DataSource = table;
                     con.Close();
                     break;
-                case "Nome":
+                case"Nome":
                     txtSearch.Enabled = true;
                     string pesquisa2 = employeeQuery.GetEmployeByName;
                     MySqlDataAdapter ad1 = new MySqlDataAdapter(pesquisa2, con);
-                    ad1.SelectCommand.Parameters.AddWithValue("value", txtSearch.Text + "%");
+                    ad1.SelectCommand.Parameters.AddWithValue("value", txtSearch.Text +"%");
                     DataTable table1 = new DataTable();
                     ad1.Fill(table1);
                     dataGridView.DataSource = table1;
                     con.Close();
                     break;
 
-                case "Ativo":
+                case"Ativo":
                     txtSearch.Enabled = false;
                     string pesquisa3 = employeeQuery.GetActiveEmployee;
                     MySqlDataAdapter ad3 = new MySqlDataAdapter(pesquisa3, con);
@@ -400,7 +401,7 @@ namespace cadastro_remedios
                     con.Close();
                     break;
 
-                case "Inativo":
+                case"Inativo":
                     txtSearch.Enabled = false;
                     string pesquisa4 = employeeQuery.GetInativeEmployee;
                     MySqlDataAdapter ad4 = new MySqlDataAdapter(pesquisa4, con);
@@ -410,7 +411,7 @@ namespace cadastro_remedios
                     con.Close();
                     break;
 
-                case "Todos":
+                case"Todos":
                     txtSearch.Enabled = false;
                     string pesquisa5 = employeeQuery.GetAllEmployees;
                     MySqlDataAdapter ad5 = new MySqlDataAdapter(pesquisa5, con);
@@ -428,7 +429,7 @@ namespace cadastro_remedios
         //botão voltar
         private void btnBack_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
             Principal remedio = new Principal();
             remedio.Show();
         }
@@ -443,7 +444,7 @@ namespace cadastro_remedios
             cn.Open();
 
             MySqlCommand cmd2 = new MySqlCommand("SELECT empId, empName,empStreet,empDistrict, empCity,empRegionState ,empMarriageStatus,empBirthDate," +
-            "empZipCode,empFixedTelephone,empCellphone,empEmail,empUsername,empPassword,empRole,empDocument,empStatus, empNumber FROM registeremployee WHERE empId= '" + codigo + "'", cn);
+           "empZipCode,empFixedTelephone,empCellphone,empEmail,empUsername,empPassword,empRole,empDocument,empStatus, empNumber FROM employee WHERE empId= '" + codigo +"'", cn);
             MySqlDataReader reader = null;
             reader = cmd2.ExecuteReader();
 
@@ -467,10 +468,10 @@ namespace cadastro_remedios
                 txtCPF.Text = reader.GetString(15);
                 txtStatus.Text = reader.GetString(16);
                 txtNumber.Text = reader.GetString(17);
-                if (txtStatus.Text == "A")
-                    txtStatus.Text = "Ativo";
+                if (txtStatus.Text =="A")
+                    txtStatus.Text ="Ativo";
                 else
-                    txtStatus.Text = "Inativo";
+                    txtStatus.Text ="Inativo";
             }
             cn.Close();
             tabControl1.SelectedTab = tabPage1;
@@ -480,7 +481,7 @@ namespace cadastro_remedios
         {
             if (e.KeyCode == Keys.Escape)
             {
-                this.Close();
+                Close();
                 Principal remedio = new Principal();
                 remedio.Show();
             }
@@ -501,21 +502,21 @@ namespace cadastro_remedios
             string op = (string)comboBox1.SelectedItem;
             switch (op)
             {
-                case "ID":
+                case"ID":
                     txtSearch.Enabled = true;
                     break;
-                case "Nome":
+                case"Nome":
                     txtSearch.Enabled = true;
                     break;
-                case "Ativo":
+                case"Ativo":
                     txtSearch.Enabled = false;
                     txtSearch.Text = string.Empty;
                     break;
-                case "Inativo":
+                case"Inativo":
                     txtSearch.Enabled = false;
                     txtSearch.Text = string.Empty;
                     break;
-                case "Todos":
+                case"Todos":
                     txtSearch.Enabled = false;
                     txtSearch.Text = string.Empty;
                     break;
@@ -524,7 +525,7 @@ namespace cadastro_remedios
 
         private void txtCep_Leave(object sender, EventArgs e)
         {
-            string lZipCode = txtCep.Text.Replace("-", "");
+            string lZipCode = txtCep.Text.Replace("-",string.Empty);
             if (lZipCode != string.Empty && lZipCode.Length == 8)
             {
                 try
@@ -536,12 +537,13 @@ namespace cadastro_remedios
                         txtCity.Text = result.cidade;
                         txtDistrict.Text = result.bairro;
                         txtStreet.Text = result.end;
-
                     }
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
+                    errorQuery lerrorQuery = new errorQuery();
+                    lerrorQuery.AddError(Principal.lUser, Errors.lZipCodeInvalid, ex.Message.Replace("'", ""), DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"), "Cadastro Funcionario");
                 }
 
             }
@@ -549,12 +551,22 @@ namespace cadastro_remedios
                 MessageBox.Show(Errors.lZipCodeInvalid);
         }
 
-        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        private void checkBox1_CheckStateChanged(object sender, EventArgs e)
         {
-            txtState.ReadOnly = false;
-            txtCity.ReadOnly = false;
-            txtDistrict.ReadOnly = false;
-            txtStreet.ReadOnly = false;
+            if (checkBox1.Checked)
+            {
+                txtState.ReadOnly = false;
+                txtCity.ReadOnly = false;
+                txtDistrict.ReadOnly = false;
+                txtStreet.ReadOnly = false;
+            }
+            else
+            {
+                txtState.ReadOnly = true;
+                txtCity.ReadOnly = true;
+                txtDistrict.ReadOnly = true;
+                txtStreet.ReadOnly = true;
+            }
         }
     }
 }

@@ -23,7 +23,8 @@ namespace cadastro_remedios
             }
             catch (Exception ex)
             {
-                throw new Exception("Erro de comandos" + ex.Message);
+                errorQuery lerrorQuery = new errorQuery();
+                lerrorQuery.AddError(Principal.lUser, MessageBoxResult.lError, ex.Message.Replace("'", ""), DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"), "Cadastro Funcionario");
             }
         }
         public void Update(Client lClient)
@@ -43,7 +44,8 @@ namespace cadastro_remedios
             }
             catch (Exception ex)
             {
-                throw new Exception(" Erro de comandos " + ex.Message);
+                errorQuery lerrorQuery = new errorQuery();
+                lerrorQuery.AddError(Principal.lUser, MessageBoxResult.lErrorUpdate, ex.Message.Replace("'", ""), DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"), "Cadastro Cliente");
             }
         }
     }

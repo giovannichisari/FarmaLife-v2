@@ -14,26 +14,56 @@ namespace cadastro_remedios
         //botão cadastrar 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            if (txtId.Text == "")
+            if (txtId.Text == string.Empty)
             {
                 Product lProduct= new Product();
                 productQuery da = new productQuery();
-                lProduct.prodCodigoBarras = txtIdBarras.Text;
+
+                if (txtIdBarras.Text != string.Empty)
+                    lProduct.prodCodigoBarras = txtIdBarras.Text;
+                else
+                    MessageBox.Show(Config.lFied +"CÓDIGO DE BARRAS" + Config.lRequired, Config.lAlert);
+
                 lProduct.prodDescricao = txtDescricao.Text;
                 lProduct.prodNomeGenerico = txtNameGenerico.Text;
-                lProduct.prodNomeComercial = txtNameComercial.Text;
+
+                if (txtNameComercial.Text != string.Empty)
+                    lProduct.prodNomeComercial = txtNameComercial.Text;
+                else
+                    MessageBox.Show(Config.lFied +"NOME COMERCIAL" + Config.lRequired, Config.lAlert);
+
                 lProduct.prodGrupo = txtGrupo.Text;
-                lProduct.prodFabricante = txtFabricante.Text;
+
+                if (txtFabricante.Text != string.Empty)
+                    lProduct.prodFabricante = txtFabricante.Text;
+                else
+                    MessageBox.Show(Config.lFied + "FABRICANTE" + Config.lRequired, Config.lAlert);
+
                 lProduct.prodUnidade = txtUnidade.Text;
                 lProduct.prodArmazenamento = txtArmazenamento.Text;
                 lProduct.prodMarca = txtMarca.Text;
-                lProduct.prodEstoque = txtQuantidade.Text;
-                lProduct.prodDataCadastro = txtDateCadastro.Text;
+
+                if (txtQuantidade.Text != string.Empty)
+                    lProduct.prodEstoque = txtQuantidade.Text;
+                else
+                    MessageBox.Show(Config.lFied + "QUANTIDADE NO ESTOQUE" + Config.lRequired, Config.lAlert);
+
+                if (txtDateCadastro.Text != string.Empty)
+                    lProduct.prodDataCadastro = txtDateCadastro.Text;
+                else
+                    MessageBox.Show(Config.lFied + "DATA DO CADASTRO" + Config.lRequired, Config.lAlert);
+
                 lProduct.prodPrecoCaixa = txtPrecoCaixa.Text;
                 lProduct.prodUnidadeCaixa = txtUnidadeCaixa.Text;
                 lProduct.prodCompraUnidade = txtPrecoCompraUnidade.Text;
                 lProduct.prodMargem = txtMargem.Text;
-                lProduct.prodPrecoVenda = txtPrecoVenda.Text;
+
+                if (txtPrecoVenda.Text != string.Empty)
+                    lProduct.prodPrecoVenda = txtPrecoVenda.Text;
+                else
+                    MessageBox.Show(Config.lFied + "PREÇO DE VENDA" + Config.lRequired, Config.lAlert);
+
+
                 lProduct.prodDescontoPromocao = txtDiscountPromocao.Text;
                 lProduct.prodMargemPromocao = txtMargemPromocao.Text;
                 lProduct.prodPrecoPromocao = txtPrecoPromocao.Text;
@@ -41,53 +71,75 @@ namespace cadastro_remedios
                 lProduct.prodFinalPromocao = txtFinalPromocao.Text;
                 lProduct.prodObs = txtObs.Text;
 
-                da.Insert(lProduct);
-                MessageBox.Show(" Produtos Registrados com sucesso ");
-                this.txtId.Text = string.Empty;
-                this.txtIdBarras.Text = string.Empty;
-                this.txtDescricao.Text = string.Empty;
-                this.txtNameGenerico.Text = string.Empty;
-                this.txtNameComercial.Text = string.Empty;
-                this.txtGrupo.Text = string.Empty;
-                this.txtFabricante.Text = string.Empty;
-                this.txtUnidade.Text = string.Empty;
-                this.txtArmazenamento.Text = string.Empty;
-                this.txtMarca.Text = string.Empty;
-                this.txtQuantidade.Text = string.Empty;
-                this.txtDateCadastro.Text = string.Empty;
-                this.txtPrecoCaixa.Text = string.Empty;
-                this.txtUnidadeCaixa.Text = string.Empty;
-                this.txtPrecoCompraUnidade.Text = string.Empty;
-                this.txtMargem.Text = string.Empty;
-                this.txtPrecoVenda.Text = string.Empty;
-                this.txtDiscountPromocao.Text = string.Empty;
-                this.txtMargemPromocao.Text = string.Empty;
-                this.txtPrecoPromocao.Text = string.Empty;
-                this.txtInicioPromocao.Text = string.Empty;
-                this.txtFinalPromocao.Text = string.Empty;
-                this.txtObs.Text = string.Empty;
+                if (txtStatus.Text == "Ativo" && txtStatus.Text != string.Empty)
+                    lProduct.prodStatus = "A";
+                else if (txtStatus.Text != string.Empty)
+                    lProduct.prodStatus = "I";
+                else
+                    MessageBox.Show(Config.lFied +"STATUS" + Config.lRequired, Config.lAlert);
+
+
+                if (txtIdBarras.Text != string.Empty && txtNameComercial.Text != string.Empty && txtFabricante.Text != string.Empty && txtQuantidade.Text != string.Empty
+                    && txtDateCadastro.Text != string.Empty && txtPrecoVenda.Text != string.Empty && txtStatus.Text != string.Empty)
+                {
+                    da.Insert(lProduct);
+                    MessageBox.Show(MessageBoxResult.lSucess);
+                    Clean();
+                }
+                else
+                {
+                    MessageBox.Show(Config.lErrorRegister,MessageBoxResult.lError);
+                }
             }
             else
             {
                 Product lProduct= new Product();
                 productQuery da = new productQuery();
-                lProduct.prodCodigo = Convert.ToInt16(txtId.Text);
-                lProduct.prodCodigoBarras = txtIdBarras.Text;
+                if (txtIdBarras.Text != string.Empty)
+                    lProduct.prodCodigoBarras = txtIdBarras.Text;
+                else
+                    MessageBox.Show(Config.lFied + "CÓDIGO DE BARRAS" + Config.lRequired, Config.lAlert);
+
                 lProduct.prodDescricao = txtDescricao.Text;
                 lProduct.prodNomeGenerico = txtNameGenerico.Text;
-                lProduct.prodNomeComercial = txtNameComercial.Text;
+
+                if (txtNameComercial.Text != string.Empty)
+                    lProduct.prodNomeComercial = txtNameComercial.Text;
+                else
+                    MessageBox.Show(Config.lFied + "NOME COMERCIAL" + Config.lRequired, Config.lAlert);
+
                 lProduct.prodGrupo = txtGrupo.Text;
-                lProduct.prodFabricante = txtFabricante.Text;
+
+                if (txtFabricante.Text != string.Empty)
+                    lProduct.prodFabricante = txtFabricante.Text;
+                else
+                    MessageBox.Show(Config.lFied + "FABRICANTE" + Config.lRequired, Config.lAlert);
+
                 lProduct.prodUnidade = txtUnidade.Text;
                 lProduct.prodArmazenamento = txtArmazenamento.Text;
                 lProduct.prodMarca = txtMarca.Text;
-                lProduct.prodEstoque = txtQuantidade.Text;
-                lProduct.prodDataCadastro = txtDateCadastro.Text;
+
+                if (txtQuantidade.Text != string.Empty)
+                    lProduct.prodEstoque = txtQuantidade.Text;
+                else
+                    MessageBox.Show(Config.lFied + "QUANTIDADE NO ESTOQUE" + Config.lRequired, Config.lAlert);
+
+                if (txtDateCadastro.Text != string.Empty)
+                    lProduct.prodDataCadastro = txtDateCadastro.Text;
+                else
+                    MessageBox.Show(Config.lFied + "DATA DO CADASTRO" + Config.lRequired, Config.lAlert);
+
                 lProduct.prodPrecoCaixa = txtPrecoCaixa.Text;
                 lProduct.prodUnidadeCaixa = txtUnidadeCaixa.Text;
                 lProduct.prodCompraUnidade = txtPrecoCompraUnidade.Text;
                 lProduct.prodMargem = txtMargem.Text;
-                lProduct.prodPrecoVenda = txtPrecoVenda.Text;
+
+                if (txtPrecoVenda.Text != string.Empty)
+                    lProduct.prodPrecoVenda = txtPrecoVenda.Text;
+                else
+                    MessageBox.Show(Config.lFied + "PREÇO DE VENDA" + Config.lRequired, Config.lAlert);
+
+
                 lProduct.prodDescontoPromocao = txtDiscountPromocao.Text;
                 lProduct.prodMargemPromocao = txtMargemPromocao.Text;
                 lProduct.prodPrecoPromocao = txtPrecoPromocao.Text;
@@ -95,59 +147,58 @@ namespace cadastro_remedios
                 lProduct.prodFinalPromocao = txtFinalPromocao.Text;
                 lProduct.prodObs = txtObs.Text;
 
-                da.Update(lProduct);
-                MessageBox.Show(" Produto alterado com sucesso ");
-                this.txtId.Text = string.Empty;
-                this.txtIdBarras.Text = string.Empty;
-                this.txtDescricao.Text = string.Empty;
-                this.txtNameGenerico.Text = string.Empty;
-                this.txtNameComercial.Text = string.Empty;
-                this.txtGrupo.Text = string.Empty;
-                this.txtFabricante.Text = string.Empty;
-                this.txtUnidade.Text = string.Empty;
-                this.txtArmazenamento.Text = string.Empty;
-                this.txtMarca.Text = string.Empty;
-                this.txtQuantidade.Text = string.Empty;
-                this.txtDateCadastro.Text = string.Empty;
-                this.txtPrecoCaixa.Text = string.Empty;
-                this.txtUnidadeCaixa.Text = string.Empty;
-                this.txtPrecoCompraUnidade.Text = string.Empty;
-                this.txtMargem.Text = string.Empty;
-                this.txtPrecoVenda.Text = string.Empty;
-                this.txtDiscountPromocao.Text = string.Empty;
-                this.txtMargemPromocao.Text = string.Empty;
-                this.txtPrecoPromocao.Text = string.Empty;
-                this.txtInicioPromocao.Text = string.Empty;
-                this.txtFinalPromocao.Text = string.Empty;
-                this.txtObs.Text = string.Empty;
+                if (txtStatus.Text == "Ativo" && txtStatus.Text != string.Empty)
+                    lProduct.prodStatus = "A";
+                else if (txtStatus.Text != string.Empty)
+                    lProduct.prodStatus = "I";
+                else
+                    MessageBox.Show(Config.lFied + "STATUS" + Config.lRequired, Config.lAlert);
+
+
+                if (txtIdBarras.Text != string.Empty && txtNameComercial.Text != string.Empty && txtFabricante.Text != string.Empty && txtQuantidade.Text != string.Empty
+                    && txtDateCadastro.Text != string.Empty && txtPrecoVenda.Text != string.Empty && txtStatus.Text != string.Empty)
+                {
+                    da.Update(lProduct);
+                    MessageBox.Show(MessageBoxResult.lUpdate);
+                    Clean();
+                }
+                else
+                {
+                    MessageBox.Show(Config.lErrorRegister,MessageBoxResult.lErrorUpdate);
+                }
             }
         }
         //botão limpar
         private void btnClean_Click(object sender, EventArgs e)
         {
-            this.txtId.Text = string.Empty;
-            this.txtIdBarras.Text = string.Empty;
-            this.txtDescricao.Text = string.Empty;
-            this.txtNameGenerico.Text = string.Empty;
-            this.txtNameComercial.Text = string.Empty;
-            this.txtGrupo.Text = string.Empty;
-            this.txtFabricante.Text = string.Empty;
-            this.txtUnidade.Text = string.Empty;
-            this.txtArmazenamento.Text = string.Empty;
-            this.txtMarca.Text = string.Empty;
-            this.txtQuantidade.Text = string.Empty;
-            this.txtDateCadastro.Text = string.Empty;
-            this.txtPrecoCaixa.Text = string.Empty;
-            this.txtUnidadeCaixa.Text = string.Empty;
-            this.txtPrecoCompraUnidade.Text = string.Empty;
-            this.txtMargem.Text = string.Empty;
-            this.txtPrecoVenda.Text = string.Empty;
-            this.txtDiscountPromocao.Text = string.Empty;
-            this.txtMargemPromocao.Text = string.Empty;
-            this.txtPrecoPromocao.Text = string.Empty;
-            this.txtInicioPromocao.Text = string.Empty;
-            this.txtFinalPromocao.Text = string.Empty;
-            this.txtObs.Text = string.Empty;
+            Clean();
+        }
+
+        private void Clean()
+        {
+            txtId.Text = string.Empty;
+            txtIdBarras.Text = string.Empty;
+            txtDescricao.Text = string.Empty;
+            txtNameGenerico.Text = string.Empty;
+            txtNameComercial.Text = string.Empty;
+            txtGrupo.Text = string.Empty;
+            txtFabricante.Text = string.Empty;
+            txtUnidade.Text = string.Empty;
+            txtArmazenamento.Text = string.Empty;
+            txtMarca.Text = string.Empty;
+            txtQuantidade.Text = string.Empty;
+            txtDateCadastro.Text = string.Empty;
+            txtPrecoCaixa.Text = string.Empty;
+            txtUnidadeCaixa.Text = string.Empty;
+            txtPrecoCompraUnidade.Text = string.Empty;
+            txtMargem.Text = string.Empty;
+            txtPrecoVenda.Text = string.Empty;
+            txtDiscountPromocao.Text = string.Empty;
+            txtMargemPromocao.Text = string.Empty;
+            txtPrecoPromocao.Text = string.Empty;
+            txtInicioPromocao.Text = string.Empty;
+            txtFinalPromocao.Text = string.Empty;
+            txtObs.Text = string.Empty;
         }
 
         private void Search()
@@ -159,14 +210,7 @@ namespace cadastro_remedios
             {
 
                 case "Código":
-                    string pesquisa = "SELECT pro_codigo as Codigo, pro_codigo_de_barras as 'Codigo De Barras',pro_descricao_do_produto as 'Descricao Produto'," +
-                        "pro_nome_generico as 'Nome Generico',pro_nome_comercial as 'Nome Comercial',pro_grupo as Grupo ,pro_fabricante_do_produto as 'Fabricante'," +
-                        "pro_unidade as Unidade,pro_local_de_armazenamento as 'Local Armazenamento',pro_marca_fabricante as 'Marca Fabricante',pro_quantidade_no_estoque as 'Qntd Estoque'," +
-                        "pro_data_de_cadastro as 'Data Cadastro',pro_preco_de_compra_por_caixa as 'Preco Compra Caixa',pro_unid_caixa as 'Unidade Caixa',pro_preco_de_compra_unitario as 'Preco Compra Unitario'," +
-                        "pro_margem as Margem,pro_preco_de_venda as 'Preco Venda',pro_desconto_de_promocao as 'Desconto Promocao',pro_margem_de_promocao as 'Margem Promocao',pro_preco_promocao as 'Preco Promocao'," +
-                        "pro_inicio_da_promocao as 'Inicio Promocao',pro_final_da_promocao as 'Final Promocao',pro_obs as Observacoes " +
-                        "FROM cadastro_remedios WHERE pro_codigo LIKE @value";
-                    MySqlDataAdapter ad = new MySqlDataAdapter(pesquisa, con);
+                    MySqlDataAdapter ad = new MySqlDataAdapter(productQuery.GetById, con);
                     ad.SelectCommand.Parameters.AddWithValue("value", txtSearch.Text + "%");
                     DataTable table = new DataTable();
                     ad.Fill(table);
@@ -174,14 +218,7 @@ namespace cadastro_remedios
                     con.Close();
                     break;
                 case "Fabricante":
-                    string pesquisa2 = "SELECT pro_codigo as Codigo, pro_codigo_de_barras as 'Codigo De Barras',pro_descricao_do_produto as 'Descricao Produto'," +
-                        "pro_nome_generico as 'Nome Generico',pro_nome_comercial as 'Nome Comercial',pro_grupo as Grupo ,pro_fabricante_do_produto as 'Fabricante'," +
-                        "pro_unidade as Unidade,pro_local_de_armazenamento as 'Local Armazenamento',pro_marca_fabricante as 'Marca Fabricante',pro_quantidade_no_estoque as 'Qntd Estoque'," +
-                        "pro_data_de_cadastro as 'Data Cadastro',pro_preco_de_compra_por_caixa as 'Preco Compra Caixa',pro_unid_caixa as 'Unidade Caixa',pro_preco_de_compra_unitario as 'Preco Compra Unitario'," +
-                        "pro_margem as Margem,pro_preco_de_venda as 'Preco Venda',pro_desconto_de_promocao as 'Desconto Promocao',pro_margem_de_promocao as 'Margem Promocao',pro_preco_promocao as 'Preco Promocao'," +
-                        "pro_inicio_da_promocao as 'Inicio Promocao',pro_final_da_promocao as 'Final Promocao',pro_obs as Observacoes " +
-                        "FROM cadastro_remedios WHERE pro_fabricante_do_produto LIKE @value";
-                    MySqlDataAdapter ad1 = new MySqlDataAdapter(pesquisa2, con);
+                    MySqlDataAdapter ad1 = new MySqlDataAdapter(productQuery.GetByCompany, con);
                     ad1.SelectCommand.Parameters.AddWithValue("value", txtSearch.Text + "%");
                     DataTable table1 = new DataTable();
                     ad1.Fill(table1);
@@ -189,18 +226,35 @@ namespace cadastro_remedios
                     con.Close();
                     break;
                 case "Nome Genérico":
-                    string pesquisa3 = "SELECT pro_codigo as Codigo, pro_codigo_de_barras as 'Codigo De Barras',pro_descricao_do_produto as 'Descricao Produto'," +
-                        "pro_nome_generico as 'Nome Generico',pro_nome_comercial as 'Nome Comercial',pro_grupo as Grupo ,pro_fabricante_do_produto as 'Fabricante'," +
-                        "pro_unidade as Unidade,pro_local_de_armazenamento as 'Local Armazenamento',pro_marca_fabricante as 'Marca Fabricante',pro_quantidade_no_estoque as 'Qntd Estoque'," +
-                        "pro_data_de_cadastro as 'Data Cadastro',pro_preco_de_compra_por_caixa as 'Preco Compra Caixa',pro_unid_caixa as 'Unidade Caixa',pro_preco_de_compra_unitario as 'Preco Compra Unitario'," +
-                        "pro_margem as Margem,pro_preco_de_venda as 'Preco Venda',pro_desconto_de_promocao as 'Desconto Promocao',pro_margem_de_promocao as 'Margem Promocao',pro_preco_promocao as 'Preco Promocao'," +
-                        "pro_inicio_da_promocao as 'Inicio Promocao',pro_final_da_promocao as 'Final Promocao',pro_obs as Observacoes " +
-                        "FROM cadastro_remedios WHERE pro_nome_generico LIKE @value";
-                    MySqlDataAdapter ad2 = new MySqlDataAdapter(pesquisa3, con);
+                    MySqlDataAdapter ad2 = new MySqlDataAdapter(productQuery.GetByGenericName, con);
                     ad2.SelectCommand.Parameters.AddWithValue("value", txtSearch.Text + "%");
                     DataTable table2 = new DataTable();
                     ad2.Fill(table2);
                     dataGridView.DataSource = table2;
+                    con.Close();
+                    break;
+                case "Todos":
+                    MySqlDataAdapter ad3 = new MySqlDataAdapter(productQuery.GetAllProducts, con);
+                    ad3.SelectCommand.Parameters.AddWithValue("value", txtSearch.Text + "%");
+                    DataTable table3 = new DataTable();
+                    ad3.Fill(table3);
+                    dataGridView.DataSource = table3;
+                    con.Close();
+                    break;
+                case "Ativo":
+                    MySqlDataAdapter ad4 = new MySqlDataAdapter(productQuery.GetAllActiveProducts, con);
+                    ad4.SelectCommand.Parameters.AddWithValue("value", txtSearch.Text + "%");
+                    DataTable table4 = new DataTable();
+                    ad4.Fill(table4);
+                    dataGridView.DataSource = table4;
+                    con.Close();
+                    break;
+                case "Inativo":
+                    MySqlDataAdapter ad5 = new MySqlDataAdapter(productQuery.GetAllInactiveProducts, con);
+                    ad5.SelectCommand.Parameters.AddWithValue("value", txtSearch.Text + "%");
+                    DataTable table5 = new DataTable();
+                    ad5.Fill(table5);
+                    dataGridView.DataSource = table5;
                     con.Close();
                     break;
             }
@@ -213,7 +267,7 @@ namespace cadastro_remedios
         //botão voltar
         private void btnBack_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
             Principal remedio = new Principal();
             remedio.Show();
         }
@@ -228,7 +282,7 @@ namespace cadastro_remedios
 
             MySqlCommand cmd2 = new MySqlCommand("SELECT pro_codigo, pro_codigo_de_barras,pro_descricao_do_produto,pro_nome_generico,pro_nome_comercial,pro_grupo ,pro_fabricante_do_produto,pro_unidade," +
             "pro_local_de_armazenamento,pro_marca_fabricante,pro_quantidade_no_estoque,pro_data_de_cadastro,pro_preco_de_compra_por_caixa,pro_unid_caixa,pro_preco_de_compra_unitario," +
-            "pro_margem,pro_preco_de_venda,pro_desconto_de_promocao,pro_margem_de_promocao,pro_preco_promocao,pro_inicio_da_promocao,pro_final_da_promocao,pro_obs FROM cadastro_remedios WHERE pro_codigo = '" + codigo + "'", cn);
+            "pro_margem,pro_preco_de_venda,pro_desconto_de_promocao,pro_margem_de_promocao,pro_preco_promocao,pro_inicio_da_promocao,pro_final_da_promocao,pro_obs,pro_status FROM cadastro_remedios WHERE pro_codigo = '" + codigo + "'", cn);
             MySqlDataReader reader = null;
             reader = cmd2.ExecuteReader();
 
@@ -257,6 +311,12 @@ namespace cadastro_remedios
                 txtInicioPromocao.Text = reader.GetString(20);
                 txtFinalPromocao.Text = reader.GetString(21);
                 txtObs.Text = reader.GetString(22);
+                txtStatus.Text = reader.GetString(23);
+                if (txtStatus.Text == "A")
+                    txtStatus.Text = "Ativo";
+                else
+                    txtStatus.Text = "Inativo";
+
             }
             cn.Close();
             tabControl1.SelectedTab = tabPage1;
@@ -266,7 +326,7 @@ namespace cadastro_remedios
         {
             if (e.KeyCode == Keys.Escape)
             {
-                this.Close();
+                Close();
                 Principal remedio = new Principal();
                 remedio.Show();
             }
@@ -281,6 +341,31 @@ namespace cadastro_remedios
         {
             txtIdBarras.Focus();
             txtDateCadastro.Text = DateTime.Now.ToString();
+            txtDiscountPromocao.ReadOnly = true;
+            txtFinalPromocao.ReadOnly = true;
+            txtInicioPromocao.ReadOnly = true;
+            txtPrecoPromocao.ReadOnly = true;
+            txtMargemPromocao.ReadOnly = true;
+        }
+
+        private void checkBox1_CheckStateChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked)
+            {
+                txtDiscountPromocao.ReadOnly = false;
+                txtFinalPromocao.ReadOnly = false;
+                txtInicioPromocao.ReadOnly = false;
+                txtPrecoPromocao.ReadOnly = false;
+                txtMargemPromocao.ReadOnly = false;
+            }
+            else
+            {
+                txtDiscountPromocao.ReadOnly = true;
+                txtFinalPromocao.ReadOnly = true;
+                txtInicioPromocao.ReadOnly = true;
+                txtPrecoPromocao.ReadOnly = true;
+                txtMargemPromocao.ReadOnly = true;
+            }
         }
     }
 }

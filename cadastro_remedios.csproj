@@ -156,6 +156,7 @@
     <Compile Include="Models\Product.cs" />
     <Compile Include="Queries\employeeQuery.cs" />
     <Compile Include="Queries\clientQuery.cs" />
+    <Compile Include="Queries\errorQuery.cs" />
     <Compile Include="Queries\productQuery.cs" />
     <Compile Include="Form\Cadastro_Funcionario.cs">
       <SubType>Form</SubType>
@@ -339,7 +340,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Credentials.cs" />
+    <Compile Include="Config.cs" />
     <None Include="Connected Services\WSCorreios\configuration91.svcinfo" />
     <None Include="Connected Services\WSCorreios\configuration.svcinfo" />
     <None Include="Connected Services\WSCorreios\Reference.svcmap">

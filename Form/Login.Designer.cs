@@ -38,6 +38,7 @@
             this.btnExit = new System.Windows.Forms.Button();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -135,12 +136,22 @@
             this.linkLabel2.Text = "Esqueceu seu login ou senha?";
             this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel2_LinkClicked);
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(64, 2);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(0, 13);
+            this.label3.TabIndex = 9;
+            this.label3.Visible = false;
+            // 
             // Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(309, 364);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.linkLabel2);
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.btnExit);
@@ -174,5 +185,6 @@
         private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.LinkLabel linkLabel2;
+        private System.Windows.Forms.Label label3;
     }
 }

@@ -14,7 +14,7 @@ namespace cadastro_remedios
         public email()
         {
             InitializeComponent();
-            MessageBox.Show("Antes de prosseguir, leia a informação legal!", "Atenção");
+            MessageBox.Show("Antes de prosseguir, leia a informação legal!", Config.lAlert);
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -43,12 +43,13 @@ namespace cadastro_remedios
 
         private void btnEnviar_Click(object sender, EventArgs e)
         {
-            try
+
+            string op = (string)comboBox1.SelectedItem;
+            switch (op)
             {
-                string op = (string)comboBox1.SelectedItem;
-                switch (op)
-                {
-                    case "Outlook":
+                case "Outlook":
+                    try
+                    {
                         Email = new MailMessage();
                         Email.To.Add(new MailAddress(txtPara.Text));
                         Email.From = (new MailAddress(txtDe.Text));
@@ -66,9 +67,19 @@ namespace cadastro_remedios
                         this.Close();
                         email email = new email();
                         email.Show();
-                        break;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(MessageBoxResult.lEmailError, ex.Message);
+                        errorQuery lerrorQuery = new errorQuery();
+                        MessageBox.Show(MessageBoxResult.lEmailError, Config.lAlert);
+                        lerrorQuery.AddError(Principal.lUser, MessageBoxResult.lEmailError, ex.Message.Replace("'", ""), DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"), "Venda");
+                    }
+                    break;
 
-                    case "Gmail":
+                case "Gmail":
+                    try
+                    {
                         Email = new MailMessage();
                         Email.To.Add(new MailAddress(txtPara.Text));
                         Email.From = (new MailAddress(txtDe.Text));
@@ -86,60 +97,64 @@ namespace cadastro_remedios
                         this.Close();
                         email email1 = new email();
                         email1.Show();
-                        break;
-
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Falha ao enviar email. " + ex.Message);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(MessageBoxResult.lEmailError, ex.Message);
+                        errorQuery lerrorQuery = new errorQuery();
+                        MessageBox.Show(MessageBoxResult.lEmailError, Config.lAlert);
+                        lerrorQuery.AddError(Principal.lUser, MessageBoxResult.lEmailError, ex.Message.Replace("'", ""), DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"), "Venda");
+                    }
+                    break;
             }
         }
-    
 
-    private void label6_Click(object sender, EventArgs e)
-    {
-        MessageBox.Show("A FarmaLife não armazena a senha do seu e-mail, apenas utiliza e o mesmo é descartável após o uso. Se desejar poderá ficar a vontade para olhar o código fonte do sistema. A invasão de dispositivo informático é crime de acordo com a lei (CP, art. 154-A)");
+
+
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("A FarmaLife não armazena a senha do seu e-mail, apenas utiliza e o mesmo é descartável após o uso. Se desejar poderá ficar a vontade para olhar o código fonte do sistema. A invasão de dispositivo informático é crime de acordo com a lei (CP, art. 154-A)");
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("O html é permitido, então sinta-se a vontade para utilizar as tags que bem entender, tais como: <br> <b> <i>... entre outras, use a criatividade :D");
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            label6.Visible = false;
+            label7.Visible = false;
+            button4.Visible = true;
+            btnEnviar.Visible = false;
+            button1.Visible = false;
+            button3.Visible = false;
+            dataGridView1.Visible = true;
+            button2.Visible = false;
+
+            MySqlConnection con = new MySqlConnection(Connection.lConnection);
+            con.Open();
+            string pesquisa = "SELECT empName as Nome,empCity as Cidade,empRole as Cargo,empEmail as 'E-mail do Funcionario' FROM employee";
+            MySqlDataAdapter ad = new MySqlDataAdapter(pesquisa, con);
+            DataTable table = new DataTable();
+            ad.Fill(table);
+            dataGridView1.DataSource = table;
+
+            con.Close();
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            label6.Visible = true;
+            label7.Visible = true;
+            button4.Visible = false;
+            btnEnviar.Visible = true;
+            button1.Visible = true;
+            button3.Visible = true;
+            dataGridView1.Visible = false;
+            button2.Visible = true;
+        }
     }
-
-    private void label7_Click(object sender, EventArgs e)
-    {
-        MessageBox.Show("O html é permitido, então sinta-se a vontade para utilizar as tags que bem entender, tais como: <br> <b> <i>... entre outras, use a criatividade :D");
-    }
-
-    private void button2_Click(object sender, EventArgs e)
-    {
-        label6.Visible = false;
-        label7.Visible = false;
-        button4.Visible = true;
-        btnEnviar.Visible = false;
-        button1.Visible = false;
-        button3.Visible = false;
-        dataGridView1.Visible = true;
-        button2.Visible = false;
-        
-        MySqlConnection con = new MySqlConnection(Connection.lConnection);
-        con.Open();
-        string pesquisa = "SELECT empName as Nome,empCity as Cidade,empRole as Cargo,empEmail as 'E-mail do Funcionario' FROM registeremployee";
-        MySqlDataAdapter ad = new MySqlDataAdapter(pesquisa, con);
-        DataTable table = new DataTable();
-        ad.Fill(table);
-        dataGridView1.DataSource = table;
-
-        con.Close();
-
-    }
-
-    private void button4_Click(object sender, EventArgs e)
-    {
-        label6.Visible = true;
-        label7.Visible = true;
-        button4.Visible = false;
-        btnEnviar.Visible = true;
-        button1.Visible = true;
-        button3.Visible = true;
-        dataGridView1.Visible = false;
-        button2.Visible = true;
-    }
-}
 }

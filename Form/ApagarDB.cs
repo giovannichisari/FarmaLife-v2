@@ -26,9 +26,9 @@ namespace cadastro_remedios
 
         private void btnApagar_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Deseja realmente zerar o banco de dados?", "Atenção", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            if (MessageBox.Show("Deseja realmente zerar o banco de dados?", Config.lAlert, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                if (MessageBox.Show("DESEJA REALMENTE ZERAR O BANCO DE DADOS?", "Atenção", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                if (MessageBox.Show("DESEJA REALMENTE ZERAR O BANCO DE DADOS?", Config.lAlert, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     try
                     {
@@ -43,7 +43,7 @@ namespace cadastro_remedios
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Erro de comandos" + ex.Message);
+                        MessageBox.Show(MessageBoxResult.lErrorCommand + ex.Message);
                     }
                 }
             }

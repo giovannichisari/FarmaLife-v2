@@ -54,7 +54,7 @@ namespace cadastro_remedios
         {
             if (e.KeyCode == Keys.Escape)
             {
-                if (MessageBox.Show("Deseja voltar ao login?", "Atenção", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                if (MessageBox.Show("Deseja voltar ao login?", Config.lAlert, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     this.Close();
                     Login login = new Login();

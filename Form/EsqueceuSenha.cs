@@ -23,7 +23,7 @@ namespace cadastro_remedios
             MySqlConnection con = new MySqlConnection(Connection.lConnection);
             con.Open();
 
-            string consulta = "SELECT empUsername,empPassword,empName FROM registeremployee WHERE empDocument = @cpf";
+            string consulta = "SELECT empUsername,empPassword,empName FROM employee WHERE empDocument = @cpf";
             MySqlCommand cmd = new MySqlCommand(consulta, con);
             //Passo o parametro
             cmd.Parameters.AddWithValue("@cpf", txtCpf.Text);
@@ -62,9 +62,13 @@ namespace cadastro_remedios
                 Login login = new Login();
                 login.Show();
             }
-            catch
+            catch (Exception ex)
             {
-                MessageBox.Show(MessageBoxResult.lError);
+                MessageBox.Show(MessageBoxResult.lEmailError);
+                errorQuery lerrorQuery = new errorQuery();
+                MessageBox.Show(MessageBoxResult.lEmailError, Config.lAlert);
+                lerrorQuery.AddError(Principal.lUser, MessageBoxResult.lEmailError, ex.Message.Replace("'", ""), DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"), "Esqueceu Email");
+
             }
         }
 
@@ -72,7 +76,7 @@ namespace cadastro_remedios
         {
             if (e.KeyCode == Keys.Escape)
             {
-                if (MessageBox.Show("Deseja voltar ao login?", "Atenção", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                if (MessageBox.Show("Deseja voltar ao login?", Config.lAlert, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     this.Close();
                     Login login = new Login();

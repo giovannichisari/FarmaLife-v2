@@ -87,7 +87,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.btnClean = new System.Windows.Forms.Button();
+            this.btnCloseSearch = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.btnPequisar = new System.Windows.Forms.Button();
@@ -669,7 +669,7 @@
             // panel1
             // 
             this.panel1.Controls.Add(this.dataGridView2);
-            this.panel1.Controls.Add(this.btnClean);
+            this.panel1.Controls.Add(this.btnCloseSearch);
             this.panel1.Controls.Add(this.textBox1);
             this.panel1.Controls.Add(this.comboBox2);
             this.panel1.Controls.Add(this.btnPequisar);
@@ -693,17 +693,17 @@
             this.dataGridView2.TabIndex = 116;
             this.dataGridView2.Visible = false;
             // 
-            // btnClean
+            // btnCloseSearch
             // 
-            this.btnClean.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnClean.Image = ((System.Drawing.Image)(resources.GetObject("btnClean.Image")));
-            this.btnClean.Location = new System.Drawing.Point(573, 13);
-            this.btnClean.Name = "btnClean";
-            this.btnClean.Size = new System.Drawing.Size(43, 42);
-            this.btnClean.TabIndex = 117;
-            this.btnClean.UseVisualStyleBackColor = true;
-            this.btnClean.Visible = false;
-            this.btnClean.Click += new System.EventHandler(this.btnClean_Click);
+            this.btnCloseSearch.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCloseSearch.Image = ((System.Drawing.Image)(resources.GetObject("btnCloseSearch.Image")));
+            this.btnCloseSearch.Location = new System.Drawing.Point(573, 13);
+            this.btnCloseSearch.Name = "btnCloseSearch";
+            this.btnCloseSearch.Size = new System.Drawing.Size(43, 42);
+            this.btnCloseSearch.TabIndex = 117;
+            this.btnCloseSearch.UseVisualStyleBackColor = true;
+            this.btnCloseSearch.Visible = false;
+            this.btnCloseSearch.Click += new System.EventHandler(this.btnCloseSearch_Click);
             // 
             // textBox1
             // 
@@ -893,7 +893,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.DataGridView dataGridView2;
-        private System.Windows.Forms.Button btnClean;
+        private System.Windows.Forms.Button btnCloseSearch;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.Button btnPequisar;
