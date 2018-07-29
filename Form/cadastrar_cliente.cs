@@ -5,6 +5,8 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using MySql.Data.MySqlClient;
 using cadastro_remedios.Models;
+using Microsoft.Office.Interop.Excel;
+
 
 namespace cadastro_remedios
 {
@@ -45,44 +47,44 @@ namespace cadastro_remedios
         // botão cadastrar
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            if (txtId.Text !=string.Empty)
+            if (txtId.Text != string.Empty)
             {
                 Client lClient = new Client();
                 clientQuery da = new clientQuery();
-                
-                lClient.clientId = Convert.ToInt16(txtId.Text);
+
+                lClient.Id = Convert.ToInt16(txtId.Text);
                 if (txtName.Text != string.Empty)
-                    lClient.clientName = txtName.Text;
+                    lClient.Name = txtName.Text;
                 else
-                    MessageBox.Show(Config.lFied +"NOME"+ Config.lRequired, Config.lAlert);
+                    MessageBox.Show(Config.lFied + "NOME" + Config.lRequired, Config.lAlert);
 
                 if (txtCpf.Text != string.Empty)
-                    lClient.clientDocument = txtCpf.Text;
+                    lClient.Document = txtCpf.Text;
                 else
-                    MessageBox.Show(Config.lFied +"CPF"+ Config.lRequired, Config.lAlert);
+                    MessageBox.Show(Config.lFied + "CPF" + Config.lRequired, Config.lAlert);
 
                 if (txtCep.Text != string.Empty)
-                    lClient.clientZipCode = txtCep.Text;
+                    lClient.ZipCode = txtCep.Text;
                 else
-                    MessageBox.Show(Config.lFied +"CEP"+ Config.lRequired, Config.lAlert);
+                    MessageBox.Show(Config.lFied + "CEP" + Config.lRequired, Config.lAlert);
 
-                lClient.clientStreet = txtStreet.Text;
-                lClient.clientDistrict = txtDistrict.Text;
-                lClient.clientCity = txtCity.Text;
-                lClient.clientState = txtState.Text;
-                lClient.clientTelephone = txtCellphone.Text;
+                lClient.Street = txtStreet.Text;
+                lClient.District = txtDistrict.Text;
+                lClient.City = txtCity.Text;
+                lClient.State = txtState.Text;
+                lClient.Telephone = txtCellphone.Text;
 
                 if (txtEmail.Text != string.Empty)
-                    lClient.clientEmail = txtEmail.Text;
+                    lClient.Email = txtEmail.Text;
                 else
-                    MessageBox.Show(Config.lFied +"E-MAIL"+ Config.lRequired, Config.lAlert);
+                    MessageBox.Show(Config.lFied + "E-MAIL" + Config.lRequired, Config.lAlert);
 
-                if (txtStatus.Text =="Ativo" && txtStatus.Text != string.Empty)
-                    lClient.clientStatus ="A";
+                if (txtStatus.Text == "Ativo" && txtStatus.Text != string.Empty)
+                    lClient.Status = "A";
                 else if (txtStatus.Text != string.Empty)
-                    lClient.clientStatus ="I";
+                    lClient.Status = "I";
                 else
-                    MessageBox.Show(Config.lFied +"STATUS"+ Config.lRequired, Config.lAlert);
+                    MessageBox.Show(Config.lFied + "STATUS" + Config.lRequired, Config.lAlert);
 
 
                 if (txtName.Text != string.Empty && txtCep.Text != string.Empty && txtEmail.Text != string.Empty
@@ -94,7 +96,7 @@ namespace cadastro_remedios
                 }
                 else
                 {
-                    MessageBox.Show(Config.lErrorRegister,MessageBoxResult.lErrorUpdate);
+                    MessageBox.Show(Config.lErrorRegister, MessageBoxResult.lErrorUpdate);
                 }
 
             }
@@ -102,7 +104,7 @@ namespace cadastro_remedios
             {
                 MySqlConnection con = new MySqlConnection(Connection.lConnection);
                 con.Open();
-                string consulta ="SELECT for_cpf FROM cadastro_cliente WHERE for_cpf = @cpf";
+                string consulta = "SELECT for_cpf FROM cadastro_cliente WHERE for_cpf = @cpf";
                 MySqlCommand cmd = new MySqlCommand(consulta, con);
 
                 //Passo o parametro
@@ -123,37 +125,37 @@ namespace cadastro_remedios
                     Client lClient = new Client();
                     clientQuery da = new clientQuery();
                     if (txtName.Text != string.Empty)
-                        lClient.clientName = txtName.Text;
+                        lClient.Name = txtName.Text;
                     else
-                        MessageBox.Show(Config.lFied +"NOME"+ Config.lRequired, Config.lAlert);
+                        MessageBox.Show(Config.lFied + "NOME" + Config.lRequired, Config.lAlert);
 
                     if (txtCpf.Text != string.Empty)
-                        lClient.clientDocument = txtCpf.Text;
+                        lClient.Document = txtCpf.Text;
                     else
-                        MessageBox.Show(Config.lFied +"CPF"+ Config.lRequired, Config.lAlert);
+                        MessageBox.Show(Config.lFied + "CPF" + Config.lRequired, Config.lAlert);
 
                     if (txtCep.Text != string.Empty)
-                        lClient.clientZipCode = txtCep.Text;
+                        lClient.ZipCode = txtCep.Text;
                     else
-                        MessageBox.Show(Config.lFied +"CEP"+ Config.lRequired, Config.lAlert);
+                        MessageBox.Show(Config.lFied + "CEP" + Config.lRequired, Config.lAlert);
 
-                    lClient.clientStreet = txtStreet.Text;
-                    lClient.clientDistrict = txtDistrict.Text;
-                    lClient.clientCity = txtCity.Text;
-                    lClient.clientState = txtState.Text;
-                    lClient.clientTelephone = txtCellphone.Text;
+                    lClient.Street = txtStreet.Text;
+                    lClient.District = txtDistrict.Text;
+                    lClient.City = txtCity.Text;
+                    lClient.State = txtState.Text;
+                    lClient.Telephone = txtCellphone.Text;
 
                     if (txtEmail.Text != string.Empty)
-                        lClient.clientEmail = txtEmail.Text;
+                        lClient.Email = txtEmail.Text;
                     else
-                        MessageBox.Show(Config.lFied +"E-MAIL"+ Config.lRequired, Config.lAlert);
+                        MessageBox.Show(Config.lFied + "E-MAIL" + Config.lRequired, Config.lAlert);
 
-                    if (txtStatus.Text =="Ativo" && txtStatus.Text != string.Empty)
-                        lClient.clientStatus ="A";
+                    if (txtStatus.Text == "Ativo" && txtStatus.Text != string.Empty)
+                        lClient.Status = "A";
                     else if (txtStatus.Text != string.Empty)
-                        lClient.clientStatus ="I";
+                        lClient.Status = "I";
                     else
-                        MessageBox.Show(Config.lFied +"STATUS"+ Config.lRequired, Config.lAlert);
+                        MessageBox.Show(Config.lFied + "STATUS" + Config.lRequired, Config.lAlert);
 
 
                     if (txtName.Text != string.Empty && txtCep.Text != string.Empty && txtEmail.Text != string.Empty
@@ -171,10 +173,10 @@ namespace cadastro_remedios
             }
             else
             {
-                
+
                 MySqlConnection con = new MySqlConnection(Connection.lConnection);
                 con.Open();
-                string consulta ="SELECT for_cpf FROM cadastro_cliente WHERE for_cpf = @cpf";
+                string consulta = "SELECT for_cpf FROM cadastro_cliente WHERE for_cpf = @cpf";
                 MySqlCommand cmd = new MySqlCommand(consulta, con);
 
                 //Passo o parametro
@@ -195,40 +197,40 @@ namespace cadastro_remedios
                     Client lClient = new Client();
                     clientQuery da = new clientQuery();
                     if (txtName.Text != string.Empty)
-                        lClient.clientName = txtName.Text;
+                        lClient.Name = txtName.Text;
                     else
-                        MessageBox.Show(Config.lFied +"NOME"+ Config.lRequired, Config.lAlert);
+                        MessageBox.Show(Config.lFied + "NOME" + Config.lRequired, Config.lAlert);
 
                     if (txtCpf.Text != string.Empty)
-                        lClient.clientDocument = txtCpf.Text;
+                        lClient.Document = txtCpf.Text;
                     else
-                        MessageBox.Show(Config.lFied +"CPF"+ Config.lRequired, Config.lAlert);
+                        MessageBox.Show(Config.lFied + "CPF" + Config.lRequired, Config.lAlert);
 
                     if (txtCep.Text != string.Empty)
-                        lClient.clientZipCode = txtCep.Text;
+                        lClient.ZipCode = txtCep.Text;
                     else
-                        MessageBox.Show(Config.lFied +"CEP"+ Config.lRequired, Config.lAlert);
+                        MessageBox.Show(Config.lFied + "CEP" + Config.lRequired, Config.lAlert);
 
-                    lClient.clientStreet = txtStreet.Text;
-                    lClient.clientDistrict = txtDistrict.Text;
-                    lClient.clientCity = txtCity.Text;
-                    lClient.clientState = txtState.Text;
-                    lClient.clientTelephone = txtCellphone.Text;
+                    lClient.Street = txtStreet.Text;
+                    lClient.District = txtDistrict.Text;
+                    lClient.City = txtCity.Text;
+                    lClient.State = txtState.Text;
+                    lClient.Telephone = txtCellphone.Text;
 
                     if (txtEmail.Text != string.Empty)
-                        lClient.clientEmail = txtEmail.Text;
+                        lClient.Email = txtEmail.Text;
                     else
-                        MessageBox.Show(Config.lFied +"E-MAIL"+ Config.lRequired, Config.lAlert);
+                        MessageBox.Show(Config.lFied + "E-MAIL" + Config.lRequired, Config.lAlert);
 
-                    if (txtStatus.Text =="Ativo" && txtStatus.Text != string.Empty)
-                        lClient.clientStatus ="A";
+                    if (txtStatus.Text == "Ativo" && txtStatus.Text != string.Empty)
+                        lClient.Status = "A";
                     else if (txtStatus.Text != string.Empty)
-                        lClient.clientStatus ="I";
+                        lClient.Status = "I";
                     else
-                        MessageBox.Show(Config.lFied +"STATUS"+ Config.lRequired, Config.lAlert);
+                        MessageBox.Show(Config.lFied + "STATUS" + Config.lRequired, Config.lAlert);
 
 
-                    if (txtName.Text != string.Empty && txtCep.Text != string.Empty  && txtEmail.Text != string.Empty
+                    if (txtName.Text != string.Empty && txtCep.Text != string.Empty && txtEmail.Text != string.Empty
                         && txtCpf.Text != string.Empty && txtStatus.Text != string.Empty)
                     {
                         da.Add(lClient);
@@ -243,7 +245,7 @@ namespace cadastro_remedios
                     {
                         MySqlConnection conn = new MySqlConnection(Connection.lConnection);
                         conn.Open();
-                        string consulta1 ="SELECT for_nome,for_email FROM cadastro_cliente WHERE for_email = @for_email";
+                        string consulta1 = "SELECT for_nome,for_email FROM cadastro_cliente WHERE for_email = @for_email";
                         MySqlCommand cmd1 = new MySqlCommand(consulta1, conn);
                         //Passo o parametro
                         cmd1.Parameters.AddWithValue("@for_email", txtEmail.Text);
@@ -259,9 +261,9 @@ namespace cadastro_remedios
                         Email = new MailMessage();
                         Email.To.Add(new MailAddress(lEmail));
                         Email.From = (new MailAddress(Credentials.lAdress));
-                        Email.Subject ="Bem Vindo a Farmalife";
+                        Email.Subject = "Bem Vindo a Farmalife";
                         Email.IsBodyHtml = true;
-                        Email.Body ="Ceo:Giovanni Nascimento Santos <br/> FarmaLife Enterprise 2018 ® </br> <b>Parabéns! Seu cadastrado foi concluído com exito e o(a) senhor(a)" + lName +" já pode desfrutar de todos os nossos produtos. Fique atento no e-mail que estaremos sempre encaminhando descontos para agradar os nossos clientes. </b></br>Com atenção, FarmaLife</br> <i>Não responder esse e-mail</i></br>";
+                        Email.Body = "Ceo:Giovanni Nascimento Santos <br/> FarmaLife Enterprise 2018 ® </br> <b>Parabéns! Seu cadastrado foi concluído com exito e o(a) senhor(a)" + lName + " já pode desfrutar de todos os nossos produtos. Fique atento no e-mail que estaremos sempre encaminhando descontos para agradar os nossos clientes. </b></br>Com atenção, FarmaLife</br> <i>Não responder esse e-mail</i></br>";
                         SmtpClient cliente = new SmtpClient(Credentials.lSmtpLive, Credentials.lSmtpLivePort);
                         using (cliente)
                         {
@@ -284,59 +286,59 @@ namespace cadastro_remedios
         }
         private void Pesquisar()
         {
-            
+
             MySqlConnection con = new MySqlConnection(Connection.lConnection);
             con.Open();
             string op = (string)comboBox1.SelectedItem;
             switch (op)
             {
-                case"Nome":
-                    string pesquisa ="SELECT for_cod as Codigo, for_nome as Nome ,for_endereco as Endereco,for_cpf as CPF,for_cep as Cep,for_bairro as Bairro,for_cidade as Cidade,for_uf as UF,for_fone as Telefone," +
+                case "Nome":
+                    string pesquisa = "SELECT for_cod as Codigo, for_nome as Nome ,for_endereco as Endereco,for_cpf as CPF,for_cep as Cep,for_bairro as Bairro,for_cidade as Cidade,for_uf as UF,for_fone as Telefone," +
                        "for_email as Email FROM cadastro_cliente WHERE for_nome LIKE @value AND for_status = 'A'";
                     MySqlDataAdapter ad = new MySqlDataAdapter(pesquisa, con);
-                    ad.SelectCommand.Parameters.AddWithValue("value", txtSearch.Text +"%");
-                    DataTable table = new DataTable();
+                    ad.SelectCommand.Parameters.AddWithValue("value", txtSearch.Text + "%");
+                    System.Data.DataTable table = new System.Data.DataTable();
                     ad.Fill(table);
                     dataGridView1.DataSource = table;
                     con.Close();
                     break;
 
-                case"ID":
-                    string pesquisa2 ="SELECT for_cod as Codigo, for_nome as Nome ,for_endereco as Endereco,for_cpf as CPF,for_cep as Cep,for_bairro as Bairro,for_cidade as Cidade,for_uf as UF,for_fone as Telefone," +
+                case "ID":
+                    string pesquisa2 = "SELECT for_cod as Codigo, for_nome as Nome ,for_endereco as Endereco,for_cpf as CPF,for_cep as Cep,for_bairro as Bairro,for_cidade as Cidade,for_uf as UF,for_fone as Telefone," +
                        "for_email as Email FROM cadastro_cliente WHERE for_cod LIKE @value AND for_status = 'A'";
                     MySqlDataAdapter ad2 = new MySqlDataAdapter(pesquisa2, con);
-                    ad2.SelectCommand.Parameters.AddWithValue("value", txtSearch.Text +"%");
-                    DataTable table2 = new DataTable();
+                    ad2.SelectCommand.Parameters.AddWithValue("value", txtSearch.Text + "%");
+                    System.Data.DataTable table2 = new System.Data.DataTable();
                     ad2.Fill(table2);
                     dataGridView1.DataSource = table2;
                     con.Close();
                     break;
 
-                case"Ativo":
-                    string pesquisa3 ="SELECT for_cod as Codigo, for_nome as Nome ,for_endereco as Endereco,for_cpf as CPF,for_cep as Cep,for_bairro as Bairro,for_cidade as Cidade,for_uf as UF,for_fone as Telefone," +
+                case "Ativo":
+                    string pesquisa3 = "SELECT for_cod as Codigo, for_nome as Nome ,for_endereco as Endereco,for_cpf as CPF,for_cep as Cep,for_bairro as Bairro,for_cidade as Cidade,for_uf as UF,for_fone as Telefone," +
                        "for_email as Email,for_status as Status FROM cadastro_cliente WHERE for_status = 'A'";
                     MySqlDataAdapter ad3 = new MySqlDataAdapter(pesquisa3, con);
-                    DataTable table3 = new DataTable();
+                    System.Data.DataTable table3 = new System.Data.DataTable();
                     ad3.Fill(table3);
                     dataGridView1.DataSource = table3;
                     con.Close();
                     break;
 
-                case"Inativo":
-                    string pesquisa4 ="SELECT for_cod as Codigo, for_nome as Nome ,for_endereco as Endereco,for_cpf as CPF,for_cep as Cep,for_bairro as Bairro,for_cidade as Cidade,for_uf as UF,for_fone as Telefone," +
+                case "Inativo":
+                    string pesquisa4 = "SELECT for_cod as Codigo, for_nome as Nome ,for_endereco as Endereco,for_cpf as CPF,for_cep as Cep,for_bairro as Bairro,for_cidade as Cidade,for_uf as UF,for_fone as Telefone," +
                        "for_email as Email,for_status as Status FROM cadastro_cliente WHERE for_status = 'I'";
                     MySqlDataAdapter ad4 = new MySqlDataAdapter(pesquisa4, con);
-                    DataTable table4 = new DataTable();
+                    System.Data.DataTable table4 = new System.Data.DataTable();
                     ad4.Fill(table4);
                     dataGridView1.DataSource = table4;
                     con.Close();
                     break;
 
-                case"Todos":
-                    string pesquisa5 ="SELECT for_cod as Codigo, for_nome as Nome ,for_endereco as Endereco,for_cpf as CPF,for_cep as Cep,for_bairro as Bairro,for_cidade as Cidade,for_uf as UF,for_fone as Telefone," +
+                case "Todos":
+                    string pesquisa5 = "SELECT for_cod as Codigo, for_nome as Nome ,for_endereco as Endereco,for_cpf as CPF,for_cep as Cep,for_bairro as Bairro,for_cidade as Cidade,for_uf as UF,for_fone as Telefone," +
                       "for_email as Email,for_status as Status FROM cadastro_cliente";
                     MySqlDataAdapter ad5 = new MySqlDataAdapter(pesquisa5, con);
-                    DataTable table5 = new DataTable();
+                    System.Data.DataTable table5 = new System.Data.DataTable();
                     ad5.Fill(table5);
                     dataGridView1.DataSource = table5;
                     con.Close();
@@ -348,6 +350,8 @@ namespace cadastro_remedios
         private void btnSearch_Click(object sender, EventArgs e)
         {
             Pesquisar();
+            btnExport.Enabled = true;
+
         }
         //botão voltar
         private void btnBack_Click(object sender, EventArgs e)
@@ -362,12 +366,12 @@ namespace cadastro_remedios
             string codigo;
             codigo = Convert.ToString(dataGridView1.CurrentRow.Cells[0].Value);
 
-            
+
             MySqlConnection cn = new MySqlConnection(Connection.lConnection);
             cn.Open();
 
             MySqlCommand cmd2 = new MySqlCommand("SELECT for_cod, for_nome,for_endereco,for_bairro,for_cidade,for_uf ,for_cpf," +
-          "for_cep,for_fone,for_email,for_status FROM cadastro_cliente WHERE for_cod = '" + codigo +"'", cn);
+          "for_cep,for_fone,for_email,for_status FROM cadastro_cliente WHERE for_cod = '" + codigo + "'", cn);
             MySqlDataReader reader = null;
             reader = cmd2.ExecuteReader();
 
@@ -384,10 +388,10 @@ namespace cadastro_remedios
                 txtCellphone.Text = reader.GetString(8);
                 txtEmail.Text = reader.GetString(9);
                 txtStatus.Text = reader.GetString(10);
-                if (txtStatus.Text =="A")
-                    txtStatus.Text ="Ativo";
+                if (txtStatus.Text == "A")
+                    txtStatus.Text = "Ativo";
                 else
-                    txtStatus.Text ="Inativo";
+                    txtStatus.Text = "Inativo";
             }
             cn.Close();
             tabControl1.SelectedTab = tabPage1;
@@ -418,21 +422,21 @@ namespace cadastro_remedios
             string op = (string)comboBox1.SelectedItem;
             switch (op)
             {
-                case"ID":
+                case "ID":
                     txtSearch.Enabled = true;
                     break;
-                case"Nome":
+                case "Nome":
                     txtSearch.Enabled = true;
                     break;
-                case"Ativo":
+                case "Ativo":
                     txtSearch.Enabled = false;
                     txtSearch.Text = string.Empty;
                     break;
-                case"Inativo":
+                case "Inativo":
                     txtSearch.Enabled = false;
                     txtSearch.Text = string.Empty;
                     break;
-                case"Todos":
+                case "Todos":
                     txtSearch.Enabled = false;
                     txtSearch.Text = string.Empty;
                     break;
@@ -441,7 +445,7 @@ namespace cadastro_remedios
 
         private void txtCep_Leave(object sender, EventArgs e)
         {
-             string lZipCode = txtCep.Text.Replace("-",string.Empty);
+            string lZipCode = txtCep.Text.Replace("-", string.Empty);
             if (lZipCode != string.Empty && lZipCode.Length == 8)
             {
                 try
@@ -460,7 +464,7 @@ namespace cadastro_remedios
                 {
                     MessageBox.Show(ex.Message);
                     errorQuery lerrorQuery = new errorQuery();
-                    lerrorQuery.AddError(Principal.lUser,Errors.lZipCodeInvalid, ex.Message.Replace("'", ""), DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"), "Cadastro Cliente");
+                    lerrorQuery.AddError(Principal.lUser, Errors.lZipCodeInvalid, ex.Message.Replace("'", ""), DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"), "Cadastro Cliente");
                 }
 
             }
@@ -485,5 +489,95 @@ namespace cadastro_remedios
                 txtStreet.ReadOnly = true;
             }
         }
+        #region Exportar Excel.
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            ExportExcel();
+        }
+
+        private void ExportExcel()
+        {
+
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "Excel Documents (*.xls)|*.xls";
+            sfd.FileName = "Clientes_" + DateTime.Now.ToString("dd-MM-yyyy");
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    // Copy DataGridView results to clipboard
+                    copyAlltoClipboard();
+
+                    object misValue = System.Reflection.Missing.Value;
+                    Microsoft.Office.Interop.Excel.Application xlexcel = new Microsoft.Office.Interop.Excel.Application();
+
+                    xlexcel.DisplayAlerts = false; // Without this you will get two confirm overwrite prompts
+                    Workbook xlWorkBook = xlexcel.Workbooks.Add(misValue);
+                    Worksheet xlWorkSheet = (Worksheet)xlWorkBook.Worksheets.get_Item(1);
+
+                    // Paste clipboard results to worksheet range
+                    Range CR = (Range)xlWorkSheet.Cells[1, 1];
+                    CR.Select();
+
+                    xlWorkSheet.PasteSpecial(CR, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, true);
+                    xlWorkSheet.Rows.AutoFit();
+                    xlWorkSheet.Columns.AutoFit();
+
+                    // Delete blank column A and select cell A1
+                    Range delRng = xlWorkSheet.get_Range("A:A").Cells;
+                    delRng.Delete(Type.Missing);
+                    xlWorkSheet.get_Range("A1").Select();
+
+                    // Save the excel file under the captured location from the SaveFileDialog
+                    xlWorkBook.SaveAs(sfd.FileName, XlFileFormat.xlWorkbookNormal, misValue, misValue, misValue, misValue, XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
+                    xlexcel.DisplayAlerts = true;
+                    xlWorkBook.Close(true, misValue, misValue);
+                    xlexcel.Quit();
+
+                    releaseObject(xlWorkSheet);
+                    releaseObject(xlWorkBook);
+                    releaseObject(xlexcel);
+
+                    // Clear Clipboard and DataGridView selection
+                    Clipboard.Clear();
+                    dataGridView1.ClearSelection();
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, MessageBoxResult.lExportError);
+                    errorQuery lerrorQuery = new errorQuery();
+                    lerrorQuery.AddError(Principal.lUser, MessageBoxResult.lExportError, ex.Message.Replace("'", ""), DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"), "Cadastro Funcionario");
+                }
+            }
+        }
+
+
+
+
+        private void copyAlltoClipboard()
+        {
+            dataGridView1.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
+            dataGridView1.SelectAll();
+            DataObject dataObj = dataGridView1.GetClipboardContent();
+            if (dataObj != null)
+                Clipboard.SetDataObject(dataObj);
+        }
+
+        private void releaseObject(object obj)
+        {
+            try
+            {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(obj);
+                obj = null;
+            }
+            catch (Exception ex)
+            {
+                obj = null;
+                MessageBox.Show(MessageBoxResult.lErrorCommand + ex.ToString());
+            }
+        }
+        #endregion
+
     }
 }

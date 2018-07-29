@@ -15,8 +15,8 @@ namespace cadastro_remedios
                 connection.Open();
 
                  string insert = "INSERT INTO cadastro_cliente(for_nome,for_cpf,for_cep,for_endereco,for_bairro,for_cidade,for_uf,for_fone,for_email)" + "values ('"
-                 + lClient.clientName + "','" + lClient.clientDocument + "','" + lClient.clientZipCode + "','" + lClient.clientStreet + "','" + lClient.clientDistrict + "','" + lClient.clientCity + "','" + lClient.clientState + "','"
-                 + lClient.clientTelephone + "','" + lClient.clientEmail + "')";
+                 + lClient.Name + "','" + lClient.Document + "','" + lClient.ZipCode + "','" + lClient.Street + "','" + lClient.District + "','" + lClient.City + "','" + lClient.State + "','"
+                 + lClient.Telephone + "','" + lClient.Email + "')";
                 MySqlCommand command = new MySqlCommand(insert, connection);
                 MySqlDataReader myreader;
                 myreader = command.ExecuteReader();
@@ -34,9 +34,9 @@ namespace cadastro_remedios
                 MySqlConnection connection = new MySqlConnection(Connection.lConnection);
                 connection.Open();
 
-                string update = "UPDATE cadastro_cliente set for_nome= '" + lClient.clientName + "',for_endereco= '" + lClient.clientStreet + "',for_bairro= '" + lClient.clientDistrict + "',for_cidade= '" + lClient.clientCity +
-                    "',for_uf ='" + lClient.clientState + "',for_cpf= '" + lClient.clientDocument + "',for_cep='" + lClient.clientZipCode + "',for_fone='" + lClient.clientTelephone +
-                    "',for_email='" + lClient.clientEmail + "' WHERE for_cod='" + lClient.clientId + "';";
+                string update = "UPDATE cadastro_cliente set for_nome= '" + lClient.Name + "',for_endereco= '" + lClient.Street + "',for_bairro= '" + lClient.District + "',for_cidade= '" + lClient.City +
+                    "',for_uf ='" + lClient.State + "',for_cpf= '" + lClient.Document + "',for_cep='" + lClient.ZipCode + "',for_fone='" + lClient.Telephone +
+                    "',for_email='" + lClient.Email + "' WHERE for_cod='" + lClient.Id + "';";
 
                 MySqlCommand command = new MySqlCommand(update, connection);
                 MySqlDataReader myreader;

@@ -16,11 +16,11 @@ namespace cadastro_remedios
                     +"pro_fabricante_do_produto,pro_unidade,pro_local_de_armazenamento,pro_marca_fabricante,pro_quantidade_no_estoque,pro_data_de_cadastro," 
                     +"pro_preco_de_compra_por_caixa,pro_unid_caixa,pro_preco_de_compra_unitario,pro_margem,pro_preco_de_venda,pro_desconto_de_promocao,pro_margem_de_promocao," 
                     +"pro_preco_promocao,pro_inicio_da_promocao,pro_final_da_promocao,pro_obs,pro_status)" + "values ('"
-                    + lProduct.prodCodigoBarras + "','" + lProduct.prodDescricao + "','" + lProduct.prodNomeGenerico + "','" + lProduct.prodNomeComercial + "','" + lProduct.prodGrupo + "','"
-                    + lProduct.prodFabricante + "','" + lProduct.prodUnidade + "','" + lProduct.prodArmazenamento + "','" + lProduct.prodMarca + "','"
-                    + lProduct.prodEstoque + "','" + lProduct.prodDataCadastro + "','" + lProduct.prodPrecoCaixa.Replace(",", ".") + "','" + lProduct.prodUnidadeCaixa + "','" + lProduct.prodCompraUnidade.Replace(",", ".") + "','"
-                    + lProduct.prodMargem.Replace(",", ".") + "','" + lProduct.prodPrecoVenda.Replace(",", ".") + "','" + lProduct.prodDescontoPromocao.Replace(",", ".") + "','" + lProduct.prodMargemPromocao.Replace(",", ".") + "','"
-                    + lProduct.prodPrecoPromocao.Replace(",", ".") + "','" + lProduct.prodInicioPromocao + "','" + lProduct.prodFinalPromocao + "','" + lProduct.prodObs + "','" + lProduct.prodStatus + "')";
+                    + lProduct.CodigoBarras + "','" + lProduct.Descricao + "','" + lProduct.NomeGenerico + "','" + lProduct.NomeComercial + "','" + lProduct.Grupo + "','"
+                    + lProduct.Fabricante + "','" + lProduct.Unidade + "','" + lProduct.Armazenamento + "','" + lProduct.Marca + "','"
+                    + lProduct.Estoque + "','" + lProduct.DataCadastro + "','" + lProduct.PrecoCaixa.Replace(",", ".") + "','" + lProduct.UnidadeCaixa + "','" + lProduct.CompraUnidade.Replace(",", ".") + "','"
+                    + lProduct.Margem.Replace(",", ".") + "','" + lProduct.PrecoVenda.Replace(",", ".") + "','" + lProduct.DescontoPromocao.Replace(",", ".") + "','" + lProduct.MargemPromocao.Replace(",", ".") + "','"
+                    + lProduct.PrecoPromocao.Replace(",", ".") + "','" + lProduct.InicioPromocao + "','" + lProduct.FinalPromocao + "','" + lProduct.Obs + "','" + lProduct.Status + "')";
                 MySqlCommand command = new MySqlCommand(insert, connection);
                 MySqlDataReader myreader;
                 myreader = command.ExecuteReader();
@@ -39,13 +39,13 @@ namespace cadastro_remedios
                 MySqlConnection connection = new MySqlConnection(Connection.lConnection);
                 connection.Open();
 
-                string update = "UPDATE cadastro_remedios set pro_codigo_de_barras= '" + lProduct.prodCodigoBarras + "',pro_descricao_do_produto= '" + lProduct.prodDescricao + "',pro_nome_generico= '" + lProduct.prodNomeGenerico + "',pro_nome_comercial= '" + lProduct.prodNomeComercial +
-                     "',pro_grupo ='" + lProduct.prodGrupo + "',pro_fabricante_do_produto= '" + lProduct.prodFabricante + "',pro_unidade='"
-                     + lProduct.prodUnidade + "',pro_local_de_armazenamento='" + lProduct.prodArmazenamento + "',pro_marca_fabricante='" + lProduct.prodMarca + "',pro_quantidade_no_estoque='" + lProduct.prodEstoque +
-                     "',pro_data_de_cadastro='" + lProduct.prodDataCadastro + "',pro_preco_de_compra_por_caixa='" + lProduct.prodPrecoCaixa.Replace(",", ".") + "',pro_unid_caixa='" + lProduct.prodUnidadeCaixa + "',pro_preco_de_compra_unitario='" + lProduct.prodCompraUnidade.Replace(",", ".") +
-                     "',pro_margem='" + lProduct.prodMargem.Replace(",", ".") + "',pro_preco_de_venda='" + lProduct.prodPrecoVenda.Replace(",", ".") + "',pro_desconto_de_promocao='" + lProduct.prodDescontoPromocao.Replace(",", ".") + "',pro_margem_de_promocao='" + lProduct.prodMargemPromocao.Replace(",", ".") +
-                     "',pro_preco_promocao='" + lProduct.prodPrecoPromocao.Replace(",", ".") + "',pro_inicio_da_promocao='" + lProduct.prodInicioPromocao + "',pro_final_da_promocao='" + lProduct.prodFinalPromocao +
-                     "',pro_obs='" + lProduct.prodObs + "',pro_status='" + lProduct.prodStatus + "' WHERE pro_codigo='" + lProduct.prodCodigo + "';";
+                string update = "UPDATE cadastro_remedios set pro_codigo_de_barras= '" + lProduct.CodigoBarras + "',pro_descricao_do_produto= '" + lProduct.Descricao + "',pro_nome_generico= '" + lProduct.NomeGenerico + "',pro_nome_comercial= '" + lProduct.NomeComercial +
+                     "',pro_grupo ='" + lProduct.Grupo + "',pro_fabricante_do_produto= '" + lProduct.Fabricante + "',pro_unidade='"
+                     + lProduct.Unidade + "',pro_local_de_armazenamento='" + lProduct.Armazenamento + "',pro_marca_fabricante='" + lProduct.Marca + "',pro_quantidade_no_estoque='" + lProduct.Estoque +
+                     "',pro_data_de_cadastro='" + lProduct.DataCadastro + "',pro_preco_de_compra_por_caixa='" + lProduct.PrecoCaixa.Replace(",", ".") + "',pro_unid_caixa='" + lProduct.UnidadeCaixa + "',pro_preco_de_compra_unitario='" + lProduct.CompraUnidade.Replace(",", ".") +
+                     "',pro_margem='" + lProduct.Margem.Replace(",", ".") + "',pro_preco_de_venda='" + lProduct.PrecoVenda.Replace(",", ".") + "',pro_desconto_de_promocao='" + lProduct.DescontoPromocao.Replace(",", ".") + "',pro_margem_de_promocao='" + lProduct.MargemPromocao.Replace(",", ".") +
+                     "',pro_preco_promocao='" + lProduct.PrecoPromocao.Replace(",", ".") + "',pro_inicio_da_promocao='" + lProduct.InicioPromocao + "',pro_final_da_promocao='" + lProduct.FinalPromocao +
+                     "',pro_obs='" + lProduct.Obs + "',pro_status='" + lProduct.Status + "' WHERE pro_codigo='" + lProduct.Codigo + "';";
                 MySqlCommand command = new MySqlCommand(update, connection);
                 MySqlDataReader myreader;
                 myreader = command.ExecuteReader();

@@ -24,7 +24,7 @@ namespace cadastro_remedios
         {
             txtDate.Text = DateTime.Now.ToString("dd/MM/yyyy");
             txtHour.Text = DateTime.Now.ToString("hh:mm:ss");
-            txtEmployee.Focus();
+            txtEmployee.Text = Principal.lUser.ToString();
         }
         //configurar funcionário
         private void txtEmployee_TextChanged(object sender, EventArgs e)
@@ -278,7 +278,7 @@ namespace cadastro_remedios
                     string pesquisa = "SELECT ven_cod as Codigo,ven_data as Data,ven_total_liq as Liquido,ven_total_bruto as Bruto,ven_status as Status,cli_cod as Cliente, Func_cod as Funcionario, desc_venda as Desconto,cod_prod as Produto,ven_horario as 'Hora da Venda' FROM venda WHERE ven_cod LIKE @value";
                     MySqlDataAdapter ad = new MySqlDataAdapter(pesquisa, con);
                     ad.SelectCommand.Parameters.AddWithValue("value", txtSearch.Text + "%");
-                    DataTable table = new DataTable();
+                    System.Data.DataTable table = new System.Data.DataTable ();
                     ad.Fill(table);
                     dataGridViewSearch.DataSource = table;
                     con.Close();
@@ -288,7 +288,7 @@ namespace cadastro_remedios
                     string pesquisa1 = "SELECT ven_cod as Codigo,ven_data as Data,ven_total_liq as Liquido,ven_total_bruto as Bruto,ven_status as Status,cli_cod as Cliente, Func_cod as Funcionario, desc_venda as Desconto,cod_prod as Produto,ven_horario as 'Hora da Venda' FROM venda WHERE ven_data LIKE @value";
                     MySqlDataAdapter ad1 = new MySqlDataAdapter(pesquisa1, con);
                     ad1.SelectCommand.Parameters.AddWithValue("value", txtSearch.Text + "%");
-                    DataTable table1 = new DataTable();
+                    System.Data.DataTable table1 = new System.Data.DataTable ();
                     ad1.Fill(table1);
                     dataGridViewSearch.DataSource = table1;
                     con.Close();
@@ -298,7 +298,7 @@ namespace cadastro_remedios
                     string pesquisa2 = "SELECT ven_cod as Codigo,ven_data as Data,ven_total_liq as Liquido,ven_total_bruto as Burto,ven_status as Status,cli_cod as Cliente, Func_cod as Funcionario, desc_venda as Desconto,cod_prod as Produto,ven_horario as 'Hora da Venda' FROM venda WHERE Func_cod LIKE @value";
                     MySqlDataAdapter ad2 = new MySqlDataAdapter(pesquisa2, con);
                     ad2.SelectCommand.Parameters.AddWithValue("value", txtSearch.Text + "%");
-                    DataTable table2 = new DataTable();
+                    System.Data.DataTable table2 = new System.Data.DataTable ();
                     ad2.Fill(table2);
                     dataGridViewSearch.DataSource = table2;
                     con.Close();
@@ -358,7 +358,7 @@ namespace cadastro_remedios
                 case "Funcionario":
                     MySqlDataAdapter ad = new MySqlDataAdapter(employeeQuery.GetActiveEmployee, con);
                     ad.SelectCommand.Parameters.AddWithValue("value", textBox1.Text + "%");
-                    DataTable table = new DataTable();
+                    System.Data.DataTable table = new System.Data.DataTable ();
                     ad.Fill(table);
                     dataGridView2.DataSource = table;
                     con.Close();
@@ -368,7 +368,7 @@ namespace cadastro_remedios
                     string pesquisa2 = "SELECT for_cod as Codigo, for_nome as Nome,for_email as Email,for_fone as Celular,for_cidade as Cidade, for_uf as Estado FROM cadastro_cliente WHERE for_nome LIKE @value AND for_status = 'A'";
                     MySqlDataAdapter ad2 = new MySqlDataAdapter(pesquisa2, con);
                     ad2.SelectCommand.Parameters.AddWithValue("value", textBox1.Text + "%");
-                    DataTable table2 = new DataTable();
+                    System.Data.DataTable table2 = new System.Data.DataTable ();
                     ad2.Fill(table2);
                     dataGridView2.DataSource = table2;
                     con.Close();
@@ -377,7 +377,7 @@ namespace cadastro_remedios
                 case "Remedio":
                     MySqlDataAdapter ad3 = new MySqlDataAdapter(productQuery.GetProductForSales, con);
                     ad3.SelectCommand.Parameters.AddWithValue("value", textBox1.Text + "%");
-                    DataTable table3 = new DataTable();
+                    System.Data.DataTable table3 = new System.Data.DataTable ();
                     ad3.Fill(table3);
                     dataGridView2.DataSource = table3;
                     con.Close();
@@ -426,9 +426,9 @@ namespace cadastro_remedios
                 ItemSell lItemSell = new ItemSell();
                 sellQuery lsellQuery = new sellQuery();
                 {
-                    lEmployee.employeeId = Convert.ToInt16(txtEmployee.Text);
-                    lClient.clientId = Convert.ToInt16(txtClient.Text);
-                    lProduct.prodCodigo = Convert.ToInt16(txtProduct.Text);
+                    lEmployee.Id = Convert.ToInt16(txtEmployee.Text);
+                    lClient.Id = Convert.ToInt16(txtClient.Text);
+                    lProduct.Codigo = Convert.ToInt16(txtProduct.Text);
                     lSell.sellGrossAmount = txtGrossAmount.Text;
                     lSell.sellDiscount = txtDiscount.Text;
                     lSell.sellNetAmount = txtNetAmount.Text;
@@ -470,7 +470,7 @@ namespace cadastro_remedios
                             if (c == 0)
                             {
                                 item[l, c] = dataGridView1.Rows[l].Cells[c].Value.ToString();
-                                lProduct.prodCodigo = Convert.ToInt32(item[l, c]);
+                                lProduct.Codigo = Convert.ToInt32(item[l, c]);
                             }
                             else if (c == 1)
                             {
@@ -480,7 +480,7 @@ namespace cadastro_remedios
                             else if (c == 2)
                             {
                                 item[l, c] = dataGridView1.Rows[l].Cells[3].Value.ToString();
-                                lProduct.prodPrecoVenda = (item[l, c]);
+                                lProduct.PrecoVenda = (item[l, c]);
                             }
                             else if (c == 3)
                             {
@@ -496,7 +496,7 @@ namespace cadastro_remedios
                     lsellQuery.ItemSellMethod(lProduct, lSell, lItemSell);
                     //Atualiza estoque
                     MySqlConnection cn3 = new MySqlConnection(Connection.lConnection);
-                    MySqlCommand cmd3 = new MySqlCommand("SELECT pro_quantidade_no_estoque FROM cadastro_remedios WHERE pro_codigo = '" + lProduct.prodCodigo + "'", cn3);
+                    MySqlCommand cmd3 = new MySqlCommand("SELECT pro_quantidade_no_estoque FROM cadastro_remedios WHERE pro_codigo = '" + lProduct.Codigo + "'", cn3);
                     cn3.Open();
                     MySqlDataReader reader3 = cmd3.ExecuteReader();
 
@@ -511,7 +511,7 @@ namespace cadastro_remedios
                         MySqlConnection connection = new MySqlConnection(Connection.lConnection);
                         connection.Open();
 
-                        string update = "UPDATE cadastro_remedios SET pro_quantidade_no_estoque =  '" + actualStock + "' WHERE pro_codigo = '" + lProduct.prodCodigo + "';";
+                        string update = "UPDATE cadastro_remedios SET pro_quantidade_no_estoque =  '" + actualStock + "' WHERE pro_codigo = '" + lProduct.Codigo + "';";
 
                         MySqlCommand command = new MySqlCommand(update, connection);
                         MySqlDataReader myreader;

@@ -37,6 +37,7 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.txtObs = new System.Windows.Forms.RichTextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.txtDiscountPromocao = new System.Windows.Forms.TextBox();
             this.txtInicioPromocao = new System.Windows.Forms.MaskedTextBox();
             this.txtFinalPromocao = new System.Windows.Forms.MaskedTextBox();
@@ -89,7 +90,7 @@
             this.btnSearch = new System.Windows.Forms.Button();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.btnExport = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -208,6 +209,17 @@
             this.groupBox2.TabIndex = 112;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Preços";
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(330, 144);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(74, 17);
+            this.checkBox1.TabIndex = 146;
+            this.checkBox1.Text = "Promoção";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckStateChanged += new System.EventHandler(this.checkBox1_CheckStateChanged);
             // 
             // txtDiscountPromocao
             // 
@@ -649,6 +661,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.btnExport);
             this.tabPage2.Controls.Add(this.dataGridView);
             this.tabPage2.Controls.Add(this.btnSearch);
             this.tabPage2.Controls.Add(this.txtSearch);
@@ -680,7 +693,7 @@
             // 
             this.btnSearch.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSearch.Image = ((System.Drawing.Image)(resources.GetObject("btnSearch.Image")));
-            this.btnSearch.Location = new System.Drawing.Point(516, 14);
+            this.btnSearch.Location = new System.Drawing.Point(551, 11);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(40, 40);
             this.btnSearch.TabIndex = 4;
@@ -712,16 +725,17 @@
             this.comboBox1.TabIndex = 1;
             this.comboBox1.Text = "Código";
             // 
-            // checkBox1
+            // btnExport
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(330, 144);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(74, 17);
-            this.checkBox1.TabIndex = 146;
-            this.checkBox1.Text = "Promoção";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckStateChanged += new System.EventHandler(this.checkBox1_CheckStateChanged);
+            this.btnExport.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnExport.Enabled = false;
+            this.btnExport.Image = ((System.Drawing.Image)(resources.GetObject("btnExport.Image")));
+            this.btnExport.Location = new System.Drawing.Point(505, 11);
+            this.btnExport.Name = "btnExport";
+            this.btnExport.Size = new System.Drawing.Size(40, 40);
+            this.btnExport.TabIndex = 28;
+            this.btnExport.UseVisualStyleBackColor = true;
+            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
             // 
             // Cadastro_Remedio
             // 
@@ -814,6 +828,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox txtStatus;
         private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Button btnExport;
     }
 }
 

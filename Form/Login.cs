@@ -14,8 +14,7 @@ namespace cadastro_remedios
             InitializeComponent();
         }
 
-        public static string role, type;
-        public static string lUser;
+        public static string lRole, lType, lUser, lStatus;
 
 
         // hierarquia dos roles
@@ -35,7 +34,7 @@ namespace cadastro_remedios
         private void loginVerify()
         {
             MySqlConnection cn = new MySqlConnection(Connection.lConnection);
-            MySqlCommand cmd = new MySqlCommand("SELECT empUsername,empEmail,empPassword,empRole,empId FROM employee WHERE empUsername =?user AND empPassword =?pass OR empEmail =?user AND empPassword =?pass", cn);
+            MySqlCommand cmd = new MySqlCommand("SELECT empUsername,empEmail,empPassword,empRole,empId,empStatus FROM employee WHERE empUsername =?user AND empPassword =?pass OR empEmail =?user AND empPassword =?pass", cn);
             cmd.Parameters.Add("?user", MySqlDbType.VarChar).Value = txtUsername.Text;
             cmd.Parameters.Add("?pass", MySqlDbType.VarChar).Value = txtPassword.Text;
             cn.Open();
@@ -43,28 +42,41 @@ namespace cadastro_remedios
             le = cmd.ExecuteReader();
             if (le.Read())
             {
-                role = le.GetString(3);
+                lRole = le.GetString(3);
                 Principal.lUser = int.Parse(le.GetString(4));
+                lStatus = le.GetString(5);
 
-                if (role == "Gerente")
+                if (lStatus == "A")
                 {
-                    type = "1";
+
+                    if (lRole == "Gerente")
+                    {
+                        lType = "1";
+                    }
+                    if (lRole == "Farmacêutico")
+                    {
+                        lType = "2";
+                    }
+                    if (lRole == "Caixa")
+                    {
+                        lType = "3";
+                    }
+                    this.Hide();
+                    Principal menu = new Principal();
+                    menu.Show();
                 }
-                if (role == "Farmacêutico")
+                else if (lStatus == "I")
                 {
-                    type = "2";
+                    MessageBox.Show("Usuário Inativo, contate o adminstrador do sistema.",Config.lAlert);
                 }
-                if (role == "Caixa")
+                else
                 {
-                    type = "3";
+                    MessageBox.Show(MessageBoxResult.lErrorCommand, Config.lAlert);
                 }
-                this.Hide();
-                Principal menu = new Principal();
-                menu.Show();
             }
-            else if (txtPassword.Text == "admin" && txtUsername.Text == "admin")
+            else if (txtPassword.Text == Credentials.lAdminPassword && txtUsername.Text == Credentials.lAdminUsername)
             {
-                type = "0";
+                lType = "0";
                 this.Hide();
                 Principal menu = new Principal();
                 menu.Show();

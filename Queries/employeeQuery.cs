@@ -15,8 +15,8 @@ namespace cadastro_remedios
 
                  string insert = "INSERT INTO employee(empStatus,empName,empStreet,empDistrict, empNumber, empCity,empRegionState,empMarriageStatus,empBirthDate,empZipCode,empFixedTelephone," +
                 "empCellphone,empEmail,empUsername,empPassword,empRole,empDocument)" + "values ('"
-                 + emp.employeeStatus + "','" + emp.employeeName + "','" + emp.employeeStreet + "','" + emp.employeeDistrict + "','" + emp.employeeNumber + "','" + emp.employeeCity + "','" + emp.employeeState + "','" + emp.employeeCivilState + "','" + emp.employeeBirthDate + "','"
-                 + emp.employeeZipCode + "','" + emp.employeeTelephone + "','" + emp.employeeCellPhone + "','" + emp.employeeEmail + "','" + emp.employeeUsername + "','" + emp.employeePassword + "','" + emp.employeeRole + "','" + emp.employeeDocument + "')";
+                 + emp.Status + "','" + emp.Name + "','" + emp.Street + "','" + emp.District + "','" + emp.Number + "','" + emp.City + "','" + emp.State + "','" + emp.CivilState + "','" + emp.BirthDate + "','"
+                 + emp.ZipCode + "','" + emp.Telephone + "','" + emp.CellPhone + "','" + emp.Email + "','" + emp.Username + "','" + emp.Password + "','" + emp.Role + "','" + emp.Document + "')";
                 MySqlCommand command = new MySqlCommand(insert, connection);
                 MySqlDataReader myreader;
                 myreader = command.ExecuteReader();
@@ -33,10 +33,10 @@ namespace cadastro_remedios
                 MySqlConnection connection = new MySqlConnection(Connection.lConnection);
                 connection.Open();
 
-                string update = "UPDATE employee set empStatus= '" +emp.employeeStatus + "',empName= '" + emp.employeeName + "',empNumber= '" + emp.employeeNumber + "',empStreet= '" + emp.employeeStreet + "',empDistrict= '" + emp.employeeDistrict + "',empCity= '" + emp.employeeCity +
-                    "',empRegionState ='" + emp.employeeState + "',empMarriageStatus= '" + emp.employeeCivilState + "',empBirthDate='"
-                    + emp.employeeBirthDate + "',empZipCode='" + emp.employeeZipCode + "',empFixedTelephone='" + emp.employeeTelephone + "',empCellphone='" + emp.employeeCellPhone +
-                    "',empEmail='" + emp.employeeEmail + "',empUsername='" + emp.employeeUsername + "',empPassword='" + emp.employeePassword + "',empRole='" + emp.employeeRole + "',empDocument='" + emp.employeeDocument + "' WHERE empId='" + emp.employeeId + "';";
+                string update = "UPDATE employee set empStatus= '" +emp.Status + "',empName= '" + emp.Name + "',empNumber= '" + emp.Number + "',empStreet= '" + emp.Street + "',empDistrict= '" + emp.District + "',empCity= '" + emp.City +
+                    "',empRegionState ='" + emp.State + "',empMarriageStatus= '" + emp.CivilState + "',empBirthDate='"
+                    + emp.BirthDate + "',empZipCode='" + emp.ZipCode + "',empFixedTelephone='" + emp.Telephone + "',empCellphone='" + emp.CellPhone +
+                    "',empEmail='" + emp.Email + "',empUsername='" + emp.Username + "',empPassword='" + emp.Password + "',empRole='" + emp.Role + "',empDocument='" + emp.Document + "' WHERE empId='" + emp.Id + "';";
 
                 MySqlCommand command = new MySqlCommand(update, connection);
                 MySqlDataReader myreader;
@@ -46,6 +46,30 @@ namespace cadastro_remedios
             {
                 throw new Exception(MessageBoxResult.lErrorCommand + ex.Message);
             }
+        }
+
+        public string GetEmployeeById(int emp)
+        {
+            string lEmployeeUserName = null;
+            try
+            {
+                MySqlConnection connection = new MySqlConnection(Connection.lConnection);
+                connection.Open();
+                MySqlCommand command = new MySqlCommand("SELECT empUserName FROM employee WHERE empId = '" + emp.ToString()+ "'", connection);
+                MySqlDataReader myreader;
+                myreader = command.ExecuteReader();
+
+                while(myreader.Read())
+                {
+                    lEmployeeUserName = myreader.GetString(0);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MessageBoxResult.lErrorCommand + ex.Message);
+            }
+            return lEmployeeUserName;
+
         }
         public const string GetEmployeById = @" SELECT  	
                                                     empId             AS Codigo  		       , 
@@ -154,6 +178,11 @@ namespace cadastro_remedios
 			                                        empDocument       AS CPF			       ,
 			                                        empStatus         AS Status  
                                             FROM employee;";
+
+        public const string GetLoggedUser = @"SELECT  	
+                     			                    empName AS Nome  			       
+	                                        FROM employee 
+                                           WHERE empId = @value ";
     }
 }
             

@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(cadastrar_cliente));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.txtState = new System.Windows.Forms.TextBox();
             this.btnAdd = new System.Windows.Forms.Button();
             this.txtCep = new System.Windows.Forms.MaskedTextBox();
@@ -61,7 +62,7 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.btnSearch = new System.Windows.Forms.Button();
             this.txtSearch = new System.Windows.Forms.TextBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.btnExport = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -115,6 +116,17 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Cadastrar";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(396, 68);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(135, 17);
+            this.checkBox1.TabIndex = 145;
+            this.checkBox1.Text = "Cidade com único CEP";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckStateChanged += new System.EventHandler(this.checkBox1_CheckStateChanged);
             // 
             // txtState
             // 
@@ -344,6 +356,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.btnExport);
             this.tabPage2.Controls.Add(this.comboBox1);
             this.tabPage2.Controls.Add(this.dataGridView1);
             this.tabPage2.Controls.Add(this.btnSearch);
@@ -404,20 +417,21 @@
             this.txtSearch.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txtSearch.Location = new System.Drawing.Point(127, 21);
             this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(366, 20);
+            this.txtSearch.Size = new System.Drawing.Size(341, 20);
             this.txtSearch.TabIndex = 2;
             this.txtSearch.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtSearch_KeyPress);
             // 
-            // checkBox1
+            // btnExport
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(396, 68);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(135, 17);
-            this.checkBox1.TabIndex = 145;
-            this.checkBox1.Text = "Cidade com único CEP";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckStateChanged += new System.EventHandler(this.checkBox1_CheckStateChanged);
+            this.btnExport.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnExport.Enabled = false;
+            this.btnExport.Image = ((System.Drawing.Image)(resources.GetObject("btnExport.Image")));
+            this.btnExport.Location = new System.Drawing.Point(474, 10);
+            this.btnExport.Name = "btnExport";
+            this.btnExport.Size = new System.Drawing.Size(40, 40);
+            this.btnExport.TabIndex = 27;
+            this.btnExport.UseVisualStyleBackColor = true;
+            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
             // 
             // cadastrar_cliente
             // 
@@ -477,5 +491,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtState;
         private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Button btnExport;
     }
 }

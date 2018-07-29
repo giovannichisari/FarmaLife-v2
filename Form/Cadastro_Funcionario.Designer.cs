@@ -76,6 +76,7 @@
             this.btnClean = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.btnExport = new System.Windows.Forms.Button();
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.btnSearch = new System.Windows.Forms.Button();
             this.txtSearch = new System.Windows.Forms.TextBox();
@@ -164,6 +165,7 @@
             this.txtPassword.Size = new System.Drawing.Size(100, 20);
             this.txtPassword.TabIndex = 17;
             this.txtPassword.UseSystemPasswordChar = true;
+            this.txtPassword.Leave += new System.EventHandler(this.txtPassword_Leave);
             // 
             // groupBox2
             // 
@@ -577,6 +579,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.btnExport);
             this.tabPage2.Controls.Add(this.dataGridView);
             this.tabPage2.Controls.Add(this.btnSearch);
             this.tabPage2.Controls.Add(this.txtSearch);
@@ -589,6 +592,18 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Pesquisar";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // btnExport
+            // 
+            this.btnExport.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnExport.Enabled = false;
+            this.btnExport.Image = ((System.Drawing.Image)(resources.GetObject("btnExport.Image")));
+            this.btnExport.Location = new System.Drawing.Point(528, 19);
+            this.btnExport.Name = "btnExport";
+            this.btnExport.Size = new System.Drawing.Size(40, 40);
+            this.btnExport.TabIndex = 26;
+            this.btnExport.UseVisualStyleBackColor = true;
+            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
             // 
             // dataGridView
             // 
@@ -619,7 +634,7 @@
             // 
             this.txtSearch.Location = new System.Drawing.Point(161, 30);
             this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(391, 20);
+            this.txtSearch.Size = new System.Drawing.Size(350, 20);
             this.txtSearch.TabIndex = 1;
             this.txtSearch.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtSearch_KeyPress);
             // 
@@ -721,6 +736,7 @@
         private System.Windows.Forms.TextBox txtNumber;
         private System.Windows.Forms.TextBox txtState;
         private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Button btnExport;
 
         public System.Windows.Forms.DataGridViewCellEventHandler dataGridView_CellContentClick { get; set; }
     }

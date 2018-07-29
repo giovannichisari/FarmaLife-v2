@@ -3,32 +3,32 @@
 namespace cadastro_remedios
 {
     public class Product
-    {        //cadastro de produto
+    {        //cadastro de uto
 
-        public int prodCodigo { get; set; }
-        public string prodCodigoBarras { get; set; }
-        public string prodDescricao { get; set; }
-        public string prodNomeGenerico { get; set; }
-        public string prodNomeComercial { get; set; }
-        public string prodGrupo { get; set; }
-        public string prodFabricante { get; set; }
-        public string prodUnidade { get; set; }
-        public string prodArmazenamento { get; set; }
-        public string prodMarca { get; set; }
-        public string prodEstoque { get; set; }
-        public string prodDataCadastro { get; set; }
-        public string prodPrecoCaixa { get; set; }
-        public string prodUnidadeCaixa { get; set; }
-        public string prodCompraUnidade { get; set; }
-        public string prodMargem { get; set; }
-        public string prodPrecoVenda { get; set; }
-        public string prodDescontoPromocao { get; set; }
-        public string prodMargemPromocao { get; set; }
-        public string prodPrecoPromocao { get; set; }
-        public string prodInicioPromocao { get; set; }
-        public string prodFinalPromocao { get; set; }
-        public string prodObs { get; set; }
-        public string prodStatus { get; set; }
+        public int Codigo { get; set; }
+        public string CodigoBarras { get; set; }
+        public string Descricao { get; set; }
+        public string NomeGenerico { get; set; }
+        public string NomeComercial { get; set; }
+        public string Grupo { get; set; }
+        public string Fabricante { get; set; }
+        public string Unidade { get; set; }
+        public string Armazenamento { get; set; }
+        public string Marca { get; set; }
+        public string Estoque { get; set; }
+        public string DataCadastro { get; set; }
+        public string PrecoCaixa { get; set; }
+        public string UnidadeCaixa { get; set; }
+        public string CompraUnidade { get; set; }
+        public string Margem { get; set; }
+        public string PrecoVenda { get; set; }
+        public string DescontoPromocao { get; set; }
+        public string MargemPromocao { get; set; }
+        public string PrecoPromocao { get; set; }
+        public string InicioPromocao { get; set; }
+        public string FinalPromocao { get; set; }
+        public string Obs { get; set; }
+        public string Status { get; set; }
 
     }
 }

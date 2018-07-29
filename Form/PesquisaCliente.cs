@@ -24,7 +24,7 @@ namespace cadastro_remedios
                     string pesquisa = "SELECT pro_nome_comercial as Nome,pro_preco_de_venda as Preco,pro_descricao_do_produto as Descricao,pro_fabricante_do_produto as Fabricante,pro_obs as Observacoes FROM cadastro_remedios WHERE pro_nome_comercial LIKE @value";
                     MySqlDataAdapter ad = new MySqlDataAdapter(pesquisa, con);
                     ad.SelectCommand.Parameters.AddWithValue("value", txtSearch.Text + "%");
-                    DataTable table = new DataTable();
+                    System.Data.DataTable table = new System.Data.DataTable ();
                     ad.Fill(table);
                     dataGridView1.DataSource = table;
                     con.Close();
@@ -34,7 +34,7 @@ namespace cadastro_remedios
                     string pesquisa1 = "SELECT pro_nome_comercial as Nome,pro_preco_de_venda as Preco,pro_descricao_do_produto as Descricao,pro_fabricante_do_produto as Fabricante,pro_obs as Observacoes FROM cadastro_remedios WHERE pro_fabricante_do_produto LIKE @value";
                     MySqlDataAdapter ad1 = new MySqlDataAdapter(pesquisa1, con);
                     ad1.SelectCommand.Parameters.AddWithValue("value", txtSearch.Text + "%");
-                    DataTable table1 = new DataTable();
+                    System.Data.DataTable table1 = new System.Data.DataTable ();
                     ad1.Fill(table1);
                     dataGridView1.DataSource = table1;
                     con.Close();

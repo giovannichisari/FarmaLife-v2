@@ -49,6 +49,9 @@
             this.pesquisaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sairToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.lblUser = new System.Windows.Forms.Label();
+            this.lblDate = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -111,8 +114,8 @@
             // apagarBancoDeDadosToolStripMenuItem
             // 
             this.apagarBancoDeDadosToolStripMenuItem.Name = "apagarBancoDeDadosToolStripMenuItem";
-            this.apagarBancoDeDadosToolStripMenuItem.Size = new System.Drawing.Size(145, 20);
-            this.apagarBancoDeDadosToolStripMenuItem.Text = "Apagar Banco de Dados";
+            this.apagarBancoDeDadosToolStripMenuItem.Size = new System.Drawing.Size(198, 20);
+            this.apagarBancoDeDadosToolStripMenuItem.Text = "Consulta Master/Limpar Registros";
             this.apagarBancoDeDadosToolStripMenuItem.Click += new System.EventHandler(this.apagarBancoDeDadosToolStripMenuItem_Click);
             // 
             // atualizarEstoqueToolStripMenuItem
@@ -215,12 +218,41 @@
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(507, 479);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(85, 13);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Usuário Logado:";
+            // 
+            // lblUser
+            // 
+            this.lblUser.AutoSize = true;
+            this.lblUser.Location = new System.Drawing.Point(589, 479);
+            this.lblUser.Name = "lblUser";
+            this.lblUser.Size = new System.Drawing.Size(0, 13);
+            this.lblUser.TabIndex = 3;
+            // 
+            // lblDate
+            // 
+            this.lblDate.AutoSize = true;
+            this.lblDate.Location = new System.Drawing.Point(715, 479);
+            this.lblDate.Name = "lblDate";
+            this.lblDate.Size = new System.Drawing.Size(85, 13);
+            this.lblDate.TabIndex = 4;
+            this.lblDate.Text = "Usuário Logado:";
+            // 
             // Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(857, 504);
+            this.Controls.Add(this.lblDate);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblUser);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.pictureBox1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -261,5 +293,8 @@
         private System.Windows.Forms.ToolStripMenuItem apagarBancoDeDadosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem calculadoraToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sistemaDeEmailToolStripMenuItem;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblUser;
+        private System.Windows.Forms.Label lblDate;
     }
 }

@@ -17,7 +17,7 @@ namespace cadastro_remedios
         // nível de hierarquia ao logar
         private void Principal_Load(object sender, EventArgs e)
         {
-            if (Login.type == "1")
+            if (Login.lType == "1")
             {
                 //visible
                 cadastrarPesquisarFuncionarioToolStripMenuItem.Visible = true;
@@ -33,7 +33,7 @@ namespace cadastro_remedios
                 pesquisarRemédiosToolStripMenuItem.Enabled = false;
                 apagarBancoDeDadosToolStripMenuItem.Enabled = false;
             }
-            if (Login.type == "2")
+            if (Login.lType == "2")
             {
                 //visible
                 cadastrarPesquisarFuncionarioToolStripMenuItem.Visible = false;
@@ -49,7 +49,7 @@ namespace cadastro_remedios
                 pesquisarRemédiosToolStripMenuItem.Enabled = false;
                 apagarBancoDeDadosToolStripMenuItem.Enabled = false;
             }
-            if (Login.type == "3")
+            if (Login.lType == "3")
             {
                 //visible
                 cadastrarPesquisarFuncionarioToolStripMenuItem.Visible = false;
@@ -64,7 +64,7 @@ namespace cadastro_remedios
                 pesquisarRemédiosToolStripMenuItem.Enabled = true;
                 apagarBancoDeDadosToolStripMenuItem.Enabled = false;
             }
-            if (Login.type == "0")
+            if (Login.lType == "0")
             {
                 //visible
                 cadastrarPesquisarFuncionarioToolStripMenuItem.Visible = true;
@@ -78,6 +78,17 @@ namespace cadastro_remedios
                 controleDeVendasToolStripMenuItem.Enabled = true;
                 pesquisarRemédiosToolStripMenuItem.Enabled = true;
                 apagarBancoDeDadosToolStripMenuItem.Enabled = true;
+            }
+            lblDate.Text = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
+
+            if (Login.lType != "0")
+            {
+                employeeQuery lEmployeeQuery = new employeeQuery();
+                lblUser.Text = lEmployeeQuery.GetEmployeeById(lUser);
+            }
+            else
+            {
+                lblUser.Text = "Admin";
 
             }
         }
@@ -94,7 +105,7 @@ namespace cadastro_remedios
             }
             if (e.KeyCode == Keys.F4)
             {
-                if (Login.type == "1" || Login.type == "0")
+                if (Login.lType == "1" || Login.lType == "0")
                 {
                     this.Close();
                     Cadastro_Funcionario cliente = new Cadastro_Funcionario();
@@ -107,7 +118,7 @@ namespace cadastro_remedios
             }
             if (e.KeyCode == Keys.F5)
             {
-                if (Login.type == "3" || Login.type == "0")
+                if (Login.lType == "3" || Login.lType == "0")
                     MessageBox.Show("Você não tem acesso a este comando.", "Erro");
                 else
                 {
@@ -132,7 +143,7 @@ namespace cadastro_remedios
             {
                 if (MessageBox.Show("Deseja voltar ao login?", Config.lAlert, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    Login.type = string.Empty;
+                    Login.lType = string.Empty;
                     this.Close();
                     Login login = new Login();
                     login.Show();
@@ -147,7 +158,7 @@ namespace cadastro_remedios
             }
             if (e.KeyCode == Keys.F9)
             {
-                if (Login.type == "3" || Login.type == "0")
+                if (Login.lType == "3" || Login.lType == "0")
                 {
                     this.Close();
                     Pesquisa pesquisa = new Pesquisa();

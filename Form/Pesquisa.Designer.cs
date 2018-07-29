@@ -34,6 +34,7 @@
             this.btnPequisar = new System.Windows.Forms.Button();
             this.btnBack = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.btnExport = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -54,7 +55,7 @@
             // 
             this.txtSearch.Location = new System.Drawing.Point(164, 22);
             this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(386, 20);
+            this.txtSearch.Size = new System.Drawing.Size(353, 20);
             this.txtSearch.TabIndex = 2;
             this.txtSearch.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtSearch_KeyPress);
             // 
@@ -93,12 +94,25 @@
             this.dataGridView1.Size = new System.Drawing.Size(643, 354);
             this.dataGridView1.TabIndex = 22;
             // 
+            // btnExport
+            // 
+            this.btnExport.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnExport.Enabled = false;
+            this.btnExport.Image = ((System.Drawing.Image)(resources.GetObject("btnExport.Image")));
+            this.btnExport.Location = new System.Drawing.Point(523, 10);
+            this.btnExport.Name = "btnExport";
+            this.btnExport.Size = new System.Drawing.Size(40, 40);
+            this.btnExport.TabIndex = 29;
+            this.btnExport.UseVisualStyleBackColor = true;
+            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
+            // 
             // Pesquisa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(667, 437);
+            this.Controls.Add(this.btnExport);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.btnBack);
             this.Controls.Add(this.btnPequisar);
@@ -123,5 +137,6 @@
         private System.Windows.Forms.Button btnPequisar;
         private System.Windows.Forms.Button btnBack;
         private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.Button btnExport;
     }
 }

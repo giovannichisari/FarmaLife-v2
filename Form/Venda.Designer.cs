@@ -108,6 +108,7 @@
             // 
             this.txtEmployee.Location = new System.Drawing.Point(66, 45);
             this.txtEmployee.Name = "txtEmployee";
+            this.txtEmployee.ReadOnly = true;
             this.txtEmployee.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.txtEmployee.Size = new System.Drawing.Size(24, 20);
             this.txtEmployee.TabIndex = 1;

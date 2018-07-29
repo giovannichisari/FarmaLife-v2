@@ -2,6 +2,8 @@
 using System.Data;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
+using Microsoft.Office.Interop.Excel;
+
 
 namespace cadastro_remedios
 {
@@ -16,67 +18,67 @@ namespace cadastro_remedios
         {
             if (txtId.Text == string.Empty)
             {
-                Product lProduct= new Product();
+                Product lProduct = new Product();
                 productQuery da = new productQuery();
 
                 if (txtIdBarras.Text != string.Empty)
-                    lProduct.prodCodigoBarras = txtIdBarras.Text;
+                    lProduct.CodigoBarras = txtIdBarras.Text;
                 else
-                    MessageBox.Show(Config.lFied +"CÓDIGO DE BARRAS" + Config.lRequired, Config.lAlert);
+                    MessageBox.Show(Config.lFied + "CÓDIGO DE BARRAS" + Config.lRequired, Config.lAlert);
 
-                lProduct.prodDescricao = txtDescricao.Text;
-                lProduct.prodNomeGenerico = txtNameGenerico.Text;
+                lProduct.Descricao = txtDescricao.Text;
+                lProduct.NomeGenerico = txtNameGenerico.Text;
 
                 if (txtNameComercial.Text != string.Empty)
-                    lProduct.prodNomeComercial = txtNameComercial.Text;
+                    lProduct.NomeComercial = txtNameComercial.Text;
                 else
-                    MessageBox.Show(Config.lFied +"NOME COMERCIAL" + Config.lRequired, Config.lAlert);
+                    MessageBox.Show(Config.lFied + "NOME COMERCIAL" + Config.lRequired, Config.lAlert);
 
-                lProduct.prodGrupo = txtGrupo.Text;
+                lProduct.Grupo = txtGrupo.Text;
 
                 if (txtFabricante.Text != string.Empty)
-                    lProduct.prodFabricante = txtFabricante.Text;
+                    lProduct.Fabricante = txtFabricante.Text;
                 else
                     MessageBox.Show(Config.lFied + "FABRICANTE" + Config.lRequired, Config.lAlert);
 
-                lProduct.prodUnidade = txtUnidade.Text;
-                lProduct.prodArmazenamento = txtArmazenamento.Text;
-                lProduct.prodMarca = txtMarca.Text;
+                lProduct.Unidade = txtUnidade.Text;
+                lProduct.Armazenamento = txtArmazenamento.Text;
+                lProduct.Marca = txtMarca.Text;
 
                 if (txtQuantidade.Text != string.Empty)
-                    lProduct.prodEstoque = txtQuantidade.Text;
+                    lProduct.Estoque = txtQuantidade.Text;
                 else
                     MessageBox.Show(Config.lFied + "QUANTIDADE NO ESTOQUE" + Config.lRequired, Config.lAlert);
 
                 if (txtDateCadastro.Text != string.Empty)
-                    lProduct.prodDataCadastro = txtDateCadastro.Text;
+                    lProduct.DataCadastro = txtDateCadastro.Text;
                 else
                     MessageBox.Show(Config.lFied + "DATA DO CADASTRO" + Config.lRequired, Config.lAlert);
 
-                lProduct.prodPrecoCaixa = txtPrecoCaixa.Text;
-                lProduct.prodUnidadeCaixa = txtUnidadeCaixa.Text;
-                lProduct.prodCompraUnidade = txtPrecoCompraUnidade.Text;
-                lProduct.prodMargem = txtMargem.Text;
+                lProduct.PrecoCaixa = txtPrecoCaixa.Text;
+                lProduct.UnidadeCaixa = txtUnidadeCaixa.Text;
+                lProduct.CompraUnidade = txtPrecoCompraUnidade.Text;
+                lProduct.Margem = txtMargem.Text;
 
                 if (txtPrecoVenda.Text != string.Empty)
-                    lProduct.prodPrecoVenda = txtPrecoVenda.Text;
+                    lProduct.PrecoVenda = txtPrecoVenda.Text;
                 else
                     MessageBox.Show(Config.lFied + "PREÇO DE VENDA" + Config.lRequired, Config.lAlert);
 
 
-                lProduct.prodDescontoPromocao = txtDiscountPromocao.Text;
-                lProduct.prodMargemPromocao = txtMargemPromocao.Text;
-                lProduct.prodPrecoPromocao = txtPrecoPromocao.Text;
-                lProduct.prodInicioPromocao = txtInicioPromocao.Text;
-                lProduct.prodFinalPromocao = txtFinalPromocao.Text;
-                lProduct.prodObs = txtObs.Text;
+                lProduct.DescontoPromocao = txtDiscountPromocao.Text;
+                lProduct.MargemPromocao = txtMargemPromocao.Text;
+                lProduct.PrecoPromocao = txtPrecoPromocao.Text;
+                lProduct.InicioPromocao = txtInicioPromocao.Text;
+                lProduct.FinalPromocao = txtFinalPromocao.Text;
+                lProduct.Obs = txtObs.Text;
 
                 if (txtStatus.Text == "Ativo" && txtStatus.Text != string.Empty)
-                    lProduct.prodStatus = "A";
+                    lProduct.Status = "A";
                 else if (txtStatus.Text != string.Empty)
-                    lProduct.prodStatus = "I";
+                    lProduct.Status = "I";
                 else
-                    MessageBox.Show(Config.lFied +"STATUS" + Config.lRequired, Config.lAlert);
+                    MessageBox.Show(Config.lFied + "STATUS" + Config.lRequired, Config.lAlert);
 
 
                 if (txtIdBarras.Text != string.Empty && txtNameComercial.Text != string.Empty && txtFabricante.Text != string.Empty && txtQuantidade.Text != string.Empty
@@ -88,69 +90,69 @@ namespace cadastro_remedios
                 }
                 else
                 {
-                    MessageBox.Show(Config.lErrorRegister,MessageBoxResult.lError);
+                    MessageBox.Show(Config.lErrorRegister, MessageBoxResult.lError);
                 }
             }
             else
             {
-                Product lProduct= new Product();
+                Product lProduct = new Product();
                 productQuery da = new productQuery();
                 if (txtIdBarras.Text != string.Empty)
-                    lProduct.prodCodigoBarras = txtIdBarras.Text;
+                    lProduct.CodigoBarras = txtIdBarras.Text;
                 else
                     MessageBox.Show(Config.lFied + "CÓDIGO DE BARRAS" + Config.lRequired, Config.lAlert);
 
-                lProduct.prodDescricao = txtDescricao.Text;
-                lProduct.prodNomeGenerico = txtNameGenerico.Text;
+                lProduct.Descricao = txtDescricao.Text;
+                lProduct.NomeGenerico = txtNameGenerico.Text;
 
                 if (txtNameComercial.Text != string.Empty)
-                    lProduct.prodNomeComercial = txtNameComercial.Text;
+                    lProduct.NomeComercial = txtNameComercial.Text;
                 else
                     MessageBox.Show(Config.lFied + "NOME COMERCIAL" + Config.lRequired, Config.lAlert);
 
-                lProduct.prodGrupo = txtGrupo.Text;
+                lProduct.Grupo = txtGrupo.Text;
 
                 if (txtFabricante.Text != string.Empty)
-                    lProduct.prodFabricante = txtFabricante.Text;
+                    lProduct.Fabricante = txtFabricante.Text;
                 else
                     MessageBox.Show(Config.lFied + "FABRICANTE" + Config.lRequired, Config.lAlert);
 
-                lProduct.prodUnidade = txtUnidade.Text;
-                lProduct.prodArmazenamento = txtArmazenamento.Text;
-                lProduct.prodMarca = txtMarca.Text;
+                lProduct.Unidade = txtUnidade.Text;
+                lProduct.Armazenamento = txtArmazenamento.Text;
+                lProduct.Marca = txtMarca.Text;
 
                 if (txtQuantidade.Text != string.Empty)
-                    lProduct.prodEstoque = txtQuantidade.Text;
+                    lProduct.Estoque = txtQuantidade.Text;
                 else
                     MessageBox.Show(Config.lFied + "QUANTIDADE NO ESTOQUE" + Config.lRequired, Config.lAlert);
 
                 if (txtDateCadastro.Text != string.Empty)
-                    lProduct.prodDataCadastro = txtDateCadastro.Text;
+                    lProduct.DataCadastro = txtDateCadastro.Text;
                 else
                     MessageBox.Show(Config.lFied + "DATA DO CADASTRO" + Config.lRequired, Config.lAlert);
 
-                lProduct.prodPrecoCaixa = txtPrecoCaixa.Text;
-                lProduct.prodUnidadeCaixa = txtUnidadeCaixa.Text;
-                lProduct.prodCompraUnidade = txtPrecoCompraUnidade.Text;
-                lProduct.prodMargem = txtMargem.Text;
+                lProduct.PrecoCaixa = txtPrecoCaixa.Text;
+                lProduct.UnidadeCaixa = txtUnidadeCaixa.Text;
+                lProduct.CompraUnidade = txtPrecoCompraUnidade.Text;
+                lProduct.Margem = txtMargem.Text;
 
                 if (txtPrecoVenda.Text != string.Empty)
-                    lProduct.prodPrecoVenda = txtPrecoVenda.Text;
+                    lProduct.PrecoVenda = txtPrecoVenda.Text;
                 else
                     MessageBox.Show(Config.lFied + "PREÇO DE VENDA" + Config.lRequired, Config.lAlert);
 
 
-                lProduct.prodDescontoPromocao = txtDiscountPromocao.Text;
-                lProduct.prodMargemPromocao = txtMargemPromocao.Text;
-                lProduct.prodPrecoPromocao = txtPrecoPromocao.Text;
-                lProduct.prodInicioPromocao = txtInicioPromocao.Text;
-                lProduct.prodFinalPromocao = txtFinalPromocao.Text;
-                lProduct.prodObs = txtObs.Text;
+                lProduct.DescontoPromocao = txtDiscountPromocao.Text;
+                lProduct.MargemPromocao = txtMargemPromocao.Text;
+                lProduct.PrecoPromocao = txtPrecoPromocao.Text;
+                lProduct.InicioPromocao = txtInicioPromocao.Text;
+                lProduct.FinalPromocao = txtFinalPromocao.Text;
+                lProduct.Obs = txtObs.Text;
 
                 if (txtStatus.Text == "Ativo" && txtStatus.Text != string.Empty)
-                    lProduct.prodStatus = "A";
+                    lProduct.Status = "A";
                 else if (txtStatus.Text != string.Empty)
-                    lProduct.prodStatus = "I";
+                    lProduct.Status = "I";
                 else
                     MessageBox.Show(Config.lFied + "STATUS" + Config.lRequired, Config.lAlert);
 
@@ -164,7 +166,7 @@ namespace cadastro_remedios
                 }
                 else
                 {
-                    MessageBox.Show(Config.lErrorRegister,MessageBoxResult.lErrorUpdate);
+                    MessageBox.Show(Config.lErrorRegister, MessageBoxResult.lErrorUpdate);
                 }
             }
         }
@@ -202,7 +204,7 @@ namespace cadastro_remedios
         }
 
         private void Search()
-        { 
+        {
             MySqlConnection con = new MySqlConnection(Connection.lConnection);
             con.Open();
             string op = (string)comboBox1.SelectedItem;
@@ -212,7 +214,7 @@ namespace cadastro_remedios
                 case "Código":
                     MySqlDataAdapter ad = new MySqlDataAdapter(productQuery.GetById, con);
                     ad.SelectCommand.Parameters.AddWithValue("value", txtSearch.Text + "%");
-                    DataTable table = new DataTable();
+                    System.Data.DataTable table = new System.Data.DataTable();
                     ad.Fill(table);
                     dataGridView.DataSource = table;
                     con.Close();
@@ -220,7 +222,7 @@ namespace cadastro_remedios
                 case "Fabricante":
                     MySqlDataAdapter ad1 = new MySqlDataAdapter(productQuery.GetByCompany, con);
                     ad1.SelectCommand.Parameters.AddWithValue("value", txtSearch.Text + "%");
-                    DataTable table1 = new DataTable();
+                    System.Data.DataTable table1 = new System.Data.DataTable();
                     ad1.Fill(table1);
                     dataGridView.DataSource = table1;
                     con.Close();
@@ -228,7 +230,7 @@ namespace cadastro_remedios
                 case "Nome Genérico":
                     MySqlDataAdapter ad2 = new MySqlDataAdapter(productQuery.GetByGenericName, con);
                     ad2.SelectCommand.Parameters.AddWithValue("value", txtSearch.Text + "%");
-                    DataTable table2 = new DataTable();
+                    System.Data.DataTable table2 = new System.Data.DataTable();
                     ad2.Fill(table2);
                     dataGridView.DataSource = table2;
                     con.Close();
@@ -236,7 +238,7 @@ namespace cadastro_remedios
                 case "Todos":
                     MySqlDataAdapter ad3 = new MySqlDataAdapter(productQuery.GetAllProducts, con);
                     ad3.SelectCommand.Parameters.AddWithValue("value", txtSearch.Text + "%");
-                    DataTable table3 = new DataTable();
+                    System.Data.DataTable table3 = new System.Data.DataTable();
                     ad3.Fill(table3);
                     dataGridView.DataSource = table3;
                     con.Close();
@@ -244,7 +246,7 @@ namespace cadastro_remedios
                 case "Ativo":
                     MySqlDataAdapter ad4 = new MySqlDataAdapter(productQuery.GetAllActiveProducts, con);
                     ad4.SelectCommand.Parameters.AddWithValue("value", txtSearch.Text + "%");
-                    DataTable table4 = new DataTable();
+                    System.Data.DataTable table4 = new System.Data.DataTable();
                     ad4.Fill(table4);
                     dataGridView.DataSource = table4;
                     con.Close();
@@ -252,7 +254,7 @@ namespace cadastro_remedios
                 case "Inativo":
                     MySqlDataAdapter ad5 = new MySqlDataAdapter(productQuery.GetAllInactiveProducts, con);
                     ad5.SelectCommand.Parameters.AddWithValue("value", txtSearch.Text + "%");
-                    DataTable table5 = new DataTable();
+                    System.Data.DataTable table5 = new System.Data.DataTable();
                     ad5.Fill(table5);
                     dataGridView.DataSource = table5;
                     con.Close();
@@ -263,6 +265,8 @@ namespace cadastro_remedios
         private void btnSearch_Click(object sender, EventArgs e)
         {
             Search();
+            btnExport.Enabled = true;
+
         }
         //botão voltar
         private void btnBack_Click(object sender, EventArgs e)
@@ -367,5 +371,90 @@ namespace cadastro_remedios
                 txtMargemPromocao.ReadOnly = true;
             }
         }
+        #region Exportar Excel.
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            ExportExcel();
+        }
+
+        private void ExportExcel()
+        {
+
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "Excel Documents (*.xls)|*.xls";
+            sfd.FileName = "Produtos_" + DateTime.Now.ToString("dd-MM-yyyy");
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                // Copy DataGridView results to clipboard
+                copyAlltoClipboard();
+                try
+                {
+                    object misValue = System.Reflection.Missing.Value;
+                    Microsoft.Office.Interop.Excel.Application xlexcel = new Microsoft.Office.Interop.Excel.Application();
+
+                    xlexcel.DisplayAlerts = false; // Without this you will get two confirm overwrite prompts
+                    Workbook xlWorkBook = xlexcel.Workbooks.Add(misValue);
+                    Worksheet xlWorkSheet = (Worksheet)xlWorkBook.Worksheets.get_Item(1);
+
+                    // Paste clipboard results to worksheet range
+                    Range CR = (Range)xlWorkSheet.Cells[1, 1];
+                    CR.Select();
+
+                    xlWorkSheet.PasteSpecial(CR, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, true);
+                    xlWorkSheet.Rows.AutoFit();
+                    xlWorkSheet.Columns.AutoFit();
+
+                    // Delete blank column A and select cell A1
+                    Range delRng = xlWorkSheet.get_Range("A:A").Cells;
+                    delRng.Delete(Type.Missing);
+                    xlWorkSheet.get_Range("A1").Select();
+
+                    // Save the excel file under the captured location from the SaveFileDialog
+                    xlWorkBook.SaveAs(sfd.FileName, XlFileFormat.xlWorkbookNormal, misValue, misValue, misValue, misValue, XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
+                    xlexcel.DisplayAlerts = true;
+                    xlWorkBook.Close(true, misValue, misValue);
+                    xlexcel.Quit();
+
+                    releaseObject(xlWorkSheet);
+                    releaseObject(xlWorkBook);
+                    releaseObject(xlexcel);
+
+                    // Clear Clipboard and DataGridView selection
+                    Clipboard.Clear();
+                    dataGridView.ClearSelection();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, MessageBoxResult.lExportError);
+                    errorQuery lerrorQuery = new errorQuery();
+                    lerrorQuery.AddError(Principal.lUser, MessageBoxResult.lExportError, ex.Message.Replace("'", ""), DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"), "Cadastro Funcionario");
+                }
+            }
+        }
+
+        private void copyAlltoClipboard()
+        {
+            dataGridView.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
+            dataGridView.SelectAll();
+            DataObject dataObj = dataGridView.GetClipboardContent();
+            if (dataObj != null)
+                Clipboard.SetDataObject(dataObj);
+        }
+
+        private void releaseObject(object obj)
+        {
+            try
+            {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(obj);
+                obj = null;
+            }
+            catch (Exception ex)
+            {
+                obj = null;
+                MessageBox.Show(MessageBoxResult.lErrorCommand + ex.ToString());
+            }
+        }
+        #endregion
+
     }
 }

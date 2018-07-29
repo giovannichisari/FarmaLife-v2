@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using MySql.Data.MySqlClient;
 using cadastro_remedios.Models;
+using Microsoft.Office.Interop.Excel;
 
 namespace cadastro_remedios
 {
@@ -59,69 +60,72 @@ namespace cadastro_remedios
             employeeQuery da = new employeeQuery();
 
             //Verificar se é um funcionario novo ou ja existente
-            if (txtId.Text !=string.Empty)
+            if (txtId.Text != string.Empty)
             {
-                lEmployee.employeeId = Convert.ToInt32(txtId.Text);
+                lEmployee.Id = Convert.ToInt32(txtId.Text);
                 if (txtName.Text != string.Empty)
-                    lEmployee.employeeName = txtName.Text;
+                    lEmployee.Name = txtName.Text;
                 else
-                    MessageBox.Show(Config.lFied +"NOME"+ Config.lRequired, Config.lAlert);
+                    MessageBox.Show(Config.lFied + "NOME" + Config.lRequired, Config.lAlert);
 
                 if (txtCep.Text != string.Empty)
-                    lEmployee.employeeZipCode = txtCep.Text;
+                    lEmployee.ZipCode = txtCep.Text;
                 else
-                    MessageBox.Show(Config.lFied +"CEP"+ Config.lRequired, Config.lAlert);
+                    MessageBox.Show(Config.lFied + "CEP" + Config.lRequired, Config.lAlert);
 
-                lEmployee.employeeCivilState = txtCivilState.Text;
-                lEmployee.employeeBirthDate = txtBirthDate.Text;
-                lEmployee.employeeTelephone = txtFone.Text;
-                lEmployee.employeeNumber = txtNumber.Text;
-                lEmployee.employeeState = txtState.Text;
-                lEmployee.employeeCity = txtCity.Text;
-                lEmployee.employeeStreet = txtStreet.Text;
-                lEmployee.employeeDistrict = txtDistrict.Text;
+                lEmployee.CivilState = txtCivilState.Text;
+                lEmployee.BirthDate = txtBirthDate.Text;
+                lEmployee.Telephone = txtFone.Text;
+                lEmployee.Number = txtNumber.Text;
+                lEmployee.State = txtState.Text;
+                lEmployee.City = txtCity.Text;
+                lEmployee.Street = txtStreet.Text;
+                lEmployee.District = txtDistrict.Text;
 
                 if (txtCellphone.Text != string.Empty)
-                    lEmployee.employeeCellPhone = txtCellphone.Text;
+                    lEmployee.CellPhone = txtCellphone.Text;
                 else
-                    MessageBox.Show(Config.lFied +"CELULAR"+ Config.lRequired, Config.lAlert);
+                    MessageBox.Show(Config.lFied + "CELULAR" + Config.lRequired, Config.lAlert);
 
                 if (txtEmail.Text != string.Empty)
-                    lEmployee.employeeEmail = txtEmail.Text;
+                    lEmployee.Email = txtEmail.Text;
                 else
-                    MessageBox.Show(Config.lFied +"E-MAIL"+ Config.lRequired, Config.lAlert);
+                    MessageBox.Show(Config.lFied + "E-MAIL" + Config.lRequired, Config.lAlert);
 
                 if (txtUsername.Text != string.Empty)
-                    lEmployee.employeeUsername = txtUsername.Text;
+                    lEmployee.Username = txtUsername.Text;
                 else
-                    MessageBox.Show(Config.lFied +"LOGIN"+ Config.lRequired, Config.lAlert);
+                    MessageBox.Show(Config.lFied + "LOGIN" + Config.lRequired, Config.lAlert);
 
                 if (txtPassword.Text != string.Empty)
-                    lEmployee.employeePassword = txtPassword.Text;
+                    if (txtPassword.Text.Length >= 8)
+                        lEmployee.Password = txtPassword.Text;
+                    else
+                        MessageBox.Show("A senha deve conter pelo menos 8 caracteres", Config.lAlert);
                 else
-                    MessageBox.Show(Config.lFied +"SENHA"+ Config.lRequired, Config.lAlert);
+                    MessageBox.Show(Config.lFied + "SENHA" + Config.lRequired, Config.lAlert);
 
                 if (txtRole.Text != string.Empty)
-                    lEmployee.employeeRole = txtRole.Text;
+                    lEmployee.Role = txtRole.Text;
                 else
-                    MessageBox.Show(Config.lFied +"CARGO"+ Config.lRequired, Config.lAlert);
+                    MessageBox.Show(Config.lFied + "CARGO" + Config.lRequired, Config.lAlert);
 
                 if (txtCPF.Text != string.Empty)
-                    lEmployee.employeeDocument = txtCPF.Text;
+                    lEmployee.Document = txtCPF.Text;
                 else
-                    MessageBox.Show(Config.lFied +"CPF"+ Config.lRequired, Config.lAlert);
+                    MessageBox.Show(Config.lFied + "CPF" + Config.lRequired, Config.lAlert);
 
-                if (txtStatus.Text =="Ativo" && txtStatus.Text != string.Empty)
-                    lEmployee.employeeStatus ="A";
+                if (txtStatus.Text == "Ativo" && txtStatus.Text != string.Empty)
+                    lEmployee.Status = "A";
                 else if (txtStatus.Text != string.Empty)
-                    lEmployee.employeeStatus ="I";
+                    lEmployee.Status = "I";
                 else
-                    MessageBox.Show(Config.lFied +"STATUS"+ Config.lRequired, Config.lAlert);
+                    MessageBox.Show(Config.lFied + "STATUS" + Config.lRequired, Config.lAlert);
 
 
-                if (txtName.Text !=string.Empty && txtStreet.Text != string.Empty && txtCity.Text != string.Empty && txtState.Text != string.Empty
+                if (txtName.Text != string.Empty && txtStreet.Text != string.Empty && txtCity.Text != string.Empty && txtState.Text != string.Empty
                     && txtCellphone.Text != string.Empty && txtEmail.Text != string.Empty && txtUsername.Text != string.Empty && txtPassword.Text != string.Empty
-                    && txtRole.Text != string.Empty && txtCPF.Text != string.Empty && txtStatus.Text != string.Empty)
+                    && txtRole.Text != string.Empty && txtCPF.Text != string.Empty && txtStatus.Text != string.Empty && txtPassword.Text.Length >= 8)
                 {
                     da.Update(lEmployee);
                     MessageBox.Show(MessageBoxResult.lUpdate);
@@ -129,7 +133,7 @@ namespace cadastro_remedios
                 }
                 else
                 {
-                    MessageBox.Show(Config.lErrorRegister,MessageBoxResult.lErrorUpdate);
+                    MessageBox.Show(Config.lErrorRegister, MessageBoxResult.lErrorUpdate);
                 }
             }
             else if (MessageBox.Show("Deseja receber um e-mail para confirmar o cadastro?", Config.lAlert, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
@@ -137,7 +141,7 @@ namespace cadastro_remedios
 
                 MySqlConnection con = new MySqlConnection(Connection.lConnection);
                 con.Open();
-                string consulta ="SELECT empUsername,empDocument, empEmail FROM employee WHERE empDocument = @CPF OR empUsername = @LOGIN OR empEmail = @EMAIL";
+                string consulta = "SELECT empUsername,empDocument, empEmail FROM employee WHERE empDocument = @CPF OR empUsername = @LOGIN OR empEmail = @EMAIL";
                 MySqlCommand cmd = new MySqlCommand(consulta, con);
 
                 //Passo o parametro
@@ -161,65 +165,68 @@ namespace cadastro_remedios
                 {
 
                     if (txtName.Text != string.Empty)
-                        lEmployee.employeeName = txtName.Text;
+                        lEmployee.Name = txtName.Text;
                     else
-                        MessageBox.Show(Config.lFied +"NOME"+ Config.lRequired, Config.lAlert);
+                        MessageBox.Show(Config.lFied + "NOME" + Config.lRequired, Config.lAlert);
 
                     if (txtCep.Text != string.Empty)
-                        lEmployee.employeeZipCode = txtCep.Text;
+                        lEmployee.ZipCode = txtCep.Text;
                     else
-                        MessageBox.Show(Config.lFied +"CEP"+ Config.lRequired, Config.lAlert);
+                        MessageBox.Show(Config.lFied + "CEP" + Config.lRequired, Config.lAlert);
 
-                    lEmployee.employeeState = txtState.Text;
-                    lEmployee.employeeCity = txtCity.Text;
-                    lEmployee.employeeStreet = txtStreet.Text;
-                    lEmployee.employeeDistrict = txtDistrict.Text;
+                    lEmployee.State = txtState.Text;
+                    lEmployee.City = txtCity.Text;
+                    lEmployee.Street = txtStreet.Text;
+                    lEmployee.District = txtDistrict.Text;
 
-                    lEmployee.employeeCivilState = txtCivilState.Text;
-                    lEmployee.employeeBirthDate = txtBirthDate.Text;
-                    lEmployee.employeeTelephone = txtFone.Text;
-                    lEmployee.employeeNumber = txtNumber.Text;
+                    lEmployee.CivilState = txtCivilState.Text;
+                    lEmployee.BirthDate = txtBirthDate.Text;
+                    lEmployee.Telephone = txtFone.Text;
+                    lEmployee.Number = txtNumber.Text;
 
                     if (txtCellphone.Text != string.Empty)
-                        lEmployee.employeeCellPhone = txtCellphone.Text;
+                        lEmployee.CellPhone = txtCellphone.Text;
                     else
-                        MessageBox.Show(Config.lFied +"CELULAR"+ Config.lRequired, Config.lAlert);
+                        MessageBox.Show(Config.lFied + "CELULAR" + Config.lRequired, Config.lAlert);
 
                     if (txtEmail.Text != string.Empty)
-                        lEmployee.employeeEmail = txtEmail.Text;
+                        lEmployee.Email = txtEmail.Text;
                     else
-                        MessageBox.Show(Config.lFied +"E-MAIL"+ Config.lRequired, Config.lAlert);
+                        MessageBox.Show(Config.lFied + "E-MAIL" + Config.lRequired, Config.lAlert);
 
                     if (txtUsername.Text != string.Empty)
-                        lEmployee.employeeUsername = txtUsername.Text;
+                        lEmployee.Username = txtUsername.Text;
                     else
-                        MessageBox.Show(Config.lFied +"LOGIN"+ Config.lRequired, Config.lAlert);
+                        MessageBox.Show(Config.lFied + "LOGIN" + Config.lRequired, Config.lAlert);
 
                     if (txtPassword.Text != string.Empty)
-                        lEmployee.employeePassword = txtPassword.Text;
+                        if (txtPassword.Text.Length >= 8)
+                            lEmployee.Password = txtPassword.Text;
+                        else
+                            MessageBox.Show("A senha deve conter pelo menos 8 caracteres", Config.lAlert);
                     else
-                        MessageBox.Show(Config.lFied +"SENHA"+ Config.lRequired, Config.lAlert);
+                        MessageBox.Show(Config.lFied + "SENHA" + Config.lRequired, Config.lAlert);
 
                     if (txtRole.Text != string.Empty)
-                        lEmployee.employeeRole = txtRole.Text;
+                        lEmployee.Role = txtRole.Text;
                     else
-                        MessageBox.Show(Config.lFied +"CARGO"+ Config.lRequired, Config.lAlert);
+                        MessageBox.Show(Config.lFied + "CARGO" + Config.lRequired, Config.lAlert);
 
                     if (txtCPF.Text != string.Empty)
-                        lEmployee.employeeDocument = txtCPF.Text;
+                        lEmployee.Document = txtCPF.Text;
                     else
-                        MessageBox.Show(Config.lFied +"CPF"+ Config.lRequired, Config.lAlert);
+                        MessageBox.Show(Config.lFied + "CPF" + Config.lRequired, Config.lAlert);
 
-                    if (txtStatus.Text =="Ativo" && txtStatus.Text != string.Empty)
-                        lEmployee.employeeStatus ="A";
+                    if (txtStatus.Text == "Ativo" && txtStatus.Text != string.Empty)
+                        lEmployee.Status = "A";
                     else if (txtStatus.Text != string.Empty)
-                        lEmployee.employeeStatus ="I";
+                        lEmployee.Status = "I";
                     else
-                        MessageBox.Show(Config.lFied +"STATUS"+ Config.lRequired, Config.lAlert);
+                        MessageBox.Show(Config.lFied + "STATUS" + Config.lRequired, Config.lAlert);
 
-                    if (txtName.Text !=string.Empty && txtStreet.Text != string.Empty && txtCity.Text != string.Empty && txtState.Text != string.Empty
+                    if (txtName.Text != string.Empty && txtStreet.Text != string.Empty && txtCity.Text != string.Empty && txtState.Text != string.Empty
                         && txtCellphone.Text != string.Empty && txtEmail.Text != string.Empty && txtUsername.Text != string.Empty && txtPassword.Text != string.Empty
-                        && txtRole.Text != string.Empty && txtCPF.Text != string.Empty && txtStatus.Text != string.Empty)
+                        && txtRole.Text != string.Empty && txtCPF.Text != string.Empty && txtStatus.Text != string.Empty && txtPassword.Text.Length >= 8)
                     {
                         da.Add(lEmployee);
                         MessageBox.Show(MessageBoxResult.lSucess);
@@ -235,7 +242,7 @@ namespace cadastro_remedios
             {
                 MySqlConnection con = new MySqlConnection(Connection.lConnection);
                 con.Open();
-                string consulta ="SELECT empUsername,empDocument, empEmail FROM employee WHERE empDocument = @CPF OR empUsername = @LOGIN OR empEmail = @EMAIL";
+                string consulta = "SELECT empUsername,empDocument, empEmail FROM employee WHERE empDocument = @CPF OR empUsername = @LOGIN OR empEmail = @EMAIL";
                 MySqlCommand cmd = new MySqlCommand(consulta, con);
 
                 //Passo o parametro
@@ -258,60 +265,63 @@ namespace cadastro_remedios
                 else
                 {
                     if (txtName.Text != string.Empty)
-                        lEmployee.employeeName = txtName.Text;
+                        lEmployee.Name = txtName.Text;
                     else
-                        MessageBox.Show(Config.lFied +"NOME"+ Config.lRequired, Config.lAlert);
+                        MessageBox.Show(Config.lFied + "NOME" + Config.lRequired, Config.lAlert);
 
-                    lEmployee.employeeState = txtState.Text;
-                    lEmployee.employeeCity = txtCity.Text;
-                    lEmployee.employeeStreet = txtStreet.Text;
-                    lEmployee.employeeDistrict = txtDistrict.Text;
+                    lEmployee.State = txtState.Text;
+                    lEmployee.City = txtCity.Text;
+                    lEmployee.Street = txtStreet.Text;
+                    lEmployee.District = txtDistrict.Text;
 
-                    lEmployee.employeeCivilState = txtCivilState.Text;
-                    lEmployee.employeeBirthDate = txtBirthDate.Text;
-                    lEmployee.employeeTelephone = txtFone.Text;
-                    lEmployee.employeeNumber = txtNumber.Text;
+                    lEmployee.CivilState = txtCivilState.Text;
+                    lEmployee.BirthDate = txtBirthDate.Text;
+                    lEmployee.Telephone = txtFone.Text;
+                    lEmployee.Number = txtNumber.Text;
 
                     if (txtCellphone.Text != string.Empty)
-                        lEmployee.employeeCellPhone = txtCellphone.Text;
+                        lEmployee.CellPhone = txtCellphone.Text;
                     else
-                        MessageBox.Show(Config.lFied +"CELULAR"+ Config.lRequired, Config.lAlert);
+                        MessageBox.Show(Config.lFied + "CELULAR" + Config.lRequired, Config.lAlert);
 
                     if (txtEmail.Text != string.Empty)
-                        lEmployee.employeeEmail = txtEmail.Text;
+                        lEmployee.Email = txtEmail.Text;
                     else
-                        MessageBox.Show(Config.lFied +"E-MAIL"+ Config.lRequired, Config.lAlert);
+                        MessageBox.Show(Config.lFied + "E-MAIL" + Config.lRequired, Config.lAlert);
 
                     if (txtUsername.Text != string.Empty)
-                        lEmployee.employeeUsername = txtUsername.Text;
+                        lEmployee.Username = txtUsername.Text;
                     else
-                        MessageBox.Show(Config.lFied +"LOGIN"+ Config.lRequired, Config.lAlert);
+                        MessageBox.Show(Config.lFied + "LOGIN" + Config.lRequired, Config.lAlert);
 
                     if (txtPassword.Text != string.Empty)
-                        lEmployee.employeePassword = txtPassword.Text;
+                        if (txtPassword.Text.Length >= 8)
+                            lEmployee.Password = txtPassword.Text;
+                        else
+                            MessageBox.Show("A senha deve conter pelo menos 8 caracteres", Config.lAlert);
                     else
-                        MessageBox.Show(Config.lFied +"SENHA"+ Config.lRequired, Config.lAlert);
+                        MessageBox.Show(Config.lFied + "SENHA" + Config.lRequired, Config.lAlert);
 
                     if (txtRole.Text != string.Empty)
-                        lEmployee.employeeRole = txtRole.Text;
+                        lEmployee.Role = txtRole.Text;
                     else
-                        MessageBox.Show(Config.lFied +"CARGO"+ Config.lRequired, Config.lAlert);
+                        MessageBox.Show(Config.lFied + "CARGO" + Config.lRequired, Config.lAlert);
 
                     if (txtCPF.Text != string.Empty)
-                        lEmployee.employeeDocument = txtCPF.Text;
+                        lEmployee.Document = txtCPF.Text;
                     else
-                        MessageBox.Show(Config.lFied +"CPF"+ Config.lRequired, Config.lAlert);
+                        MessageBox.Show(Config.lFied + "CPF" + Config.lRequired, Config.lAlert);
 
-                    if (txtStatus.Text =="Ativo" && txtStatus.Text != string.Empty)
-                        lEmployee.employeeStatus ="A";
+                    if (txtStatus.Text == "Ativo" && txtStatus.Text != string.Empty)
+                        lEmployee.Status = "A";
                     else if (txtStatus.Text != string.Empty)
-                        lEmployee.employeeStatus ="I";
+                        lEmployee.Status = "I";
                     else
-                        MessageBox.Show(Config.lFied +"STATUS"+ Config.lRequired, Config.lAlert);
+                        MessageBox.Show(Config.lFied + "STATUS" + Config.lRequired, Config.lAlert);
 
                     if (txtName.Text != string.Empty && txtCep.Text != string.Empty && txtStreet.Text != string.Empty && txtCity.Text != string.Empty && txtState.Text != string.Empty
                         && txtCellphone.Text != string.Empty && txtEmail.Text != string.Empty && txtUsername.Text != string.Empty && txtPassword.Text != string.Empty
-                        && txtRole.Text != string.Empty && txtCPF.Text != string.Empty && txtStatus.Text != string.Empty)
+                        && txtRole.Text != string.Empty && txtCPF.Text != string.Empty && txtStatus.Text != string.Empty && txtPassword.Text.Length >= 8)
                     {
                         da.Add(lEmployee);
                         MessageBox.Show(MessageBoxResult.lSucess);
@@ -325,7 +335,7 @@ namespace cadastro_remedios
                     {
                         MySqlConnection conn = new MySqlConnection(Connection.lConnection);
                         conn.Open();
-                        string consulta1 ="SELECT empName,empEmail FROM employee WHERE empEmail = @empEmail";
+                        string consulta1 = "SELECT empName,empEmail FROM employee WHERE empEmail = @empEmail";
                         MySqlCommand cmd1 = new MySqlCommand(consulta1, conn);
                         //Passo o parametro
                         cmd1.Parameters.AddWithValue("@empEmail", txtEmail.Text);
@@ -340,9 +350,9 @@ namespace cadastro_remedios
                         Email = new MailMessage();
                         Email.To.Add(new MailAddress(lEmail));
                         Email.From = (new MailAddress(Credentials.lAdress));
-                        Email.Subject ="Bem Vindo a Farmalife";
+                        Email.Subject = "Bem Vindo a Farmalife";
                         Email.IsBodyHtml = true;
-                        Email.Body ="Ceo:Giovanni Nascimento Santos <br/> FarmaLife Enterprise 2018 ® </br> <b>Bem vindo a nossa equipe senhor(a)," + lName +" seu cadastro foi concluído perfeitamente e o senhor(a) já pode utilizar nosso sistema.</br> </b> </br> <i> Não responder esse e-mail</i></br>";
+                        Email.Body = "Ceo:Giovanni Nascimento Santos <br/> FarmaLife Enterprise 2018 ® </br> <b>Bem vindo a nossa equipe senhor(a)," + lName + " seu cadastro foi concluído perfeitamente e o senhor(a) já pode utilizar nosso sistema.</br> </b> </br> <i> Não responder esse e-mail</i></br>";
                         SmtpClient employee = new SmtpClient(Credentials.lSmtpLive, Credentials.lSmtpLivePort);
                         using (employee)
                         {
@@ -357,7 +367,7 @@ namespace cadastro_remedios
                     {
                         MessageBox.Show(ex.Message, MessageBoxResult.lEmailError);
                         errorQuery lerrorQuery = new errorQuery();
-                        lerrorQuery.AddError(Principal.lUser, MessageBoxResult.lEmailError, ex.Message.Replace("'",""), DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"),"Cadastro Funcionario");
+                        lerrorQuery.AddError(Principal.lUser, MessageBoxResult.lEmailError, ex.Message.Replace("'", ""), DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"), "Cadastro Funcionario");
                     }
                 }
             }
@@ -370,52 +380,52 @@ namespace cadastro_remedios
             string op = (string)comboBox1.SelectedItem;
             switch (op)
             {
-                case"ID":
+                case "ID":
                     txtSearch.Enabled = true;
                     string pesquisa = employeeQuery.GetEmployeById;
                     MySqlDataAdapter ad = new MySqlDataAdapter(pesquisa, con);
-                    ad.SelectCommand.Parameters.AddWithValue("value", txtSearch.Text +"%");
-                    DataTable table = new DataTable();
+                    ad.SelectCommand.Parameters.AddWithValue("value", txtSearch.Text + "%");
+                    System.Data.DataTable table = new System.Data.DataTable();
                     ad.Fill(table);
                     dataGridView.DataSource = table;
                     con.Close();
                     break;
-                case"Nome":
+                case "Nome":
                     txtSearch.Enabled = true;
                     string pesquisa2 = employeeQuery.GetEmployeByName;
                     MySqlDataAdapter ad1 = new MySqlDataAdapter(pesquisa2, con);
-                    ad1.SelectCommand.Parameters.AddWithValue("value", txtSearch.Text +"%");
-                    DataTable table1 = new DataTable();
+                    ad1.SelectCommand.Parameters.AddWithValue("value", txtSearch.Text + "%");
+                    System.Data.DataTable table1 = new System.Data.DataTable();
                     ad1.Fill(table1);
                     dataGridView.DataSource = table1;
                     con.Close();
                     break;
 
-                case"Ativo":
+                case "Ativo":
                     txtSearch.Enabled = false;
                     string pesquisa3 = employeeQuery.GetActiveEmployee;
                     MySqlDataAdapter ad3 = new MySqlDataAdapter(pesquisa3, con);
-                    DataTable table3 = new DataTable();
+                    System.Data.DataTable table3 = new System.Data.DataTable();
                     ad3.Fill(table3);
                     dataGridView.DataSource = table3;
                     con.Close();
                     break;
 
-                case"Inativo":
+                case "Inativo":
                     txtSearch.Enabled = false;
                     string pesquisa4 = employeeQuery.GetInativeEmployee;
                     MySqlDataAdapter ad4 = new MySqlDataAdapter(pesquisa4, con);
-                    DataTable table4 = new DataTable();
+                    System.Data.DataTable table4 = new System.Data.DataTable();
                     ad4.Fill(table4);
                     dataGridView.DataSource = table4;
                     con.Close();
                     break;
 
-                case"Todos":
+                case "Todos":
                     txtSearch.Enabled = false;
                     string pesquisa5 = employeeQuery.GetAllEmployees;
                     MySqlDataAdapter ad5 = new MySqlDataAdapter(pesquisa5, con);
-                    DataTable table5 = new DataTable();
+                    System.Data.DataTable table5 = new System.Data.DataTable();
                     ad5.Fill(table5);
                     dataGridView.DataSource = table5;
                     con.Close();
@@ -425,6 +435,8 @@ namespace cadastro_remedios
         private void btnSearch_Click(object sender, EventArgs e)
         {
             Search();
+            btnExport.Enabled = true;
+
         }
         //botão voltar
         private void btnBack_Click(object sender, EventArgs e)
@@ -444,7 +456,7 @@ namespace cadastro_remedios
             cn.Open();
 
             MySqlCommand cmd2 = new MySqlCommand("SELECT empId, empName,empStreet,empDistrict, empCity,empRegionState ,empMarriageStatus,empBirthDate," +
-           "empZipCode,empFixedTelephone,empCellphone,empEmail,empUsername,empPassword,empRole,empDocument,empStatus, empNumber FROM employee WHERE empId= '" + codigo +"'", cn);
+           "empZipCode,empFixedTelephone,empCellphone,empEmail,empUsername,empPassword,empRole,empDocument,empStatus, empNumber FROM employee WHERE empId= '" + codigo + "'", cn);
             MySqlDataReader reader = null;
             reader = cmd2.ExecuteReader();
 
@@ -468,10 +480,10 @@ namespace cadastro_remedios
                 txtCPF.Text = reader.GetString(15);
                 txtStatus.Text = reader.GetString(16);
                 txtNumber.Text = reader.GetString(17);
-                if (txtStatus.Text =="A")
-                    txtStatus.Text ="Ativo";
+                if (txtStatus.Text == "A")
+                    txtStatus.Text = "Ativo";
                 else
-                    txtStatus.Text ="Inativo";
+                    txtStatus.Text = "Inativo";
             }
             cn.Close();
             tabControl1.SelectedTab = tabPage1;
@@ -502,21 +514,21 @@ namespace cadastro_remedios
             string op = (string)comboBox1.SelectedItem;
             switch (op)
             {
-                case"ID":
+                case "ID":
                     txtSearch.Enabled = true;
                     break;
-                case"Nome":
+                case "Nome":
                     txtSearch.Enabled = true;
                     break;
-                case"Ativo":
+                case "Ativo":
                     txtSearch.Enabled = false;
                     txtSearch.Text = string.Empty;
                     break;
-                case"Inativo":
+                case "Inativo":
                     txtSearch.Enabled = false;
                     txtSearch.Text = string.Empty;
                     break;
-                case"Todos":
+                case "Todos":
                     txtSearch.Enabled = false;
                     txtSearch.Text = string.Empty;
                     break;
@@ -525,7 +537,7 @@ namespace cadastro_remedios
 
         private void txtCep_Leave(object sender, EventArgs e)
         {
-            string lZipCode = txtCep.Text.Replace("-",string.Empty);
+            string lZipCode = txtCep.Text.Replace("-", string.Empty);
             if (lZipCode != string.Empty && lZipCode.Length == 8)
             {
                 try
@@ -567,6 +579,95 @@ namespace cadastro_remedios
                 txtDistrict.ReadOnly = true;
                 txtStreet.ReadOnly = true;
             }
+        }
+        #region Exportar Excel.
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            ExportExcel();
+        }
+
+        private void ExportExcel()
+        {
+
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "Excel Documents (*.xls)|*.xls";
+            sfd.FileName = "Funcionarios_" + DateTime.Now.ToString("dd-MM-yyyy");
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                // Copy DataGridView results to clipboard
+                copyAlltoClipboard();
+                try
+                {
+                    object misValue = System.Reflection.Missing.Value;
+                    Microsoft.Office.Interop.Excel.Application xlexcel = new Microsoft.Office.Interop.Excel.Application();
+
+                    xlexcel.DisplayAlerts = false; // Without this you will get two confirm overwrite prompts
+                    Workbook xlWorkBook = xlexcel.Workbooks.Add(misValue);
+                    Worksheet xlWorkSheet = (Worksheet)xlWorkBook.Worksheets.get_Item(1);
+
+                    // Paste clipboard results to worksheet range
+                    Range CR = (Range)xlWorkSheet.Cells[1, 1];
+                    CR.Select();
+
+                    xlWorkSheet.PasteSpecial(CR, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, true);
+                    xlWorkSheet.Rows.AutoFit();
+                    xlWorkSheet.Columns.AutoFit();
+
+                    // Delete blank column A and select cell A1
+                    Range delRng = xlWorkSheet.get_Range("A:A").Cells;
+                    delRng.Delete(Type.Missing);
+                    xlWorkSheet.get_Range("A1").Select();
+
+                    // Save the excel file under the captured location from the SaveFileDialog
+                    xlWorkBook.SaveAs(sfd.FileName, XlFileFormat.xlWorkbookNormal, misValue, misValue, misValue, misValue, XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
+                    xlexcel.DisplayAlerts = true;
+                    xlWorkBook.Close(true, misValue, misValue);
+                    xlexcel.Quit();
+
+                    releaseObject(xlWorkSheet);
+                    releaseObject(xlWorkBook);
+                    releaseObject(xlexcel);
+
+                    // Clear Clipboard and DataGridView selection
+                    Clipboard.Clear();
+                    dataGridView.ClearSelection();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, MessageBoxResult.lExportError);
+                    errorQuery lerrorQuery = new errorQuery();
+                    lerrorQuery.AddError(Principal.lUser, MessageBoxResult.lExportError, ex.Message.Replace("'", ""), DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"), "Cadastro Funcionario");
+                }
+            }
+        }
+
+        private void copyAlltoClipboard()
+        {
+            dataGridView.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
+            dataGridView.SelectAll();
+            DataObject dataObj = dataGridView.GetClipboardContent();
+            if (dataObj != null)
+                Clipboard.SetDataObject(dataObj);
+        }
+
+        private void releaseObject(object obj)
+        {
+            try
+            {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(obj);
+                obj = null;
+            }
+            catch (Exception ex)
+            {
+                obj = null;
+                MessageBox.Show(MessageBoxResult.lErrorCommand + ex.ToString());
+            }
+        }
+        #endregion
+
+        private void txtPassword_Leave(object sender, EventArgs e)
+        {
+
         }
     }
 }

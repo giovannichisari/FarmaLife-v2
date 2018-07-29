@@ -8,6 +8,8 @@
         public const string lSmtpLive = "smtp.live.com";
         public const string lSmtpGmail = "smtp.gmail.com";
         public const int lSmtpLivePort = 587;
+        public const string lAdminUsername = "giovannichisari27";
+        public const string lAdminPassword = "JordanLebron23";
 
     }
 	public class Connection
@@ -24,6 +26,9 @@
         public const string lStockError = "O estoque não possui está quantidade!";
         public const string lErrorCommand = "Erro de Comandos!";
         public const string lEmailError = "Falha ao enviar e-mail";
+        public const string lExportError = "Erro ao exportar arquivo";
+        public const string lDeleteError = "Erro ao deletar registros";
+
 
     }
     public class Errors
@@ -38,5 +43,6 @@
         public const string lRequired = " é obrigatório.";
         public const string lFied = "O campo ";
         public const string lErrorRegister = "Campos obrigatórios não foram preenchidos.";
+        public const string lDelete = "Registros Deletados";
     }
 }

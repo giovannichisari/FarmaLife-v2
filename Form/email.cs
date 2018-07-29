@@ -135,9 +135,9 @@ namespace cadastro_remedios
 
             MySqlConnection con = new MySqlConnection(Connection.lConnection);
             con.Open();
-            string pesquisa = "SELECT empName as Nome,empCity as Cidade,empRole as Cargo,empEmail as 'E-mail do Funcionario' FROM employee";
+            string pesquisa = "SELECT empName as Nome,empCity as Cidade,empRole as Cargo,empEmail as 'E-mail do Funcionario' FROM employee WHERE empStatus = 'A'";
             MySqlDataAdapter ad = new MySqlDataAdapter(pesquisa, con);
-            DataTable table = new DataTable();
+            System.Data.DataTable table = new System.Data.DataTable ();
             ad.Fill(table);
             dataGridView1.DataSource = table;
 
