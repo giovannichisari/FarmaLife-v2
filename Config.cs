@@ -8,8 +8,8 @@
         public const string lSmtpLive = "smtp.live.com";
         public const string lSmtpGmail = "smtp.gmail.com";
         public const int lSmtpLivePort = 587;
-        public const string lAdminUsername = "giovannichisari27";
-        public const string lAdminPassword = "JordanLebron23";
+        public const string lAdminUsername = "admin";
+        public const string lAdminPassword = "admin";
 
     }
 	public class Connection
